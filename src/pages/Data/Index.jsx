@@ -51,56 +51,6 @@ export default function Data() {
               Datos globales
             </span>
           </div>
-          {/* <div className="pt-5 flex items-center gap-2">
-            <div
-              onClick={() => wrapper != 1 && setWrapper(wrapper - 1)}
-              className={`${
-                wrapper === 1 ? "opacity-50 cursor-default" : ""
-              } w-9 p-1 dark:text-zinc-300 dark:hover:bg-[#646569] dark:bg-[#494a4d] dark:border-0 bg-white border rounded-full`}
-              tabIndex=""
-              role="button"
-            >
-              <svg viewBox="0 0 24 24" fill="none" className="icon-stroke">
-                <g id="SVGRepo_iconCarrier">
-                  <path d="M15 19.9201L8.47997 13.4001C7.70997 12.6301 7.70997 11.3701 8.47997 10.6001L15 4.08008"></path>{" "}
-                </g>
-              </svg>
-            </div>
-            <div className="w-14 dark:text-white flex justify-center gap-2 font-semibold">
-              <span
-                role="button"
-                onClick={() => setWrapper(1)}
-                className={`${
-                  wrapper === 1 ? "text-blue-400" : "text-zinc-500"
-                } p-1`}
-              >
-                1
-              </span>
-              <span
-                role="button"
-                onClick={() => setWrapper(2)}
-                className={`${
-                  wrapper === 2 ? "text-blue-400" : "text-zinc-500"
-                } p-1`}
-              >
-                2
-              </span>
-            </div>
-            <div
-              onClick={() => wrapper != 2 && setWrapper(wrapper + 1)}
-              className={`${
-                wrapper === 2 ? "opacity-50 cursor-default" : ""
-              } rotate-180 w-9 p-1 dark:text-zinc-300 dark:hover:bg-[#646569] dark:bg-[#494a4d] dark:border-0 bg-white border rounded-full`}
-              tabIndex=""
-              role="button"
-            >
-              <svg viewBox="0 0 24 24" fill="none" className="icon-stroke">
-                <g id="SVGRepo_iconCarrier">
-                  <path d="M15 19.9201L8.47997 13.4001C7.70997 12.6301 7.70997 11.3701 8.47997 10.6001L15 4.08008"></path>{" "}
-                </g>
-              </svg>
-            </div>
-          </div> */}
         </div>
         <div className=" ">
           <div className="pt-2 flex justify-center"></div>
@@ -212,8 +162,8 @@ export default function Data() {
                           </ItemEdit>
                         ))}
                       {concepts && concepts.length < 1 && (
-                        <div className="w-52 mx-auto py-10">
-                          <img src="public/no_data.webp" alt="" />
+                        <div className="w-52 mx-auto text-center py-10">
+                          Sin datos aun
                         </div>
                       )}
                     </div>
