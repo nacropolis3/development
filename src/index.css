@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* tooltip */
+
+*[tooltip] {
+  position: relative;
+}
+*[tooltip]::before {
+  content: attr(tooltip);
+  color: aliceblue;
+  position: absolute;
+  top: 101%;
+  z-index: 101;
+  background-color: rgba(0, 0, 0, 0.904);
+  width: max-content;
+  border-radius: 6px;
+  transition: 0.1s;
+  opacity: 0;
+  transition-delay: 0.3s;
+  font-size: 12px;
+  overflow: hidden;
+  font-weight: 500;
+  height: 0px;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+  cursor: default;
+  word-wrap: break-word;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+}
+
+*[tooltip]:hover ::before {
+  opacity: 0;
+}
+*:hover::before {
+  opacity: 1;
+  padding: 3px 8px 6px 8px;
+  height: 27px;
+}
+
+.icon-stroke path {
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-miterlimit: 10;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
+/* scrollbar */
+
+::-webkit-scrollbar {
+  width: 10px !important;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgba(131, 131, 131, 0.38) !important;
+}
+
+/* scroll css */
+/* .ov_scroll::-webkit-scrollbar-thumb {
+}
+.ov_hidden::-webkit-scrollbar-thumb {
+  background-color: transparent !important;
+} */
+
+.scrollbarhovercontent {
+  overflow: hidden;
+}
+.scrollbarhovercontent:hover {
+  overflow: overlay;
+}
+
+
+.react-select-container .react-select__control{
+  min-height: 35px !important;
+  max-height: 35px !important;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+.react-select__value-container{
+  height: 35px;
+  margin-top: -1px;
+}
+.react-select__menu{
+  padding: 2px;
+  margin: 0 !important;
+}
+.react-select__menu-list{
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.react-select__option{
+  border-radius: 5px;
+  font-size: 13px !important;
+  padding: 5px 10px !important;
+  cursor: pointe !important;
+  font-weight: 400;
+}
+.react-select__indicator-separator{
+  width: 0px !important;
+}
+
+
+
+input {
+
+  /* color-scheme: dark; */
+  outline: none;
+
+}
+
