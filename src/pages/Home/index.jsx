@@ -2,7 +2,7 @@ import React from "react";
 import PrimaryButton from "../../components/Button/PrimaryButton";
 import { useAuth } from "../../context/authContext";
 import { useUser } from "../../context/userContext";
-import traduction from "../../Data/traduction.json";
+import traduction from "../../data/traduction.json";
 
 export default function Home() {
   const { logout } = useAuth();
