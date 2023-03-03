@@ -1,6 +1,6 @@
-import depa from "../../Data/Departamentos.json";
-import prov from "../../Data/Provincias.json";
-import dist from "../../Data/Distritos.json";
+import depa from "../../data/Departamentos.json";
+import prov from "../../data/Provincias.json";
+import dist from "../../data/Distritos.json";
 
 export async function getDepartamentos() {
   return await depa;
