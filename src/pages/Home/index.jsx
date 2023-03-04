@@ -9,8 +9,8 @@ export default function Home() {
   const { userData, setUserData } = useUser();
 
   return (
-    <div className="py-10 min-h-[88vh] flex items-center justify-center w-full">
-      <div className=" p-2">
+    <div className=" flex items-center justify-center w-full">
+      {/* <div className=" p-2">
         <div className="flex justify-center ">
           <img width="250" height="250" src="/assets/welcome.png" alt="" />
         </div>
@@ -20,6 +20,30 @@ export default function Home() {
               Bievenido al sistema
             </h1>
           </div>
+        </div>
+      </div> */}
+      <div
+        className="w-full h-full"
+        style={{
+          backgroundImage: `url("assets/background.jfif")`,
+          backgroundPosition: "center",
+           backgroundRepeat: "no-repeat",
+           backgroundSize: "cover",
+          //  backdropFilter: "blur(10px)"
+        }}
+      >
+        <div
+          style={{
+            // minHeight: "100vh",
+            height: "100vh",
+
+            //  backgroundColor: "red",
+             marginTop: "-53px",
+            //  paddingTop: "50px",
+          }}
+          className="w-full h-full flex items-center p-5 py-20 justify-center bg-[#ffffff94] backdrop-blur-3xl"
+        >
+          <img className="max-h-full" src="assets/background.jfif" alt="" />
         </div>
       </div>
     </div>

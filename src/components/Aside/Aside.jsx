@@ -152,14 +152,15 @@ export default function Aside() {
         <AsideFooter className="w-[200px] mx-auto ">
           <div className="text-center">
             <p className="">
-              Copyright © 2023 Nueva Acropolis  Development by{" "}
+              Copyright © 2023 Nueva Acropolis  
+              {/* Development by{" "}
               <a
                 className="text-blue-500 hover:underline"
                 href="https://daustinndev"
                 target="_blank"
               >
                 daustinndev
-              </a>
+              </a> */}
             </p>
           </div>
         </AsideFooter>

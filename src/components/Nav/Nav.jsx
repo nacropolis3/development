@@ -38,7 +38,7 @@ export default function Nav() {
   };
 
   return (
-    <Container className="w-full top-0 border-b bg-[#ffffffbd] dark:border-b-[#2c2c2c] px-[9px] py-[7px]  dark:bg-[#242526] sticky">
+    <Container className="w-full top-0 border-b bg-[#ffffff] dark:border-b-[#2c2c2c] px-[9px] py-[7px]  dark:bg-[#242526] sticky">
       <div className="">
         <div className="flex w-full gap-5">
           <Left>
@@ -62,10 +62,11 @@ export default function Nav() {
               </svg>
             </div>
             <Link className="flex items-center gap-2" to="/">
-              <H1LogoName className="flex items-center font-bold text-black dark:text-white hover:no-underline ">
+              <img src="assets/banner.png"  width={280} alt="" />
+              {/* <H1LogoName className="flex items-center font-bold text-black dark:text-white hover:no-underline ">
                 Acrópolis
               </H1LogoName>
-              <span className="text-lg pt-1 text-zinc-500">V1.0</span>
+              <span className="text-lg pt-1 text-zinc-500">V1.0</span> */}
             </Link>
           </Left>
           <Center>

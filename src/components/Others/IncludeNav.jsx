@@ -21,7 +21,7 @@ export default function IncludeNav(props) {
           onClick={ChangeMenu}
           className="inset-2 fixed bg-transparent pointer-events-none z-[1] h-[100vh] w-full"
         />
-        <Main className="pl-[300px]  p-1 w-full">{props.children}</Main>
+        <Main className="pl-[300px] w-full">{props.children}</Main>
       </div>
     </div>
   );
@@ -58,6 +58,7 @@ const AsideContainer = styled.div`
 `;
 
 const Main = styled.div`
+  min-height: max-content;
   @media (max-width: 1000px) {
     padding-left: 0px;
   }
