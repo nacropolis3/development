@@ -61,11 +61,11 @@ export default function Nav() {
                 </g>
               </svg>
             </div>
-            <Link className="flex items-center gap-1" to="/">
+            <Link className="flex items-center gap-2" to="/">
               <H1LogoName className="flex items-center font-bold text-black dark:text-white hover:no-underline ">
                 Acrópolis
               </H1LogoName>
-              <span className="text-xl pt-1 text-zinc-500">System</span>
+              <span className="text-lg pt-1 text-zinc-500">V1.0</span>
             </Link>
           </Left>
           <Center>

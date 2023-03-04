@@ -1,7 +1,9 @@
 import axios from "axios";
+import moment from "moment";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import EclipseButton from "../../../components/Button/EclipseButton";
 import PrimaryButton from "../../../components/Button/PrimaryButton";
 import CheckBox from "../../../components/Form/CheckBox";
 import Combobox from "../../../components/Form/ComboBox";
@@ -315,8 +317,41 @@ export default function FormMember(props) {
   }, [data.bookletFee, data.celebrationFee, , data.memberFee]);
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-1 py-2">
+    <div className="flex flex-col gap-1">
+      <div className="flex flex-col pb-2">
+        <div className="flex items-center">
+          <h1 className="mr-auto leading-8 text-2xl font-bold tracking-tight dark:text-neutral-200">
+            {props.data ? " Actualizar" : " Registra un miembro nuevo"}
+          </h1>
+          <div>
+            <EclipseButton
+              onClick={props.close}
+              type="default"
+              size="medium"
+              icon={
+                <svg
+                  className=" dark:text-zinc-300"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M4.70711 3.29289C4.31658 2.90237 3.68342 2.90237 3.29289 3.29289C2.90237 3.68342 2.90237 4.31658 3.29289 4.70711L10.5858 12L3.29289 19.2929C2.90237 19.6834 2.90237 20.3166 3.29289 20.7071C3.68342 21.0976 4.31658 21.0976 4.70711 20.7071L12 13.4142L19.2929 20.7071C19.6834 21.0976 20.3166 21.0976 20.7071 20.7071C21.0976 20.3166 21.0976 19.6834 20.7071 19.2929L13.4142 12L20.7071 4.70711C21.0976 4.31658 21.0976 3.68342 20.7071 3.29289C20.3166 2.90237 19.6834 2.90237 19.2929 3.29289L12 10.5858L4.70711 3.29289Z"
+                    fill="currentColor"
+                    style={{
+                      strokeWidth: "0",
+                    }}
+                  ></path>
+                </svg>
+              }
+            />
+          </div>
+        </div>
+        <span className="leading-4 flex mt-1 text-xs dark:text-neutral-400">
+          Los datos como el usuario, la fecha, y algunas informaciones del
+          navegador utilizado seran guardados por seguridad.
+        </span>
+      </div>
+      <div className="flex items-center gap-1 pb-2">
         <div className="relative flex max-w-max">
           <div className="w-[35px] h-[35px] rounded-full border overflow-hidden">
             <img
@@ -389,21 +424,25 @@ export default function FormMember(props) {
             ) : null}
           </div>
         </div>
-        <div className=" font-semibold text-sm dark:text-white">
+        <div className=" font-semibold text-sm flex flex-col dark:text-white">
           <span>{userData.name}</span>
+          <span className="leading-3 text-xs font-normal dark:text-neutral-400 ">
+            {moment().format("LL")}
+          </span>
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-1">
         <div className="w-40">
           <TextField
             autoFocus
-            info={<>DNI</>}
+            // info={<>DNI</>}
             requiredName="Ingrese un Dni"
             patternName={`El dni "${data.dni}" es invalido, se acepta solo numeros`}
             maxLengthName="No puede contener mas de 8 caracteres"
             minLengthName="Debe contener 8 caracteres"
             type="text"
-            long
+            placeholder="N° Identificiación"
+            // long
             checked={data.verify}
             onChange={handleRucSearsh}
             iconLoadingLeft={loadingRuc}
@@ -422,12 +461,12 @@ export default function FormMember(props) {
         </div>
         <div className="w-80">
           <TextField
-            info={"Nombres"}
+            // info={"Nombres"}
             requiredName="Ingrese los nombres"
             patternName="Solo letras y espacios"
-            placeholder=""
+            placeholder="Nombres"
             type="text"
-            long
+            // long
             onChange={handleChange}
             value={data.names}
             error={errors.names}
@@ -441,15 +480,15 @@ export default function FormMember(props) {
           />
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-1">
         <div className="w-full">
           <TextField
-            info={"Apellido Paterno"}
+            // info={"Apellido Paterno"}
             requiredName="Ingrese el apellido paterno"
             patternName="El apellido solo debe contener letras"
-            placeholder=""
+            placeholder="Apellido Paterno"
             type="text"
-            long
+            // long
             onChange={handleChange}
             value={data.lastName}
             error={errors.lastName}
@@ -464,12 +503,12 @@ export default function FormMember(props) {
         </div>
         <div className="w-full">
           <TextField
-            info={"Apellido Materno"}
+            // info={"Apellido Materno"}
             requiredName="Ingrese el apellido materno"
             patternName="El apellido solo debe contener letras"
-            placeholder=""
+            placeholder="Apellido Materno"
             type="text"
-            long
+            // long
             onChange={handleChange}
             value={data.motherLastName}
             error={errors.motherLastName}
@@ -484,15 +523,15 @@ export default function FormMember(props) {
         </div>
         <div className="w-full">
           <TextField
-            info={"Numero de telefono"}
+            // info={"Numero de telefono"}
             patternName="Invalido"
-            placeholder="(Opcional)"
+            placeholder="Celular (Opcional)"
             type="text"
-            long
+            // long
             onChange={handleChange}
             value={data.phone}
             error={errors.phone}
-            componentLeft="PE"
+            // componentLeft="PE"
             control={control}
             name="phone"
             rules={{
@@ -501,9 +540,9 @@ export default function FormMember(props) {
           />
         </div>
       </div>
-      <div className=" border-t border-b dark:border-b-zinc-700 dark:border-t-zinc-700 py-2 my-1">
+      <div className=" ">
         <div className="mb-1">
-          <span className="dark:text-zinc-400 text-sm">
+          <span className="dark:text-zinc-400 text-xs">
             Fecha de nacimiento
           </span>
         </div>
@@ -511,7 +550,7 @@ export default function FormMember(props) {
           <div className="w-full">
             <Combobox
               onChange={handleChange}
-              long
+              // long
               info="Dia"
               error={errors.day}
               name="day"
@@ -520,7 +559,7 @@ export default function FormMember(props) {
               {days.map((item, index) => {
                 return (
                   <option
-                    className="font-semibold text-base"
+                    className="font-semibold text-xs"
                     key={index}
                     value={item}
                   >
@@ -533,7 +572,7 @@ export default function FormMember(props) {
           <div className="w-full">
             <Combobox
               onChange={handleChange}
-              long
+              // long
               info="Mes"
               error={errors.day}
               name="month"
@@ -542,7 +581,7 @@ export default function FormMember(props) {
               {monthsDate.map((item, index) => {
                 return (
                   <option
-                    className="font-semibold text-base"
+                    className="font-semibold text-xs"
                     key={index}
                     value={index + 1}
                   >
@@ -556,7 +595,7 @@ export default function FormMember(props) {
             <Combobox
               onChange={handleChange}
               minName="Tienes que ser mayor de edad"
-              long
+              // long
               info="Año"
               value={data.year}
               error={errors.year}
@@ -566,7 +605,7 @@ export default function FormMember(props) {
               {years.map((item, index) => {
                 return (
                   <option
-                    className="font-semibold text-base"
+                    className="font-semibold text-xs"
                     key={index}
                     value={item}
                   >
@@ -592,12 +631,12 @@ export default function FormMember(props) {
         {data.younger && (
           <div className="py-2 w-full">
             <TextField
-              info={"Apoderado"}
+              // info={"Apoderado"}
               requiredName="Ingrese los nombres del apoderado"
               patternName="El apellido solo debe contener letras"
-              placeholder=""
+              placeholder="Apoderado"
               type="text"
-              long
+              // long
               onChange={handleChange}
               value={data.attorney}
               error={errors.attorney}
@@ -616,14 +655,14 @@ export default function FormMember(props) {
         <div className="w-60">
           <h2
             className={`pb-2 ${
-              errors["groupUid"] ? "dark:text-red-500" : "dark:text-zinc-300"
-            } pl-1   text-sm`}
+              errors["groupUid"] ? "text-red-500" : "text-neutral-800"
+            } pl-1   text-xs`}
           >
             Selecciona un grupo
           </h2>
           <div
-            className={` dark:bg-[#202020] bg-[#eef1f3] border w-full p-2 rounded-lg ${
-              errors["groupUid"] ? "border-red-600" : "border-transparent "
+            className={`  bg-[#eef1f3] border  w-full p-1 rounded-[5px] ${
+              errors["groupUid"] ? "border-red-600" : "border-neutral-300 "
             } `}
           >
             <div className="flex flex-wrap justify-center gap-1 ">
@@ -647,38 +686,48 @@ export default function FormMember(props) {
                     <div
                       tabIndex="0"
                       role="button"
-                      className={`transition-colors w-[40px] h-[40px] flex items-center justify-center ${
+                      className={`transition-colors w-[30px] h-[30px] flex items-center justify-center ${
                         !item.statu && "opacity-20 cursor-default"
-                      } cursor-pointer dark:hover:bg-[#44464771] hover:bg-[#a5a6a771] text-zinc-800 dark:text-zinc-200 py-2 p-3 rounded-full  ${
-                        item.uid === data.groupUid &&
-                        "dark:bg-blue-700 dark:text-zinc-50 dark:hover:bg-[#135cc9] bg-blue-500 text-zinc-50 hover:bg-[#135cc9]"
+                      } cursor-pointer    py-2 p-3 rounded-full  ${
+                        item.uid === data.groupUid
+                          ? "  bg-blue-500 text-zinc-50 hover:bg-[#135cc9]"
+                          : "hover:bg-[#a5a6a771] "
                       }`}
                     >
-                      <span className="font-semibold text-sm">{item.name}</span>
+                      <span className="font-semibold text-xs">{item.name}</span>
                     </div>
                   </div>
                 ))}
+              {groups && groups.length < 1 && (
+                <div className=" text-neutral-600 leading-4 w-full p-1">
+                  <img
+                    width="101"
+                    className="mx-auto h-70 pb-1"
+                    src="/assets/no-data.png"
+                    alt=""
+                  />
+                  <span className="text-sm">Sin grupos</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
         <div className="w-60">
           <h2
             className={`pb-2 ${
-              errors["geadquarterUid"]
-                ? "dark:text-red-500"
-                : "dark:text-zinc-300"
-            } pl-1   text-sm`}
+              errors["geadquarterUid"] ? "text-red-500" : "text-neutral-800"
+            } pl-1   text-xs`}
           >
             Selecciona una sede
           </h2>
           <div
-            className={` dark:bg-[#202020] bg-[#eef1f3] border w-full p-2 rounded-lg ${
+            className={`bg-[#eef1f3] border  w-full p-1 rounded-[5px] ${
               errors["geadquarterUid"]
                 ? "border-red-600"
-                : "border-transparent "
+                : "border-neutral-300 "
             } `}
           >
-            <div className="flex flex-wrap gap-1 ">
+            <div className="flex flex-wrap gap-0 ">
               {geadquarters &&
                 geadquarters.map((item, index) => (
                   <div
@@ -704,20 +753,32 @@ export default function FormMember(props) {
                         !item.statu && "opacity-20 cursor-default"
                       } ${
                         item.uid === data.geadquarterUid &&
-                        "dark:bg-blue-700 dark:text-zinc-50 dark:hover:bg-[#135cc9] bg-blue-500 text-zinc-50 hover:bg-[#135cc9]"
-                      } cursor-pointer dark:hover:bg-[#44464771] hover:bg-[#a5a6a771] dark:text-zinc-300 p-2 rounded-md`}
+                        "  bg-blue-500 hover:bg-blue-500 text-zinc-50 "
+                      } cursor-pointer  hover:bg-[#a5a6a771] dark:text-zinc-300 p-2 rounded-md`}
                     >
-                      <h3 className=" text-sm ">{item.name}</h3>
+                      <h3 className="text-xs font-semibold">{item.name}</h3>
                     </div>
                   </div>
                 ))}
+              {geadquarters && geadquarters.length < 1 && (
+                <div className=" text-neutral-600 leading-4 w-full p-1">
+                  <img
+                    width="100"
+                    // height="80"
+                    className="mx-auto pb-1"
+                    src="/assets/world.png"
+                    alt=""
+                  />
+                  <span className="text-sm">Sin sedes</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
       <div className=" gap-2">
         <div className="border-t w-full pt-[6px] dark:border-t-zinc-600 mb-2">
-          <h3 className="dark:text-zinc-100 font-semibold pl-1">
+          <h3 className="dark:text-zinc-100 text-sm font-semibold pl-1">
             Gestion de cuotas y pagos
           </h3>
         </div>
@@ -734,7 +795,7 @@ export default function FormMember(props) {
                 placeholder="0.00"
                 componentLeft="S/"
                 type="text"
-                long
+                // long
                 onChange={handleChange}
                 onBlur={handleOnBlur}
                 value={data.memberFee}
@@ -757,7 +818,7 @@ export default function FormMember(props) {
                 placeholder="0.00"
                 componentLeft="S/"
                 type="text"
-                long
+                // long
                 onBlur={handleOnBlur}
                 onChange={handleChange}
                 value={data.bookletFee}
@@ -780,7 +841,7 @@ export default function FormMember(props) {
                 placeholder="0.00"
                 type="text"
                 componentLeft="S/"
-                long
+                // long
                 onBlur={handleOnBlur}
                 onChange={handleChange}
                 value={data.celebrationFee}
@@ -797,9 +858,9 @@ export default function FormMember(props) {
           </div>
         </div>
       </div>
-      <div className="text-xl flex gap-2 dark:text-white pt-2">
-        <span className="dark:text-zinc-400 text-base">Cuota mensual</span>
-        <span className="font-semibold">
+      <div className="flex gap-2 dark:text-white pt-2">
+        <span className="dark:text-zinc-400 text-xs">Cuota mensual</span>
+        <span className="font-semibold text-sm">
           S/ {!data.totalFee.isNaN && data.totalFee}
         </span>
       </div>

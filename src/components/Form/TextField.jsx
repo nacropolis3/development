@@ -62,6 +62,7 @@ export default function TextField(props) {
             style={{
               paddingLeft: props.imageUri || (props.componentLeft && "35px"),
               minHeight: props.minHeight ? props.minHeight : "100px",
+              borderRadius: props.rounded ? props.rounded : "5px",
               maxHeight: props.maxHeight ? props.maxHeight : "800px",
             }}
             maxLength={props.maxLength && props.maxLength}
@@ -88,12 +89,12 @@ export default function TextField(props) {
             style={{
               paddingLeft: props.imageUri || (props.componentLeft && "25px"),
               paddingRight: props.iconLoadingLeft && "35px",
-              borderRadius: props.rounded ? props.rounded : "6px",
+              borderRadius: props.rounded ? props.rounded : "5px",
             }}
             autoFocus={props.autoFocus}
             maxLength={props.maxLength && props.maxLength}
             className={`${
-              props.long ? "py-[8px]" : "py-[5px]"
+              props.long ? "py-[8px]" : "py-[6px]"
             } px-[10px] bg-[#ffffff] dark:bg-[#2c2d2e] border ${
               props.error?.type
                 ? " border-[#DD0000] required"
@@ -179,7 +180,7 @@ export default function TextField(props) {
       </div>
       {props.error ? (
         <ErrorPanel className="pl-1 pt-1">
-          <div className="text-sm text-red-700 dark:text-red-500 ">
+          <div className="text-xs text-red-700 dark:text-red-500 ">
             {props.error?.type === "custom" && (
               <div>{props.error?.message}</div>
             )}
@@ -200,7 +201,7 @@ export default function TextField(props) {
       ) : (
         props.info && (
           <div className="pl-1 pt-1">
-            <span className="text-sm block text-gray-500 dark:text-zinc-400">
+            <span className="text-xs block text-gray-500 dark:text-zinc-400">
               {props.info}
             </span>
           </div>
@@ -263,10 +264,10 @@ const Container = styled.div`
   textarea {
     transition: 0.2s;
     width: 100%;
-    border-radius: 6px;
+    /* border-radius: 4px; */
     padding-top: -5px;
     outline: 0;
-    font-size: 14px;
+    font-size: 12px;
     &:focus {
       border: 1px solid #1662f0 !important;
       box-shadow: inset 0px 0px 0px 3px #105ccf2d !important;

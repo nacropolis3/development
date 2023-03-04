@@ -58,49 +58,6 @@ export default function Members() {
     endDate: null,
     statu: null,
   });
-
-  // useEffect(() => {
-  //   let newCon = [];
-  //   if (startDate != null) {
-  //     newCon.push(where("created_at", ">", converterDate(startDate)));
-  //   }
-  //   getMembersService(setMembers, newCon);
-  // }, [startDate]);
-
-  // useEffect(() => {
-  //   let newCon = [];
-  //   if (endDate != null) {
-  //     newCon.push(where("created_at", "<", converterDate(endDate)));
-  //   }
-  //   getMembersService(setMembers, newCon);
-  // }, [endDate]);
-
-  // useEffect(() => {
-  //   let newCon = [];
-  //   if (statuWhere != null) {
-  //     newCon.push(where("statu", "==", statuWhere));
-  //     newCon.push(orderBy("created_at", "desc"));
-  //   }
-  //   getMembersService(setMembers, newCon);
-  // }, [statuWhere]);
-
-  // useEffect(() => {
-  //   let newCon = [];
-  //   if (groupWhere != null) {
-  //     newCon.push(where("groupUid", "==", groupWhere));
-  //   }
-
-  //   getMembersService(setMembers, newCon);
-  // }, [groupWhere]);
-
-  // useEffect(() => {
-  //   let newCon = [];
-  //   if (geadquarterWhere != null) {
-  //     newCon.push(where("geadquarterUid", "==", geadquarterWhere));
-  //   }
-  //   getMembersService(setMembers, newCon);
-  // }, [geadquarterWhere]);
-
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -173,29 +130,6 @@ export default function Members() {
     data.endDate,
     data.startDate,
   ]);
-
-  // useEffect(() => {
-  //   getDataGroupsService(setGroups);
-  //   getDataGeadquartersService(setGeadquarters);
-  //   let newCon = [];
-  //   if (startDate) {
-  //     newCon.push(where("created_at", ">=", converterDate(startDate)));
-  //   }
-  //   if (endDate) {
-  //     newCon.push(where("created_at", "<=", converterDate(endDate)));
-  //   }
-  //   if (groupWhere) {
-  //     newCon.push(where("groupUid", "==", groupWhere));
-  //   }
-  //   if (geadquarterWhere) {
-  //     newCon.push(where("geadquarterUid", "==", geadquarterWhere));
-  //   }
-  //   if (statuWhere) {
-  //     newCon.push(where("statu", "==", statuWhere.value));
-  //   }
-  //   getMembersService(setMembers, newCon);
-  // }, [geadquarterWhere, groupWhere, statuWhere, endDate, startDate]);
-
   const handelCopy = (value) => {
     navigator.clipboard.writeText(value);
     toast.success("Uid copiado", {
@@ -270,13 +204,7 @@ export default function Members() {
                 <span className="text-sm font-semibold">Registrar nuevo</span>
               </PrimaryButton>
             </div>
-            {/* <PrimaryButton
-              width="100px"
-              onClick={() => setFilterShow(!filterShow)}
-              type="default"
-            >
-              <span className="text-sm font-semibold">Filtro</span>
-            </PrimaryButton> */}
+
             <div className="ml-auto flex items-center  gap-2">
               <div className="text-sm text-neutral-500">filtro:</div>
               <div>
@@ -433,238 +361,6 @@ export default function Members() {
               </div>
             </div>
           </div>
-          {/* {filterShow && (
-            <div className="dark:bg-[#282829] p-3 rounded-lg">
-              <div>
-                <h1 className="dark:text-zinc-50 text-xl font-bold">
-                  Filtra los datos
-                </h1>
-                <span className="flex text-zinc-400 text-sm">
-                  Filtra por grupos, sedes, estado y otros
-                </span>
-              </div>
-              <div className="2xl:grid-cols-4 grid gap-3">
-                <div className=" border-r dark:border-r-zinc-600 pr-4">
-                  <div className="p-1">
-                    <h4 className="font-semibold dark:text-zinc-100 pb-2">
-                      Por grupo
-                    </h4>
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    <div
-                      onClick={() => {
-                        setGroupWhere(null);
-                      }}
-                      className={`h-[40px] w-[70px] flex items-center justify-center py-1 cursor-pointer ${
-                        !groupWhere
-                          ? "text-[#ffffff] dark:bg-[#277dffcc] bg-[#0974ff] dark:hover:bg-[#277dffe3]"
-                          : "dark:text-[#fefeff] dark:bg-[#9797971f] bg-[#9797971f] hover:bg-[#6e6d6d1f]"
-                      } dark:bg-[#277dff1f] dark:hover:bg-[#277dff44]  transition-colors rounded-full`}
-                    >
-                      <div className="text-sm font-semibold">Todos</div>
-                    </div>
-                    {groups &&
-                      groups.map((group, index) => (
-                        <div
-                          onClick={() => {
-                            setGroupWhere(group.uid);
-                          }}
-                          key={index}
-                          className={` h-[40px] w-[40px] flex items-center justify-center py-1 cursor-pointer  ${
-                            groupWhere && groupWhere === group.uid
-                              ? "text-[#ffffff] dark:bg-[#277dffcc] bg-[#0974ff] dark:hover:bg-[#277dffe3]"
-                              : "dark:text-[#fefeff] dark:bg-[#9797971f] bg-[#9797971f] hover:bg-[#6e6d6d4d]"
-                          } dark:bg-[#277dff1f] dark:hover:bg-[#277dff44]  transition-colors rounded-full`}
-                        >
-                          <div className="text-sm font-semibold">
-                            {group.name}
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                </div>
-                <div className=" border-r dark:border-r-zinc-600 pr-4">
-                  <div className="p-1">
-                    <h4 className="font-semibold dark:text-zinc-200 pb-2">
-                      Por Sede
-                    </h4>
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    <div
-                      onClick={() => {
-                        setGeadquarterWhere(null);
-                      }}
-                      className={`h-[40px] w-[70px] flex items-center justify-center py-1 cursor-pointer ${
-                        !geadquarterWhere
-                          ? "text-[#ffffff] dark:bg-[#277dffcc] bg-[#0974ff] dark:hover:bg-[#277dffe3]"
-                          : "dark:text-[#fefeff] dark:bg-[#9797971f] bg-[#9797974b]"
-                      } dark:bg-[#277dff1f] dark:hover:bg-[#277dff44]  transition-colors rounded-full`}
-                    >
-                      <div className="text-sm font-semibold">Todos</div>
-                    </div>
-                    {geadquarters &&
-                      geadquarters.map((item, index) => (
-                        <div
-                          onClick={() => {
-                            setGeadquarterWhere(item.uid);
-                          }}
-                          key={index}
-                          className={` h-[40px] px-3 flex items-center justify-center py-1 cursor-pointer ${
-                            geadquarterWhere && geadquarterWhere === item.uid
-                              ? "text-[#ffffff] dark:bg-[#277dffcc] bg-[#0974ff] dark:hover:bg-[#277dffe3]"
-                              : "dark:text-[#fefeff] dark:bg-[#9797971f] bg-[#9797971f]"
-                          } dark:hover:bg-[#277dff44] hover:bg-[#80808044] transition-colors  rounded-full`}
-                        >
-                          <div className="text-sm font-semibold">
-                            {item.name}
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                </div>
-                <div className=" border-r dark:border-r-zinc-600 pr-4">
-                  <div className="p-1">
-                    <h4 className="font-semibold dark:text-zinc-200 pb-2">
-                      Por Fecha
-                    </h4>
-                  </div>
-                  <div className="flex gap-1">
-                    <div className="flex flex-col">
-                      <div
-                        onClick={() => {
-                          setStartDate(null);
-                          setEndDate(null);
-                        }}
-                        className={`h-[40px] w-[70px] flex items-center justify-center py-1 cursor-pointer ${
-                          !startDate && !endDate
-                            ? "text-[#ffffff] dark:bg-[#277dffcc] bg-[#0974ff] dark:hover:bg-[#277dffe3]"
-                            : "dark:text-[#fefeff] dark:bg-[#9797971f] bg-[#9797974b]"
-                        } dark:bg-[#277dff1f] dark:hover:bg-[#277dff44]  transition-colors rounded-full`}
-                      >
-                        <div className="text-sm font-semibold">Todos</div>
-                      </div>
-                    </div>
-                    <div className="flex flex-col">
-                      <div
-                        className={`relative rounded-full ${
-                          startDate
-                            ? "dark:bg-[#0974ff] bg-[#0974ff]"
-                            : "dark:bg-[#66666663] hover:bg-[#66666631] bg-[#6666662a] text-zinc-300"
-                        }  text-sm outline-none cursor-pointer font-semibold text-zinc-50 p-2 rounded-full w-[40px] h-[40px]`}
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          className="icon-stroke"
-                        >
-                          <g id="SVGRepo_iconCarrier">
-                            {" "}
-                            <path d="M8 2V5"></path> <path d="M16 2V5"></path>{" "}
-                            <path d="M3.5 9.08997H20.5"></path>{" "}
-                            <path d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"></path>{" "}
-                            <path d="M15.6947 13.7H15.7037"></path>{" "}
-                            <path d="M15.6947 16.7H15.7037"></path>{" "}
-                            <path d="M11.9955 13.7H12.0045"></path>{" "}
-                            <path d="M11.9955 16.7H12.0045"></path>{" "}
-                            <path d="M8.29431 13.7H8.30329"></path>{" "}
-                            <path d="M8.29431 16.7H8.30329"></path>{" "}
-                          </g>
-                        </svg>
-                        <input
-                          className={` absolute left-[-0px] opacity-0 text-[50px] w-full h-full top-0  cursor-pointer `}
-                          type="date"
-                          value={startDate ? startDate : ""}
-                          onChange={(e) => setStartDate(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                    <div className="text-zinc-400 flex items-center justify-center text-sm px-1 pb-1">
-                      Hasta:
-                    </div>
-                    <div className="flex flex-col">
-                      <div
-                        className={`relative rounded-full ${
-                          endDate
-                            ? "dark:bg-[#0974ff] bg-[#0974ff]"
-                            : "dark:bg-[#66666663] hover:bg-[#66666631] bg-[#6666662a] text-zinc-200"
-                        }  text-sm outline-none cursor-pointer font-semibold text-zinc-50 p-2 rounded-full w-[40px] h-[40px]`}
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          className="icon-stroke"
-                        >
-                          <g id="SVGRepo_iconCarrier">
-                            {" "}
-                            <path d="M8 2V5"></path> <path d="M16 2V5"></path>{" "}
-                            <path d="M3.5 9.08997H20.5"></path>{" "}
-                            <path d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"></path>{" "}
-                            <path d="M15.6947 13.7H15.7037"></path>{" "}
-                            <path d="M15.6947 16.7H15.7037"></path>{" "}
-                            <path d="M11.9955 13.7H12.0045"></path>{" "}
-                            <path d="M11.9955 16.7H12.0045"></path>{" "}
-                            <path d="M8.29431 13.7H8.30329"></path>{" "}
-                            <path d="M8.29431 16.7H8.30329"></path>{" "}
-                          </g>
-                        </svg>
-                        <input
-                          className={` absolute left-[-0px] opacity-0 text-[50px] w-full h-full top-0  cursor-pointer `}
-                          type="date"
-                          value={endDate ? endDate : ""}
-                          onChange={(e) => setEndDate(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="">
-                  <div className="p-1">
-                    <h4 className="font-semibold dark:text-zinc-200 pb-2">
-                      Por Estado
-                    </h4>
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    <div
-                      onClick={() => {
-                        setStatuWhere(null);
-                      }}
-                      className={`h-[40px] w-[70px] flex items-center justify-center py-1 cursor-pointer ${
-                        statuWhere === null
-                          ? "dark:bg-[#277dffcc] bg-[#0974ff] text-[#ffffff] dark:hover:bg-[#277dffe3]"
-                          : "dark:text-[#fefeff] dark:bg-[#9797971f]"
-                      } dark:bg-[#277dff1f] dark:hover:bg-[#277dff44]  transition-colors rounded-full`}
-                    >
-                      <div className="text-sm font-semibold">Todos</div>
-                    </div>
-                    <div
-                      onClick={() => {
-                        setStatuWhere({ value: true });
-                      }}
-                      className={` h-[40px] px-3 flex items-center justify-center py-1 cursor-pointer ${
-                        statuWhere && statuWhere.value === true
-                          ? "text-[#ffffff] dark:bg-[#277dffcc] bg-[#0974ff] dark:hover:bg-[#277dffe3]"
-                          : "dark:text-[#fefeff] dark:bg-[#9797971f] bg-[#9797973a]"
-                      } dark:hover:bg-[#277dff44] hover:bg-[#8c8d8d44] transition-colors  rounded-full`}
-                    >
-                      <div className="text-sm font-semibold">Activos</div>
-                    </div>
-                    <div
-                      onClick={() => {
-                        setStatuWhere({ value: false });
-                      }}
-                      className={` h-[40px] px-3 flex items-center justify-center py-1 cursor-pointer ${
-                        statuWhere && statuWhere.value === false
-                          ? "text-[#ffffff] dark:bg-[#277dffcc] bg-[#0974ff] dark:hover:bg-[#277dffe3]"
-                          : "dark:text-[#fefeff] dark:bg-[#9797971f] bg-[#9797973a]"
-                      } dark:hover:bg-[#277dff44] hover:bg-[#8c8d8d44] transition-colors  rounded-full`}
-                    >
-                      <div className="text-sm font-semibold">Inactivos</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )} */}
           <div className="mt-2">
             <div className=" ">
               <table className="w-full ">
@@ -839,11 +535,7 @@ export default function Members() {
         show={modalAdd}
         close={() => setModalAdd(!modalAdd)}
       >
-        <ContentModal width="500px">
-          <HeaderModal
-            title={memberSelected ? "Editar miembro" : "Agregar miembro"}
-            btnRightOnclick={() => setModalAdd(!modalAdd)}
-          />
+        <ContentModal width="450px">
           <BodyModal>
             <FormMember
               data={memberSelected}

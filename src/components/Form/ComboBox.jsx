@@ -39,7 +39,7 @@ export default function Combobox(props) {
             paddingRight: props.iconLoadingLeft && "35px",
           }}
           className={`${
-            props.long ? "py-[9px]" : "py-[5px]"
+            props.long ? "py-[9px]" : "py-[6px]"
           } px-[10px] bg-[#ffffff] dark:bg-[#4a4a4b] border ${
             props.error?.type
               ? " border-[#DD0000] required"
@@ -69,7 +69,7 @@ export default function Combobox(props) {
       </div>
       {props.error ? (
         <ErrorPanel className="pl-1 pt-1">
-          <div className="text-sm text-red-700 dark:text-red-500 ">
+          <div className="text-xs text-red-700 dark:text-red-500 ">
             {props.error?.type === "custom" && (
               <div>{props.error?.message}</div>
             )}
@@ -90,7 +90,7 @@ export default function Combobox(props) {
       ) : (
         props.info && (
           <div className="pl-1 pt-1">
-            <span className="text-sm block text-gray-500 dark:text-zinc-400">
+            <span className="text-xs block text-gray-500 dark:text-zinc-400">
               {props.info}
             </span>
           </div>
@@ -156,7 +156,7 @@ const Container = styled.div`
     background: #ffffff;
     border-radius: 5px;
     outline: 0;
-    font-size: 13px;
+    font-size: 12px;
     color: #1e1e1f;
     &:focus {
       border: 1px solid #1662f0 !important;

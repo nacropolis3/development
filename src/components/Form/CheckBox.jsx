@@ -8,7 +8,7 @@ export default function CheckBox(props) {
         <div
           className={`${
             props.disabled ? "cursor-default opacity-50" : ""
-          } container flex gap-2 `}
+          } container flex gap-1 `}
         >
           <div className={"controlform flex items-center"}>
             <input
@@ -52,7 +52,7 @@ export default function CheckBox(props) {
             </div>
           </div>
           {props.text && (
-            <div className={`font-normal  text-sm ${props.checked ? "darK:text-blue-400 text-blue-600" : "text-zinc-800 dark:text-zinc-400"}`}>
+            <div className={`font-normal flex items-center  text-xs ${props.checked ? "darK:text-blue-400 text-blue-600" : "text-zinc-800 dark:text-zinc-400"}`}>
               <span>{props.text}</span>
             </div>
           )}

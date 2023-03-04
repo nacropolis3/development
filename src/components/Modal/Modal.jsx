@@ -10,7 +10,7 @@ const Modal = (props) => {
             onClick={props.onClickIframe}
             className="fixed top-0 left-0 w-full bg-[#ffffffc2] dark:bg-[#0a0a0a8a]"
           />
-          <div className="absolute top-10 left-[50%] translate-x-[-50%]  z-[101]">
+          <div className="absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%]  z-[101]">
             <ContentModal className="scrollbar-thin dark:scrollbar-thumb-[#737475bb] dark:scrollbar-track-[#318191a]  rounded-lg  overflow-y-auto ">
               {props.children}
             </ContentModal>
