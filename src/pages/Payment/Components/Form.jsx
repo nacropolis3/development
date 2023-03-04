@@ -910,7 +910,7 @@ export default function FromPayment(props) {
           )}
 
           {/* button submit */}
-          <div className="mt-auto">
+          <div className="mt-2">
             {memberSelected && concept && data.totalImported > 0 ? (
               <PrimaryButton
                 // onClick={handleSubmit(onSubmit)}
