@@ -6,7 +6,7 @@ export default function ContentModal(props) {
     <StyledModal
       className="bg-[#fff] dark:bg-[#292a2b] border rounded-lg dark:border-neutral-700"
       style={{
-        // width: props.width ? props.width : "max-content",
+        width: props.width ? props.width : "max-content",
       }}
     >
       {props.children}
@@ -16,5 +16,6 @@ export default function ContentModal(props) {
 export const StyledModal = styled.div`
   @media (max-width: 700px) {
     height: 100vh;
+    width: 100% !important;
   }
 `;
