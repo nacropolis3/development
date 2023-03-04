@@ -237,7 +237,7 @@ export default function Payments() {
               onClick={() => {
                 setModalAdd(true);
               }}
-              type="default"
+              type="primary"
             >
               <span className="w-6">
                 <svg viewBox="0 0 24 24" fill="none" className="icon-stroke">
