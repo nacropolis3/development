@@ -11,7 +11,7 @@ const Modal = (props) => {
             className="fixed top-0 left-0 bg-[#ffffffc2] dark:bg-[#111111c2] w-full  "
           />
           <div className="contentmodal absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%]  z-[101]">
-            <ContentModal className="scrollbar-thin dark:scrollbar-thumb-[#737475bb] dark:scrollbar-track-[#318191a]  rounded-lg  overflow-y-auto ">
+            <ContentModal className="scrollbar-thin dark:scrollbar-thumb-[#737475bb] dark:scrollbar-track-[#318191a] overflow-y-auto ">
               {props.children}
             </ContentModal>
           </div>

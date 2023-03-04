@@ -655,14 +655,14 @@ export default function FormMember(props) {
         <div className="w-60">
           <h2
             className={`pb-2 ${
-              errors["groupUid"] ? "text-red-500" : "text-neutral-800"
+              errors["groupUid"] ? "text-red-500 dark:text-red-500" : "text-neutral-800"
             } pl-1 text-xs dark:text-neutral-100`}
           >
             Selecciona un grupo
           </h2>
           <div
             className={`  bg-[#eef1f3] dark:bg-neutral-800 border dark:border-neutral-600  w-full p-1 rounded-[5px] ${
-              errors["groupUid"] ? "border-red-600" : "border-neutral-300 "
+              errors["groupUid"] ? "border-red-600 dark:border-red-500" : "border-neutral-300 "
             } `}
           >
             <div className="flex flex-wrap justify-center gap-1 ">
@@ -690,8 +690,8 @@ export default function FormMember(props) {
                         !item.statu && "opacity-20 cursor-default"
                       } cursor-pointer    py-2 p-3 rounded-full  ${
                         item.uid === data.groupUid
-                          ? "  bg-blue-500 text-zinc-50 hover:bg-[#135cc9]"
-                          : "hover:bg-[#a5a6a771] "
+                          ? "  bg-green-700  text-neutral-50 dark:text-white  hover:bg-green-800"
+                          : "hover:bg-[#a5a6a771] dark:text-neutral-100 "
                       }`}
                     >
                       <span className="font-semibold text-xs">{item.name}</span>
@@ -715,7 +715,7 @@ export default function FormMember(props) {
         <div className="w-60">
           <h2
             className={`pb-2 ${
-              errors["geadquarterUid"] ? "text-red-500" : "text-neutral-800"
+              errors["geadquarterUid"] ? "text-red-500 dark:text-red-500" : "text-neutral-800"
             } pl-1 text-xs dark:text-neutral-100`}
           >
             Selecciona una sede
@@ -723,7 +723,7 @@ export default function FormMember(props) {
           <div
             className={`bg-[#eef1f3] dark:bg-neutral-800 dark:border-neutral-600 border  w-full p-1 rounded-[5px] ${
               errors["geadquarterUid"]
-                ? "border-red-600"
+                ? "border-red-600 dark:border-red-500"
                 : "border-neutral-300 "
             } `}
           >
@@ -753,10 +753,10 @@ export default function FormMember(props) {
                         !item.statu && "opacity-20 cursor-default"
                       } ${
                         item.uid === data.geadquarterUid &&
-                        "  bg-blue-500 hover:bg-blue-500 text-zinc-50 "
+                        "bg-green-700  text-zinc-50 hover:bg-green-800"
                       } cursor-pointer  hover:bg-[#a5a6a771] dark:text-zinc-300 p-2 rounded-md`}
                     >
-                      <h3 className="text-xs font-semibold">{item.name}</h3>
+                      <h3 className="text-xs font-semibold dark:text-white">{item.name}</h3>
                     </div>
                   </div>
                 ))}

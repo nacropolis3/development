@@ -68,11 +68,11 @@ export default function TextField(props) {
             maxLength={props.maxLength && props.maxLength}
             className={`${
               props.long ? "py-[8px]" : "py-[5px]"
-            } px-[10px] bg-[#ffffff]  border ${
+            } px-[10px] bg-[#ffffff] dark:bg-transparent border dark:border-neutral-500 ${
               props.error?.type
-                ? " border-[#DD0000] required"
+                ? " border-[#DD0000] dark:border-[#DD0000] required "
                 : "border-[#c7c9ca] "
-            } text-[#1e1e1f] dark:text-[#e8e8eb]`}
+            } text-[#1e1e1f] dark:text-[#e8e8eb] `}
             type={visibleText ? "text" : props.type}
             id={props.name + "key"}
             placeholder={props.placeholder}
@@ -97,7 +97,7 @@ export default function TextField(props) {
               props.long ? "py-[8px]" : "py-[6px]"
             } px-[10px] bg-[#ffffff] dark:bg-transparent border dark:border-neutral-500 dark:text-neutral-50 ${
               props.error?.type
-                ? " border-[#DD0000] required"
+                ? " border-[#DD0000] dark:border-[#f03e3e] required"
                 : "border-[#c7c9ca] "
             } text-[#1e1e1f] `}
             // border: ${(props) =>

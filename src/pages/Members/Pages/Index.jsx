@@ -399,13 +399,13 @@ export default function Members() {
                           setModalAdd(true);
                         }}
                         key={index}
-                        className="cursor-default dark:text-zinc-200 dark:hover:bg-[#18191a] hover:bg-[#b1b4b633]  transition-colors  text-sm "
+                        className="cursor-default dark:text-neutral-200 dark:hover:bg-[#3a3a3a] hover:bg-[#b1b4b633]  transition-colors  text-sm "
                       >
                         <td className="px-2 w-[40px] mx-auto text-center  rounded-l-sm">
                           {member.verify && (
                             <div
                               tooltip="Verificado por Reniec"
-                              className="w-5 text-neutral-500"
+                              className="w-5 text-neutral-500 dark:text-neutral-300"
                             >
                               <svg
                                 className="icon-stroke"
@@ -422,7 +422,7 @@ export default function Members() {
                         <td className="py-[8px] px-2 pl-1  relative">
                           <div>
                             <div
-                              className="flex items-center gap-1 text-neutral-900 font-semibold h-full"
+                              className="flex items-center gap-1 text-neutral-900 dark:text-neutral-200 font-semibold h-full"
                               to="/"
                             >
                               {upercasePrimaryLetter(
@@ -434,7 +434,7 @@ export default function Members() {
                               )}
                             </div>
                           </div>
-                          <div className="text-zinc-500 text-xs">
+                          <div className="text-zinc-500 dark:text-zinc-400 text-xs">
                             {member.dni}
                           </div>
                         </td>
@@ -469,7 +469,7 @@ export default function Members() {
                                     )} por ${member.updated_statu_at.user_name}`
                                   : "Cambiar Estado"
                               }
-                              className={`p-[5px] cursor-pointer hover:bg-neutral-200 rounded-md mx-auto font-semibold text-xs w-[65px] flex items-center justify-center`}
+                              className={`p-[5px] cursor-pointer hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-md mx-auto font-semibold text-xs w-[65px] flex items-center justify-center`}
                             >
                               <div className="text">
                                 {member.statu ? "Activo" : "Inactivo"}

@@ -42,7 +42,7 @@ export default function Combobox(props) {
             props.long ? "py-[9px]" : "py-[6px]"
           } px-[10px] bg-[#ffffff] dark:bg-[#4a4a4b] border ${
             props.error?.type
-              ? " border-[#DD0000] required"
+              ? " border-[#DD0000] dark:border-[#DD0000]  required"
               : "border-[#c7c9ca] dark:border-[#4a4a4b]"
           } text-[#1e1e1f] dark:text-[#e8e8eb] cursor-pointer`}
           disabled={props.disabled}

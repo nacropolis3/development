@@ -616,8 +616,8 @@ export default function FromPayment(props) {
             tabIndex="0"
             className={` ${
               memberSelected
-                ? "dark:text-blue-400 text-blue-700 font-semibold dark:hover:bg-blue-600 bg-neutral-200 hover:bg-neutral-300 animate-none"
-                : "dark:text-neutral-50 bg-neutral-300 animate-pulse text-neutral-800"
+                ? "dark:text-green-500 text-green-700 font-semibold dark:bg-neutral-700  bg-neutral-200 hover:bg-neutral-300 animate-none"
+                : "dark:text-neutral-50 bg-neutral-300 dark:bg-neutral-700 animate-pulse text-neutral-800"
             } w-full h-9 flex items-center justify-center gap-2  dark:hover:bg-neutral-600  pl-2  cursor-pointer hover:bg-zinc-200 p-1 py-1 rounded-md`}
           >
             {!memberSelected && (
@@ -664,9 +664,9 @@ export default function FromPayment(props) {
                       tabIndex="0"
                       className={` ${
                         concept
-                          ? "dark:text-blue-400 text-blue-700 font-semibold dark:hover:bg-blue-600 bg-neutral-200 hover:bg-neutral-300 animate-none"
-                          : "dark:text-neutral-50 bg-neutral-300 animate-pulse text-neutral-800"
-                      } w-full h-9 flex items-center justify-center gap-2  dark:hover:bg-neutral-600  pl-2  cursor-pointer hover:bg-zinc-200 p-1 py-1 rounded-md`}
+                          ? "dark:text-green-500 text-green-700  font-semibold dark:hover:bg-blue-600 bg-neutral-200 hover:bg-neutral-300 animate-none"
+                          : "dark:text-neutral-300 bg-neutral-300 animate-pulse text-neutral-800"
+                      } dark:bg-neutral-700 w-full h-9 flex items-center justify-center gap-2  dark:hover:bg-neutral-600  pl-2  cursor-pointer hover:bg-zinc-200 p-1 py-1 rounded-md`}
                     >
                       {!concept && (
                         <div className="w-6">
@@ -709,7 +709,7 @@ export default function FromPayment(props) {
                   <div className=" flex  flex-col gap-1 ">
                     <table className=" max-h-[600px] dark:scrollbar-thumb-[#7374750c] dark:scrollbar-track-[#318191a]  overflow-y-auto">
                       <thead>
-                        <tr className="text-neutral-500 text-xs 3">
+                        <tr className="text-neutral-500 dark:text-neutral-200 text-xs 3">
                           <th className="font-semibold p-2  text-left w-[140px] sticky left-0 dark:bg-[#292a2b] bg-[#ffffff]">
                             Mes
                           </th>
@@ -726,7 +726,7 @@ export default function FromPayment(props) {
                       <tbody>
                         {paymountList.map((item, index) => (
                           <Tr
-                            className="border-t dark:border-t-neutral-600 text-sm cursor-default hover:bg-neutral-100 dark:text-neutral-300"
+                            className="border-t dark:border-t-neutral-600 text-sm cursor-default hover:bg-neutral-100 dark:hover:bg-neutral-700 dark:text-neutral-300"
                             key={index}
                           >
                             <td className="p-[6px] w-[140px] sticky left-0   ">
@@ -851,9 +851,9 @@ export default function FromPayment(props) {
                       addNewItem(paymountList ? paymountList.length : 0)
                     }
                     tabIndex="0"
-                    className={`font-semibold max-w-min hover:bg-neutral-200 py-1 px-3 text-neutral-700 text-sm hover:underline w-full flex items-center gap-2  cursor-pointer rounded-md`}
+                    className={`font-semibold max-w-min hover:bg-neutral-200 dark:bg-neutral-700 dark:hover:bg-neutral-600 py-1 px-3 text-neutral-700 dark:text-neutral-100  text-sm hover:underline w-full flex items-center gap-2  cursor-pointer rounded-md`}
                   >
-                    <div className="w-6  border border-neutral-700 rounded-full">
+                    <div className="w-6  border border-neutral-700 dark:border-neutral-500 rounded-full">
                       <svg
                         viewBox="0 0 24 24"
                         fill="none"
@@ -877,7 +877,7 @@ export default function FromPayment(props) {
                     </div>
                     <div>Agregar</div>
                   </div>
-                  <div className="min-w-max  ml-auto font-semibold text-sm">
+                  <div className="min-w-max  ml-auto font-semibold dark:text-neutral-100 text-sm">
                     Total S/ {data.totalImported.toFixed(2)}
                   </div>
                 </div>

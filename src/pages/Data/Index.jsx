@@ -94,11 +94,11 @@ export default function Data() {
                       {groups &&
                         groups.map((item, index) => (
                           <ItemEdit
-                            className="flex items-center gap-2 hover:bg-neutral-100  cursor-pointer rounded-sm p-2"
+                            className="flex items-center gap-2 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer rounded-md p-2"
                             key={index}
                           >
                             <div>
-                              <div className="text-sm font-semibold text-neutral-800 ">
+                              <div className="text-sm font-semibold text-neutral-800 dark:text-neutral-200">
                                 <div className="flex items-center gap-1">
                                   <div
                                     className={`w-[6px] h-[6px] ${
@@ -111,7 +111,7 @@ export default function Data() {
                                 </div>
                               </div>
                               {item.description && (
-                                <div className="text-sm leading-5 py-2 hover:text-zinc-500 text-zinc-600 font-normal">
+                                <div className="text-sm leading-5 py-2 hover:text-zinc-500 text-zinc-600 dark:text-neutral-300 font-normal">
                                   {item.description}
                                 </div>
                               )}
@@ -134,29 +134,13 @@ export default function Data() {
                               }`}
                             >
                               <div
-                                tooltip="Editar"
+                                className="cursor-pointer p-1 text-sm bg-neutral-200 dark:bg-neutral-600 dark:hover:bg-neutral-500 dark:text-neutral-100 hover:bg-neutral-300 max-w-min rounded-md px-3 mt-1"
                                 onClick={() => {
                                   setGroupSelected(item);
                                   setModalAddGroup(true);
                                 }}
-                                className=" flex items-center gap-1 bg-neutral-100 hover:bg-neutral-200 rounded-md p-1"
                               >
-                                <div className="text-blue-500 w-4">
-                                  <svg
-                                    className="icon-stroke"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                  >
-                                    <g id="SVGRepo_iconCarrier">
-                                      <path d="M11 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H15C20 22 22 20 22 15V13"></path>{" "}
-                                      <path d="M16.04 3.02001L8.16 10.9C7.86 11.2 7.56 11.79 7.5 12.22L7.07 15.23C6.91 16.32 7.68 17.08 8.77 16.93L11.78 16.5C12.2 16.44 12.79 16.14 13.1 15.84L20.98 7.96001C22.34 6.60001 22.98 5.02001 20.98 3.02001C18.98 1.02001 17.4 1.66001 16.04 3.02001Z"></path>{" "}
-                                      <path d="M14.91 4.1499C15.58 6.5399 17.45 8.4099 19.85 9.0899"></path>{" "}
-                                    </g>
-                                  </svg>
-                                </div>
-                                <div className="text-blue-500 text-xs">
-                                  Editar
-                                </div>
+                                Editar
                               </div>
                             </div>
                           </ItemEdit>
@@ -206,15 +190,15 @@ export default function Data() {
                       {geadquarters &&
                         geadquarters.map((item, index) => (
                           <ItemEdit
-                            className="flex items-center hover:bg-neutral-50 border-t rounded-md p-2"
+                            className="flex items-center hover:bg-neutral-50 dark:hover:bg-neutral-700  border-t dark:border-t-neutral-600 rounded-md p-2"
                             key={index}
                           >
                             <div className="w-full">
-                              <div className="text-sm flex items-center gap-1 font-semibold  text-neutral-900 ">
+                              <div className="text-sm flex items-center gap-1 font-semibold  text-neutral-900 dark:text-neutral-100 ">
                                 <div
-                                  className={`w-[6px] h-[6px] ${
+                                  className={`w-[6px] h-[6px]  ${
                                     item.statu ? " bg-green-600" : " bg-red-500"
-                                  }  rounded-full`}
+                                  }  rounded-full `}
                                 />
                                 {item.name}
                               </div>
@@ -223,7 +207,7 @@ export default function Data() {
                                   {item.observations}
                                 </div>
                               )}
-                              <div className="flex gap-1 bg-neutral-100 border rounded-md p-2 ">
+                              <div className="flex gap-1 bg-neutral-100 dark:bg-neutral-700 border dark:border-neutral-600 rounded-md p-2 ">
                                 <div className="w-4 text-zinc-500">
                                   <svg
                                     viewBox="0 0 24 24"
@@ -237,25 +221,25 @@ export default function Data() {
                                   </svg>
                                 </div>
                                 <div className="flex flex-col gap-1">
-                                  <div className=" gap-2 text-xs flex-wrap">
+                                  <div className=" gap-2 text-xs flex-wrap dark:text-neutral-300">
                                     Departamento:{" "}
                                     <div className="font-semibold inline-flex dark:text-zinc-100">
                                       {item.contry.departament.name}
                                     </div>
                                   </div>
-                                  <div className=" gap-2 text-xs flex-wrap">
+                                  <div className=" gap-2 text-xs flex-wrap dark:text-neutral-300">
                                     Provincia:{" "}
                                     <div className="font-semibold inline-flex dark:text-zinc-100">
                                       {item.contry.province.name}
                                     </div>
                                   </div>
-                                  <div className=" gap-2 text-xs flex-wrap">
+                                  <div className=" gap-2 text-xs flex-wrap dark:text-neutral-300">
                                     Distrito:{" "}
                                     <div className="font-semibold inline-flex dark:text-zinc-100">
                                       {item.contry.district.name}
                                     </div>
                                   </div>
-                                  <div className=" gap-2 text-xs flex-wrap">
+                                  <div className=" gap-2 text-xs flex-wrap dark:text-neutral-300">
                                     Direccion:{" "}
                                     <div className="font-semibold inline-flex dark:text-zinc-100">
                                       {item.address}
@@ -276,7 +260,7 @@ export default function Data() {
                                 </div>
                               </div>
                               <div
-                                className="cursor-pointer p-1 text-sm bg-neutral-200 hover:bg-neutral-300 max-w-min rounded-sm px-3 mt-1"
+                                className="cursor-pointer p-1 text-sm bg-neutral-200 dark:bg-neutral-600 dark:hover:bg-neutral-500 dark:text-neutral-100 hover:bg-neutral-300 max-w-min rounded-md px-3 mt-1"
                                 onClick={() => {
                                   setGeadquarterSelected(item);
                                   setModalAddGeadquarter(true);
@@ -334,11 +318,11 @@ export default function Data() {
                       {concepts &&
                         concepts.map((item, index) => (
                           <ItemEdit
-                            className="flex items-center gap-2 hover:bg-neutral-100  cursor-pointer rounded-sm p-2"
+                            className="flex items-center gap-2 hover:bg-neutral-100 dark:hover:bg-neutral-700  cursor-pointer rounded-md p-2"
                             key={index}
                           >
                             <div>
-                              <div className="text-sm font-semibold text-neutral-800 ">
+                              <div className="text-sm font-semibold text-neutral-800 dark:text-neutral-200 ">
                                 <div className="flex items-center gap-1">
                                   <div
                                     className={`w-[6px] h-[6px] ${
@@ -351,7 +335,7 @@ export default function Data() {
                                 </div>
                               </div>
                               {item.description && (
-                                <div className="text-sm leading-5 py-2 hover:text-zinc-500 text-zinc-600 font-normal">
+                                <div className="text-sm leading-5 py-2 hover:text-zinc-500 text-zinc-600 font-normal dark:text-neutral-300">
                                   {item.description}
                                 </div>
                               )}
@@ -374,29 +358,13 @@ export default function Data() {
                               }`}
                             >
                               <div
-                                tooltip="Editar"
+                                className="cursor-pointer p-1 text-sm bg-neutral-200 dark:bg-neutral-600 dark:hover:bg-neutral-500 dark:text-neutral-100 hover:bg-neutral-300 max-w-min rounded-md px-3 mt-1"
                                 onClick={() => {
                                   setConceptSelected(item);
                                   setModalAddConcept(true);
                                 }}
-                                className=" flex items-center gap-1 bg-neutral-100 hover:bg-neutral-200 rounded-md p-1"
                               >
-                                <div className="text-blue-500 w-4">
-                                  <svg
-                                    className="icon-stroke"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                  >
-                                    <g id="SVGRepo_iconCarrier">
-                                      <path d="M11 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H15C20 22 22 20 22 15V13"></path>{" "}
-                                      <path d="M16.04 3.02001L8.16 10.9C7.86 11.2 7.56 11.79 7.5 12.22L7.07 15.23C6.91 16.32 7.68 17.08 8.77 16.93L11.78 16.5C12.2 16.44 12.79 16.14 13.1 15.84L20.98 7.96001C22.34 6.60001 22.98 5.02001 20.98 3.02001C18.98 1.02001 17.4 1.66001 16.04 3.02001Z"></path>{" "}
-                                      <path d="M14.91 4.1499C15.58 6.5399 17.45 8.4099 19.85 9.0899"></path>{" "}
-                                    </g>
-                                  </svg>
-                                </div>
-                                <div className="text-blue-500 text-xs">
-                                  Editar
-                                </div>
+                                Editar
                               </div>
                             </div>
                           </ItemEdit>
