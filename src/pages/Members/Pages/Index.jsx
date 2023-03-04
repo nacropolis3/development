@@ -175,15 +175,15 @@ export default function Members() {
   return (
     <div className="p-4">
       <div>
-        <div className="flex flex-col gap-2 mb-2">
-          <h1 className="text-4xl font-bold tracking-tighter text-gray-800 dark:text-zinc-50">
+        <div className="flex flex-col gap-2 mb-2 ">
+          <h1 className="text-4xl font-bold tracking-tighter text-gray-800  dark:text-zinc-50">
             Administracion de los Miembros
           </h1>
           <span className="flex text-sm text-zinc-500 dark:text-zinc-300 ml-1">
             Registro, actualización, de miembros
           </span>
         </div>
-        <div className="bg-white p-4 border rounded-md ">
+        <div className="bg-white p-4 border rounded-md dark:bg-neutral-800 dark:border-neutral-700 ">
           <div className="flex gap-1 items-center flex-wrap">
             <div className="flex h-[40px]">
               <PrimaryButton

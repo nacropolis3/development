@@ -38,19 +38,19 @@ export default function User() {
   }, []);
   return (
     <div className=" flex flex-col gap-2 mx-auto p-5">
-      <div className="p-4 bg-white rounded-md">
+      <div className="p-4 bg-white dark:bg-neutral-800 dark:border-neutral-700 border rounded-md">
         <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold tracking-tight leading-7">
+          <h1 className="text-3xl font-bold dark:text-neutral-200 tracking-tight leading-7">
             Gestion de usuarios
           </h1>
-          <span className="text-zinc-500 text-sm flex leading-4">
+          <span className="text-zinc-500 dark:text-neutral-400 text-sm flex leading-4">
             Administra los usuarios que tienen acceso al sistema
           </span>
         </div>
         <div className="overflow-x-auto max-w-full w-full">
           <table className="w-full ">
             <thead className="text-sm h-[35px] font-normal">
-              <tr className="border-0">
+              <tr className="border-0 dark:text-neutral-200">
                 <th className="w-[40px]"></th>
                 <th className="font-semibold min-w-[180px]">
                   <div className=" text-left">Nombre</div>
@@ -70,7 +70,7 @@ export default function User() {
             <tbody>
               {users &&
                 users.map((user, index) => (
-                  <tr key={index} className="text-sm border-t">
+                  <tr key={index} className="text-sm border-t dark:text-neutral-200 dark:border-neutral-600">
                     <td className="p-3 py-3">{index + 1}</td>
                     <td className="">
                       <div className="flex items-center gap-2">
@@ -173,7 +173,7 @@ export default function User() {
                               user.role != "Owner" && handleUpdateStatu(user);
                             }}
                             title="Cambiar estado"
-                            className={`p-[5px] cursor-pointer hover:bg-neutral-200 rounded-md mx-auto font-semibold text-xs w-[65px] flex items-center justify-center`}
+                            className={`p-[5px] cursor-pointer hover:bg-neutral-200 dark:hover:bg-neutral-700 rounded-md mx-auto font-semibold text-xs w-[65px] flex items-center justify-center`}
                           >
                             <div className="text">
                               {user.statu ? "Activo" : "Inactivo"}

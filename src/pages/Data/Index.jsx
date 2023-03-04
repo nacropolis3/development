@@ -58,7 +58,7 @@ export default function Data() {
             {wrapper === 1 && (
               <>
                 <div className="inline-block">
-                  <div className="border dark:border-0 bg-white rounded-lg mt-3 p-1 pl-2">
+                  <div className="border dark:border-0 bg-white dark:bg-neutral-800 rounded-lg mt-3 p-1 pl-2">
                     <div className="flex items-center  bg-white dark:bg-[#242525] border-b dark:border-b-zinc-700 pb-[5px]">
                       <h2 className="font-semibold text-sm text-zinc-500 dark:text-zinc-200 tracking-tight">
                         Grupos
@@ -162,7 +162,7 @@ export default function Data() {
                           </ItemEdit>
                         ))}
                       {groups && groups.length < 1 && (
-                        <div className="w-52 mx-auto py-10 text-center">
+                        <div className="w-52 dark:text-zinc-200 mx-auto py-10 text-center">
                           Sin grupos aun
                         </div>
                       )}
@@ -170,8 +170,8 @@ export default function Data() {
                   </div>
                 </div>
                 <div className="inline-block">
-                  <div className="border bg-white rounded-lg mt-3 p-2 pl-3">
-                    <div className="flex items-center bg-white pb-[5px]">
+                  <div className="border dark:border-0 bg-white dark:bg-neutral-800 rounded-lg mt-3 p-2 pl-3">
+                    <div className="flex items-center  pb-[5px]">
                       <h2 className="font-semibold text-sm text-zinc-500 dark:text-zinc-200 tracking-tight">
                         Sedes
                       </h2>
@@ -298,8 +298,8 @@ export default function Data() {
                   </div>
                 </div>
                 <div className="inline-block ">
-                  <div className="border dark:border-0 bg-white rounded-lg mt-3 p-1 pl-2">
-                    <div className="flex items-center bg-white  border-b  pb-[5px]">
+                  <div className="border dark:border-0 dark:bg-neutral-800 bg-white rounded-lg mt-3 p-1 pl-2">
+                    <div className="flex items-center  pb-[5px]">
                       <h2 className="font-semibold text-sm text-zinc-500 dark:text-zinc-200 tracking-tight">
                         Conceptos
                       </h2>
@@ -402,7 +402,7 @@ export default function Data() {
                           </ItemEdit>
                         ))}
                       {concepts && concepts.length < 1 && (
-                        <div className="w-52 mx-auto text-center py-10">
+                        <div className="w-52 dark:text-zinc-200 mx-auto text-center py-10">
                           Sin datos aun
                         </div>
                       )}

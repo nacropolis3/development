@@ -8,7 +8,7 @@ const Modal = (props) => {
         <ModalContainer className="fixed inset-0 pointer-events-auto w-full h-full">
           <IframeContainer
             onClick={props.onClickIframe}
-            className="fixed top-0 left-0 w-full  "
+            className="fixed top-0 left-0 bg-[#ffffffc2] dark:bg-[#111111c2] w-full  "
           />
           <div className="contentmodal absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%]  z-[101]">
             <ContentModal className="scrollbar-thin dark:scrollbar-thumb-[#737475bb] dark:scrollbar-track-[#318191a]  rounded-lg  overflow-y-auto ">
@@ -40,7 +40,7 @@ const ModalContainer = styled.div`
 const IframeContainer = styled.div`
   z-index: 100;
   height: 100vh;
-  background-color: #ffffffc2;
+
   @media (max-width: 700px) {
     /* background-color: #ffffff; */
   }

@@ -33,17 +33,12 @@ export default function Activities() {
   };
 
   useEffect(() => {
-    getActivitiesService(
-      setActivities,
-      [],
-      [],
-      setLast
-    );
+    getActivitiesService(setActivities, [], [], setLast);
   }, []);
   return (
     <div className="p-4">
       <div>
-        <div className="bg-white p-4 border rounded-md ">
+        <div className="bg-white dark:bg-neutral-800 dark:border-neutral-700 p-4 border rounded-md ">
           <div className="flex items-center gap-2 mb-2">
             <h1 className="text-xl font-bold tracking-tighter text-gray-800 dark:text-zinc-50">
               Historial de actividades

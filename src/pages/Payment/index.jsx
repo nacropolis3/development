@@ -229,7 +229,7 @@ export default function Payments() {
         </span>
       </div>
 
-      <div className="bg-white p-4 border rounded-md">
+      <div className="bg-white dark:bg-neutral-800 p-4 border dark:border-neutral-700 rounded-md">
         <div className=" flex  gap-1 flex-wrap ">
           <div className="flex mr-auto">
             <PrimaryButton

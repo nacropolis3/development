@@ -95,11 +95,11 @@ export default function TextField(props) {
             maxLength={props.maxLength && props.maxLength}
             className={`${
               props.long ? "py-[8px]" : "py-[6px]"
-            } px-[10px] bg-[#ffffff] border ${
+            } px-[10px] bg-[#ffffff] dark:bg-transparent border dark:border-neutral-500 dark:text-neutral-50 ${
               props.error?.type
                 ? " border-[#DD0000] required"
                 : "border-[#c7c9ca] "
-            } text-[#1e1e1f] ]`}
+            } text-[#1e1e1f] `}
             // border: ${(props) =>
             //   props.required ? "1px solid #DD0000 !important" : "1px solid #c7c9ca"};
             disabled={props.disabled}

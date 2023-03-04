@@ -33,7 +33,7 @@ export const AsideButton = (props) => {
         <Container>
           <ButtonContainer>
             <div
-              className={`btn_aside flex items-center hover:bg-zinc-100  p-1 rounded-lg ${
+              className={`btn_aside flex items-center hover:bg-zinc-100 dark:hover:bg-neutral-700  p-1 rounded-lg ${
                 props.iconStroke ? "stroke" : ""
               } ${
                 active
@@ -60,14 +60,14 @@ export const AsideButton = (props) => {
               ) : (
                 <>
                   {props.iconStroke && (
-                    <div className={`w-[35px] h-[35px] ${active ? "bg-green-700 " : "bg-zinc-200 dark:bg-zinc-800"}  rounded-full p-[5px]`}>
+                    <div className={`w-[35px] h-[35px] ${active ? "bg-green-700 text-white" : "bg-zinc-200 dark:bg-neutral-700"}  rounded-full p-[5px]`}>
                       <Icon className="p-0">
                         {props.iconStroke ? props.iconStroke : props.icon}
                       </Icon>
                     </div>
                   )}
                   {props.icon && (
-                    <div className={`w-[35px] h-[35px] ${active ? "bg-green-700 text-white " : "bg-zinc-200 "}  rounded-full p-[5px]`}>
+                    <div className={`w-[35px] h-[35px] ${active ? "bg-green-700 text-white " : "bg-zinc-200 dark:bg-neutral-700"}  rounded-full p-[5px]`}>
                       <Icon className="p-0">
                         {props.iconStroke ? props.iconStroke : props.icon}
                       </Icon>
@@ -80,8 +80,8 @@ export const AsideButton = (props) => {
                 <div
                   className={`${
                     active
-                      ? "text-green-700 "
-                      : "text-black "
+                      ? "text-green-700 dark:text-green-500 "
+                      : "text-black dark:text-neutral-300 "
                   }  font-semibold text-sm`}
                 >
                   {props.loading ? (

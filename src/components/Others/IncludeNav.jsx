@@ -12,7 +12,7 @@ export default function IncludeNav(props) {
         <AsideContainer
           onClick={ChangeMenu}
           id="containerMenuAside"
-          className="border-r dark:border-r-[#22222200] bg-white w-[300px] fixed top-[54px]"
+          className="border-r dark:border-r-[#353636] bg-white dark:bg-[#242526] w-[300px] fixed top-[54px]"
         >
           <Aside />
         </AsideContainer>

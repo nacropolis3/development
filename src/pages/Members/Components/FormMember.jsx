@@ -656,12 +656,12 @@ export default function FormMember(props) {
           <h2
             className={`pb-2 ${
               errors["groupUid"] ? "text-red-500" : "text-neutral-800"
-            } pl-1   text-xs`}
+            } pl-1 text-xs dark:text-neutral-100`}
           >
             Selecciona un grupo
           </h2>
           <div
-            className={`  bg-[#eef1f3] border  w-full p-1 rounded-[5px] ${
+            className={`  bg-[#eef1f3] dark:bg-neutral-800 border dark:border-neutral-600  w-full p-1 rounded-[5px] ${
               errors["groupUid"] ? "border-red-600" : "border-neutral-300 "
             } `}
           >
@@ -706,7 +706,7 @@ export default function FormMember(props) {
                     src="/assets/no-data.png"
                     alt=""
                   />
-                  <span className="text-sm">Sin grupos</span>
+                  <span className="text-sm dark:text-neutral-100">Sin grupos</span>
                 </div>
               )}
             </div>
@@ -716,12 +716,12 @@ export default function FormMember(props) {
           <h2
             className={`pb-2 ${
               errors["geadquarterUid"] ? "text-red-500" : "text-neutral-800"
-            } pl-1   text-xs`}
+            } pl-1 text-xs dark:text-neutral-100`}
           >
             Selecciona una sede
           </h2>
           <div
-            className={`bg-[#eef1f3] border  w-full p-1 rounded-[5px] ${
+            className={`bg-[#eef1f3] dark:bg-neutral-800 dark:border-neutral-600 border  w-full p-1 rounded-[5px] ${
               errors["geadquarterUid"]
                 ? "border-red-600"
                 : "border-neutral-300 "
@@ -769,7 +769,7 @@ export default function FormMember(props) {
                     src="/assets/world.png"
                     alt=""
                   />
-                  <span className="text-sm">Sin sedes</span>
+                  <span className="text-sm  dark:text-neutral-100">Sin sedes</span>
                 </div>
               )}
             </div>

@@ -41,7 +41,7 @@ export default function Home() {
              marginTop: "-53px",
             //  paddingTop: "50px",
           }}
-          className="w-full h-full flex items-center p-5 py-20 justify-center bg-[#ffffff94] backdrop-blur-3xl"
+          className="w-full h-full flex items-center p-5 py-20 justify-center bg-[#ffffff94] dark:bg-[#08070a94]  backdrop-blur-3xl"
         >
           <img className="max-h-full" src="assets/background.jfif" alt="" />
         </div>
