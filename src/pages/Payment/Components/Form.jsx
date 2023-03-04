@@ -571,10 +571,10 @@ export default function FromPayment(props) {
   };
 
   return (
-    <div>
+    <div className=" h-full flex flex-col">
       {/* Home Panel */}
       {wrapper === "index" && (
-        <div>
+        <div className=" h-full flex-col flex">
           {/* header */}
           <div className="flex flex-col pb-2">
             <div className="flex items-center">
@@ -910,7 +910,7 @@ export default function FromPayment(props) {
           )}
 
           {/* button submit */}
-          <div className="mt-2">
+          <div className="mt-auto">
             {memberSelected && concept && data.totalImported > 0 ? (
               <PrimaryButton
                 // onClick={handleSubmit(onSubmit)}

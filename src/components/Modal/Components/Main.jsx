@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { disableScroll } from "../../../helpers/Scroll";
 
 export default function BodyModal({ children }) {
 
@@ -10,5 +9,5 @@ export default function BodyModal({ children }) {
 }
 const ContainerMain = styled.div`
   padding: 13px;
-  
+  height: 100%;
 `;

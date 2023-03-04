@@ -184,7 +184,7 @@ export default function Members() {
           </span>
         </div>
         <div className="bg-white p-4 border rounded-md ">
-          <div className="flex gap-1 items-center">
+          <div className="flex gap-1 items-center flex-wrap">
             <div className="flex h-[40px]">
               <PrimaryButton
                 width="190px"
@@ -204,8 +204,7 @@ export default function Members() {
                 <span className="text-sm font-semibold">Registrar nuevo</span>
               </PrimaryButton>
             </div>
-
-            <div className="ml-auto flex items-center  gap-2">
+            <div className="ml-auto flex items-center flex-wrap gap-2">
               <div className="text-sm text-neutral-500">filtro:</div>
               <div>
                 <ReactSelect
@@ -362,9 +361,9 @@ export default function Members() {
             </div>
           </div>
           <div className="mt-2">
-            <div className=" ">
+            <div className=" w-full rounded-md max-w-full overflow-x-auto">
               <table className="w-full ">
-                <thead className="text-sm  border-b dark:border-b-zinc-700 h-[35px] font-normal">
+                <thead className="text-sm  dark:border-b-zinc-700 h-[35px] font-normal">
                   <tr className="border-0  dark:text-zinc-200">
                     <th className="w-[0px]">{members && members.length}</th>
                     <th className="mb-1 p-2 px-3 font-semibold min-w-[180px]">

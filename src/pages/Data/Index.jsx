@@ -40,8 +40,8 @@ export default function Data() {
     getDataGeadquartersService(setGeadquarters);
   }, []);
   return (
-    <div className="p-4">
-      <div className=" p-4 rounded-lg">
+    <div className="p-0">
+      <div className=" p-3 rounded-lg">
         <div>
           <div className="flex flex-col gap-2">
             <h1 className="text-3xl font-bold tracking-tighter leading-4 text-gray-800 dark:text-zinc-50">
