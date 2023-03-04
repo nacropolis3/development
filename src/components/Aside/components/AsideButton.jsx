@@ -33,12 +33,12 @@ export const AsideButton = (props) => {
         <Container>
           <ButtonContainer>
             <div
-              className={`btn_aside flex items-center hover:bg-zinc-100 dark:hover:bg-zinc-800   p-1 rounded-lg ${
+              className={`btn_aside flex items-center hover:bg-zinc-100  p-1 rounded-lg ${
                 props.iconStroke ? "stroke" : ""
               } ${
                 active
                   ? !props.loading
-                    ? "active bg-[#72bbff36] dark:bg-[#303031] "
+                    ? "active bg-[#72ffb836] "
                     : ""
                   : ""
               } ${props.icon ? "icon" : ""} ${
@@ -60,14 +60,14 @@ export const AsideButton = (props) => {
               ) : (
                 <>
                   {props.iconStroke && (
-                    <div className={`w-[35px] h-[35px] ${active ? "bg-blue-500 dark:bg-zinc-800" : "bg-zinc-200 dark:bg-zinc-800"}  rounded-full p-[5px]`}>
+                    <div className={`w-[35px] h-[35px] ${active ? "bg-green-700 " : "bg-zinc-200 dark:bg-zinc-800"}  rounded-full p-[5px]`}>
                       <Icon className="p-0">
                         {props.iconStroke ? props.iconStroke : props.icon}
                       </Icon>
                     </div>
                   )}
                   {props.icon && (
-                    <div className={`w-[35px] h-[35px] ${active ? "bg-blue-500 text-white dark:bg-zinc-800" : "bg-zinc-200 dark:bg-zinc-800"}  rounded-full p-[5px]`}>
+                    <div className={`w-[35px] h-[35px] ${active ? "bg-green-700 text-white " : "bg-zinc-200 "}  rounded-full p-[5px]`}>
                       <Icon className="p-0">
                         {props.iconStroke ? props.iconStroke : props.icon}
                       </Icon>
@@ -80,8 +80,8 @@ export const AsideButton = (props) => {
                 <div
                   className={`${
                     active
-                      ? "text-blue-600 dark:text-[#d9eff3]"
-                      : "text-black dark:text-[#c4c4c4]"
+                      ? "text-green-700 "
+                      : "text-black "
                   }  font-semibold text-sm`}
                 >
                   {props.loading ? (

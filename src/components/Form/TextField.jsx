@@ -68,10 +68,10 @@ export default function TextField(props) {
             maxLength={props.maxLength && props.maxLength}
             className={`${
               props.long ? "py-[8px]" : "py-[5px]"
-            } px-[10px] bg-[#ffffff] dark:bg-[#2c2d2e] border ${
+            } px-[10px] bg-[#ffffff]  border ${
               props.error?.type
                 ? " border-[#DD0000] required"
-                : "border-[#c7c9ca] dark:border-[#4a4a4b]"
+                : "border-[#c7c9ca] "
             } text-[#1e1e1f] dark:text-[#e8e8eb]`}
             type={visibleText ? "text" : props.type}
             id={props.name + "key"}
@@ -95,11 +95,11 @@ export default function TextField(props) {
             maxLength={props.maxLength && props.maxLength}
             className={`${
               props.long ? "py-[8px]" : "py-[6px]"
-            } px-[10px] bg-[#ffffff] dark:bg-[#2c2d2e] border ${
+            } px-[10px] bg-[#ffffff] border ${
               props.error?.type
                 ? " border-[#DD0000] required"
-                : "border-[#c7c9ca] dark:border-[#4a4a4b]"
-            } text-[#1e1e1f] dark:text-[#e8e8eb]`}
+                : "border-[#c7c9ca] "
+            } text-[#1e1e1f] ]`}
             // border: ${(props) =>
             //   props.required ? "1px solid #DD0000 !important" : "1px solid #c7c9ca"};
             disabled={props.disabled}
@@ -269,8 +269,8 @@ const Container = styled.div`
     outline: 0;
     font-size: 12px;
     &:focus {
-      border: 1px solid #1662f0 !important;
-      box-shadow: inset 0px 0px 0px 3px #105ccf2d !important;
+      border: 1px solid #0a7934 !important;
+      box-shadow: inset 0px 0px 0px 3px #05aa3c2c !important;
     }
     &:hover {
       border: 1px solid #888888;

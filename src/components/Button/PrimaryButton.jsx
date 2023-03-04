@@ -107,17 +107,17 @@ const ContainerButton = styled.div`
     color: #070707 !important;
   }
   .primary {
-    background: #388ef0;
+    background: #007c48;
     color: #ffffff;
     &:hover {
-      background: #2c71c0;
+      background: #007c48;
     }
   }
   .primary_transparent {
-    background: #3392ff29;
-    color: #388ef0;
+    background: #099b6329;
+    color: #007c48;
     &:hover {
-      background: #3392ff55;
+      background: #0aa86c52;
     }
   }
   .primary-strong {

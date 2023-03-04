@@ -159,8 +159,8 @@ const Container = styled.div`
     font-size: 12px;
     color: #1e1e1f;
     &:focus {
-      border: 1px solid #1662f0 !important;
-      box-shadow: inset 0px 0px 0px 3px #105ccf2d !important;
+      border: 1px solid #0a7934 !important;
+      box-shadow: inset 0px 0px 0px 3px #05aa3c2c !important;
     }
     &:hover {
       border: 1px solid #888888;

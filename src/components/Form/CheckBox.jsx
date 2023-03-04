@@ -52,7 +52,7 @@ export default function CheckBox(props) {
             </div>
           </div>
           {props.text && (
-            <div className={`font-normal flex items-center  text-xs ${props.checked ? "darK:text-blue-400 text-blue-600" : "text-zinc-800 dark:text-zinc-400"}`}>
+            <div className={`font-normal flex items-center  text-xs ${props.checked ? "darK:text-blue-400 text-green-700" : "text-zinc-800 dark:text-zinc-400"}`}>
               <span>{props.text}</span>
             </div>
           )}
@@ -88,9 +88,9 @@ const CheckBoxContainer = styled.div`
           display: none;
           opacity: 0;
           &:checked ~ .checkmark {
-            border-color: #1d87ff;
+            border-color: #088a3e;
             .circule {
-              color: #3d81cf;
+              color: #088a3e;
             }
           }
         }
