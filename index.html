@@ -10,13 +10,12 @@
     class="scrollbar overflow-y-scroll bg-[#f2f2f2] dark:scrollbar-thumb-[#73747583] dark:scrollbar-track-[#318191a]"
     id="scrollbar"
   >
-    <div class="box-border pointer-events-auto " id="pageContainer" ></div>
+    <div class="box-border pointer-events-auto" id="pageContainer"></div>
     <script type="module" src="/src/main.jsx"></script>
     <script>
-      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
       if (
-        localStorage.getItem("color-theme") === "dark" ||
-        (!("color-theme" in localStorage) &&
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
           window.matchMedia("(prefers-color-scheme: dark)").matches)
       ) {
         document.documentElement.classList.add("dark");
