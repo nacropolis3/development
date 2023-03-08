@@ -155,7 +155,7 @@ export default function SignIn() {
           </div>
         </div>
       </div>
-      <div className="flex min-w-[450px] max-w-[450px] h-full justify-center px-10">
+      <div className="flex px-5 max-w-[420px] h-full justify-center ">
         <Container className=" mx-auto w-full dark:bg-transparent  p-3 flex flex-col gap-2 rounded-lg ">
           <div className="py-5">
             <div className="mx-auto w-32 text-[#0e3838]">
