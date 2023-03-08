@@ -171,9 +171,12 @@ export default function SignIn() {
             </div>
           </div>
           <div className="px-1 ">
-            <h1 className="text-3xl font-bold tracking-tighter">Iniciar Sesión</h1>
+            <h1 className="text-3xl font-bold tracking-tighter">
+              Iniciar Sesión
+            </h1>
             <span className="flex text-sm mt-1 text-zinc-500">
-              Inicia con tu correo y contraseña, en caso que lo hayas olvidado puedes recuperarlo
+              Inicia con tu correo y contraseña, en caso que lo hayas olvidado
+              puedes recuperarlo
             </span>
           </div>
           {errorCode && (
@@ -241,10 +244,10 @@ export default function SignIn() {
             </PrimaryButton>
           </div>
           <div className="flex items-center justify-center py-1">
-              <span className="text-xs font-normal text-zinc-500">
-                O tambien inicia con
-              </span>
-            </div>
+            <span className="text-xs font-normal text-zinc-500">
+              O tambien inicia con
+            </span>
+          </div>
           <div>
             <PrimaryButton
               loading={loadingGoogle}
@@ -337,9 +340,9 @@ const Content = styled.div`
     filter: blur(150px);
     background-color: #09758637;
   }
-  @media (max-width: 900px){
+  @media (max-width: 900px) {
     flex-direction: column;
-    .banner-text{
+    .banner-text {
       width: 100%;
     }
   }
@@ -350,5 +353,8 @@ const Container = styled.div`
     background-color: transparent;
     border: 0;
     padding: 0;
+  }
+  @media (max-width: 900px) {
+    height: 100vh;
   }
 `;
