@@ -177,7 +177,7 @@ export default function Members() {
       <div>
         <div className="flex flex-col gap-2 mb-2 ">
           <h1 className="text-4xl font-bold tracking-tighter text-gray-800  dark:text-zinc-50">
-            Administracion de los Miembros
+            Administración de los Miembros
           </h1>
           <span className="flex text-sm text-zinc-500 dark:text-zinc-300 ml-1">
             Registro, actualización, de miembros

@@ -579,7 +579,7 @@ export default function FromPayment(props) {
           <div className="flex flex-col pb-2">
             <div className="flex items-center">
               <h1 className="mr-auto leading-8 text-2xl font-bold tracking-tight dark:text-neutral-200">
-                Registro de pagos
+                Registra
               </h1>
               <div>
                 <EclipseButton
@@ -648,7 +648,7 @@ export default function FromPayment(props) {
               </>
             ) : (
               <span className="text-sm font-semibold">
-                Seleccionar un socio"
+                Seleccionar un socio
               </span>
             )}
           </div>

@@ -222,10 +222,10 @@ export default function Payments() {
     <Container className="p-5 ">
       <div className="flex flex-col mb-3 gap-2">
         <h1 className="text-4xl font-bold tracking-tighter text-gray-800 dark:text-zinc-50">
-          Gestion de pagos
+          Gestión de pagos
         </h1>
         <span className="flex text-sm text-zinc-500 dark:text-zinc-300 ml-1">
-          Lista de pagos
+          Administra los pagos de cada socio registrado y activos
         </span>
       </div>
 

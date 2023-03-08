@@ -110,7 +110,7 @@ export default function SignIn() {
   };
 
   return (
-    <Content className=" bg-[#fafafa] min-h-[100vh] items-center w-full flex">
+    <Content className="min-h-[100vh] items-center w-full flex">
       <div
         style={{
           backgroundImage: "url(assets/Bradley+Mountain09.jpg)",
@@ -155,8 +155,8 @@ export default function SignIn() {
           </div>
         </div>
       </div>
-      <div className="flex px-5 max-w-[420px] h-full justify-center ">
-        <Container className=" mx-auto w-full dark:bg-transparent  p-3 flex flex-col gap-2 rounded-lg ">
+      <div className="flex px-5 max-w-[420px] dark:text-neutral-100 h-full justify-center ">
+        <Container className=" mx-auto w-full  p-3 flex flex-col gap-2 rounded-lg ">
           <div className="py-5">
             <div className="mx-auto w-32 text-[#0e3838]">
               <svg viewBox="0 0 205.572 81.411">
@@ -176,7 +176,7 @@ export default function SignIn() {
             </h1>
             <span className="flex text-sm mt-1 text-zinc-500">
               Inicia con tu correo y contraseña, en caso que lo hayas olvidado
-              puedes recuperarlo
+              puedes recuperarlo.
             </span>
           </div>
           {errorCode && (
@@ -184,60 +184,62 @@ export default function SignIn() {
               {errorCode.message}
             </div>
           )}
-          <div className="flex flex-col gap-3">
-            <div>
-              <TextField
-                requiredName="Ingrese su correo electronico"
-                patternName={`El correo "${data.email}" es invalido`}
-                placeholder="Correo"
-                type="text"
-                long
-                onChange={handleChange}
-                value={data.email}
-                error={errors.email}
-                control={control}
-                name="email"
-                rules={{
-                  required: true,
-                  pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                }}
-              />
+          <form className="flex flex-col gap-2" onSubmit={handleSubmit(onsubmit)}>
+            <div className="flex flex-col gap-3">
+              <div>
+                <TextField
+                  requiredName="Ingrese su correo electronico"
+                  patternName={`El correo "${data.email}" es invalido`}
+                  placeholder="Correo"
+                  type="text"
+                  long
+                  onChange={handleChange}
+                  value={data.email}
+                  error={errors.email}
+                  control={control}
+                  name="email"
+                  rules={{
+                    required: true,
+                    pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                  }}
+                />
+              </div>
+              <div>
+                <TextField
+                  requiredName="Ingresa una contraseña"
+                  type="password"
+                  placeholder="Contraseña"
+                  long
+                  onChange={handleChange}
+                  value={data.password}
+                  error={errors.password}
+                  control={control}
+                  name="password"
+                  rules={{
+                    required: true,
+                  }}
+                />
+              </div>
+            </div>
+            <div className="text-sm">
+              <Link
+                to="/reset-password"
+                className="text-blue-700 hover:underline font-semibold"
+              >
+                ¿Olvidaste tu contraseña?
+              </Link>
             </div>
             <div>
-              <TextField
-                requiredName="Ingresa una contraseña"
-                type="password"
-                placeholder="Contraseña"
-                long
-                onChange={handleChange}
-                value={data.password}
-                error={errors.password}
-                control={control}
-                name="password"
-                rules={{
-                  required: true,
-                }}
-              />
+              <PrimaryButton
+                loading={loading}
+                disabled={Object.entries(errors).length > 0 ? true : false}
+                onClick={handleSubmit(onsubmit)}
+                type="primary_transparent"
+              >
+                Iniciar Sesión
+              </PrimaryButton>
             </div>
-          </div>
-          <div className="text-sm">
-            <Link
-              to="/reset-password"
-              className="text-blue-700 hover:underline font-semibold"
-            >
-              ¿Olvidaste tu contraseña?
-            </Link>
-          </div>
-          <div>
-            <PrimaryButton
-              loading={loading}
-              disabled={Object.entries(errors).length > 0 ? true : false}
-              onClick={handleSubmit(onsubmit)}
-              type="primary_transparent"
-            >
-              Iniciar Sesión
-            </PrimaryButton>
-          </div>
+          </form>
           <div>
             <PrimaryButton to="/create-account-in-acropolis" type="default">
               Crear cuenta

@@ -127,11 +127,11 @@ export default function SignUp() {
         className="h-[100vh] w-[100%] flex items-end "
       >
         <div className="bg-gradient-to-t from-green-800 to-transparent pt-50">
-          <div className="w-[50%] p-10 flex flex-col">
-            <h1 className="text-6xl font-bold text-green-50 tracking-tight">
+          <div className="w-[50%] banner-text p-10 flex flex-col">
+            <h1 className="text-6xl font-bold text-green-50 drop-shadow-lg tracking-tight">
               Imagina todo lo que puedes descubrir en tí.
             </h1>
-            <p className="mt-5 text-neutral-200">
+            <p className="mt-5 drop-shadow-lg text-neutral-200">
               Imagina todo lo que puedes descubrir en ti mismo si te tomas el
               tiempo para explorar tus pensamientos, emociones y acciones, y te
               permites experimentar y crecer sin miedo al fracaso o al juicio de
@@ -162,8 +162,8 @@ export default function SignUp() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center min-w-[450px]">
-        <Container className=" w-[350px] p-3 flex flex-col gap-2 rounded-lg">
+      <div className="flex justify-center max-w-[420px] px-5">
+        <Container className="  mx-auto w-full p-3 flex flex-col gap-2 rounded-lg">
           <div className="py-5 w-full">
             <div className="mx-auto w-32 text-[#0e3838]">
               <svg viewBox="0 0 205.572 81.411">
@@ -295,10 +295,10 @@ export default function SignUp() {
             </PrimaryButton>
           </div>
           <div className="flex items-center justify-center py-1">
-              <span className="text-xs font-normal text-zinc-500">
-                O tambien únete con
-              </span>
-            </div>
+            <span className="text-xs font-normal text-zinc-500">
+              O tambien únete con
+            </span>
+          </div>
           <div>
             <PrimaryButton
               loading={loadingGoogle}
@@ -394,6 +394,12 @@ const Content = styled.div`
     filter: blur(150px);
     background-color: #09758637;
   }
+  @media (max-width: 900px) {
+    flex-direction: column;
+    .banner-text {
+      width: 100%;
+    }
+  }
 `;
 
 const Container = styled.div`
@@ -401,5 +407,8 @@ const Container = styled.div`
     background-color: transparent;
     border: 0;
     padding: 0;
+  }
+  @media (max-width: 900px) {
+    height: 100vh;
   }
 `;

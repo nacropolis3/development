@@ -27,7 +27,7 @@ export default function PrimaryButton(props) {
             borderRadius: props.rounded ? props.rounded : "auto",
           }}
           tooltip={props.tooltip ? props.tooltip : null}
-          // onKeyPress={!disabled && !props.loading ? onClick : null}
+          onKeyDown={!disabled && !props.loading ? onClick : null}
           onClick={!disabled && !props.loading ? onClick : null}
           className={`h-[36px] flex gap-1 items-center font-semibold justify-center  ${
             type && type
@@ -36,7 +36,10 @@ export default function PrimaryButton(props) {
           } py-[7px] ${
             props.type === "error" &&
             "bg-[#d4504c46] text-[#ff6767] hover:bg-[#d4504c69] hover:text-[#ff6767]"
-          }`}
+          } ${
+            props.type === "default" &&
+            "dark:bg-transparent border dark:border-neutral-700 hover:dark:bg-neutral-800 dark:text-neutral-50 bg-[#ffffff] border-[#d3d5d6] text-[#151516] hover:bg-[#ecedf0]"
+          }  `}
         >
           {props.loading ? (
             <div>
@@ -129,15 +132,7 @@ const ContainerButton = styled.div`
       border: 1px solid #fab216;
     }
   }
-  .default {
-    background: #ffffff;
-    border: 1px solid #d3d5d6;
-    color: #151516;
-    &:hover {
-      background: #ecedf0;
-      border: 1px solid #d3d5d6;
-    }
-  }
+
   .disable-button {
     cursor: no-drop;
     opacity: 0.5;

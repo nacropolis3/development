@@ -321,7 +321,7 @@ export default function FormMember(props) {
       <div className="flex flex-col pb-2">
         <div className="flex items-center">
           <h1 className="mr-auto leading-8 text-2xl font-bold tracking-tight dark:text-neutral-200">
-            {props.data ? " Actualizar" : " Registra un miembro nuevo"}
+            {props.data ? " Actualizar" : " Registrar"}
           </h1>
           <div>
             <EclipseButton
@@ -779,7 +779,7 @@ export default function FormMember(props) {
       <div className=" gap-2">
         <div className="border-t w-full pt-[6px] dark:border-t-zinc-600 mb-2">
           <h3 className="dark:text-zinc-100 text-sm font-semibold pl-1">
-            Gestion de cuotas y pagos
+            Gestión de cuotas y pagos
           </h3>
         </div>
         <div>
@@ -834,7 +834,7 @@ export default function FormMember(props) {
             </div>
             <div className="w-full">
               <TextField
-                info={"Cuota Celebracion"}
+                info={"Cuota Celebración"}
                 requiredName="La cuota es obligatorio"
                 minName="La cuota minima es S/3.00"
                 patternName="Solo numeros"
