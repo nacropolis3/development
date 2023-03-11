@@ -41,7 +41,7 @@ export default function User() {
       <div className="p-4 bg-white dark:bg-neutral-800 dark:border-neutral-700 border rounded-md">
         <div className="flex flex-col gap-2">
           <h1 className="text-3xl font-bold dark:text-neutral-200 tracking-tight leading-7">
-            Gestion de usuarios
+            Gestión de usuarios
           </h1>
           <span className="text-zinc-500 dark:text-neutral-400 text-sm flex leading-4">
             Administra los usuarios que tienen acceso al sistema

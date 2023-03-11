@@ -247,7 +247,7 @@ export default function SignIn() {
           </div>
           <div className="flex items-center justify-center py-1">
             <span className="text-xs font-normal text-zinc-500">
-              O tambien inicia con
+              O también inicia con
             </span>
           </div>
           <div>

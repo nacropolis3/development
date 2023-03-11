@@ -296,7 +296,7 @@ export default function SignUp() {
           </div>
           <div className="flex items-center justify-center py-1">
             <span className="text-xs font-normal text-zinc-500">
-              O tambien únete con
+              O también únete con
             </span>
           </div>
           <div>

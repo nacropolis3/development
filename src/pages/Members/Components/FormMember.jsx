@@ -655,14 +655,18 @@ export default function FormMember(props) {
         <div className="w-60">
           <h2
             className={`pb-2 ${
-              errors["groupUid"] ? "text-red-500 dark:text-red-500" : "text-neutral-800"
+              errors["groupUid"]
+                ? "text-red-500 dark:text-red-500"
+                : "text-neutral-800"
             } pl-1 text-xs dark:text-neutral-100`}
           >
             Selecciona un grupo
           </h2>
           <div
             className={`  bg-[#eef1f3] dark:bg-neutral-800 border dark:border-neutral-600  w-full p-1 rounded-[5px] ${
-              errors["groupUid"] ? "border-red-600 dark:border-red-500" : "border-neutral-300 "
+              errors["groupUid"]
+                ? "border-red-600 dark:border-red-500"
+                : "border-neutral-300 "
             } `}
           >
             <div className="flex flex-wrap justify-center gap-1 ">
@@ -706,7 +710,9 @@ export default function FormMember(props) {
                     src="/assets/no-data.png"
                     alt=""
                   />
-                  <span className="text-sm dark:text-neutral-100">Sin grupos</span>
+                  <span className="text-sm dark:text-neutral-100">
+                    Sin grupos
+                  </span>
                 </div>
               )}
             </div>
@@ -715,7 +721,9 @@ export default function FormMember(props) {
         <div className="w-60">
           <h2
             className={`pb-2 ${
-              errors["geadquarterUid"] ? "text-red-500 dark:text-red-500" : "text-neutral-800"
+              errors["geadquarterUid"]
+                ? "text-red-500 dark:text-red-500"
+                : "text-neutral-800"
             } pl-1 text-xs dark:text-neutral-100`}
           >
             Selecciona una sede
@@ -756,7 +764,9 @@ export default function FormMember(props) {
                         "bg-green-700  text-zinc-50 hover:bg-green-800"
                       } cursor-pointer  hover:bg-[#a5a6a771] dark:text-zinc-300 p-2 rounded-md`}
                     >
-                      <h3 className="text-xs font-semibold dark:text-white">{item.name}</h3>
+                      <h3 className="text-xs font-semibold dark:text-white">
+                        {item.name}
+                      </h3>
                     </div>
                   </div>
                 ))}
@@ -769,7 +779,9 @@ export default function FormMember(props) {
                     src="/assets/world.png"
                     alt=""
                   />
-                  <span className="text-sm  dark:text-neutral-100">Sin sedes</span>
+                  <span className="text-sm  dark:text-neutral-100">
+                    Sin sedes
+                  </span>
                 </div>
               )}
             </div>
@@ -853,6 +865,27 @@ export default function FormMember(props) {
                   required: true,
                   pattern: /^(0|[1-9][0-9]{0,2})(,\d{3})*(\.\d{1,2})?$/,
                 }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className=" gap-2 mt-3">
+        <div>
+          <div className="flex gap-2">
+            <div className="w-full">
+              <TextField
+                multiple
+                info={"Observaciones"}
+                requiredName="La cuota es obligatorio"
+                placeholder="(Opcional)"
+                type="text"
+                onChange={handleChange}
+                value={data.observations}
+                error={errors.observations}
+                control={control}
+                name="observations"
+                rules={{}}
               />
             </div>
           </div>

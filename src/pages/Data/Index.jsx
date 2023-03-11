@@ -45,7 +45,7 @@ export default function Data() {
         <div>
           <div className="flex flex-col gap-2">
             <h1 className="text-3xl font-bold tracking-tighter leading-4 text-gray-800 dark:text-zinc-50">
-              Gestion de Datos
+              Gestión de Datos
             </h1>
             <span className="flex text-sm text-zinc-500 dark:text-zinc-300">
               Datos globales
@@ -379,9 +379,6 @@ export default function Data() {
                 </div>
               </>
             )}
-            {/* {wrapper === 2 && (
-              
-            )} */}
           </Wrapper>
         </div>
       </div>
