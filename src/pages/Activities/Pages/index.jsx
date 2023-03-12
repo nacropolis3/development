@@ -1,6 +1,7 @@
 import { limit, orderBy, startAfter } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Navigate } from "react-router-dom";
 import { useUser } from "../../../context/userContext";
 import {
   TimeAgoHourFormat,
@@ -35,6 +36,11 @@ export default function Activities() {
   useEffect(() => {
     getActivitiesService(setActivities, [], [], setLast);
   }, []);
+
+  if (userData.role === "EconomyArea") {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div className="p-4">
       <div>
@@ -99,9 +105,7 @@ export default function Activities() {
               <table className="w-full ">
                 <thead className="text-sm  border-b dark:border-b-zinc-700 h-[35px] font-normal">
                   <tr className="border-0  dark:text-zinc-200">
-                    {/* <th className="w-[0px]">
-                      {activities && activities.length}
-                    </th> */}
+                   
                     <th className=" font-semibold pl-2 w-[150px]">
                       <div className="text-left">Modulo</div>
                     </th>
@@ -124,10 +128,7 @@ export default function Activities() {
                   {activities &&
                     activities.map((item, index) => (
                       <tr
-                        // onDoubleClick={() => {
-                        //   setMemberSelected(item);
-                        //   setModalAdd(true);
-                        // }}
+                       
                         key={index}
                         className="cursor-default dark:text-zinc-200 dark:hover:bg-[#18191a] hover:bg-[#b1b4b633]  transition-colors  text-sm "
                       >
@@ -175,82 +176,6 @@ export default function Activities() {
                             )}
                           </div>
                         </td>
-
-                        {/* <td className="">
-                          <div>
-                            <div className="font-semibold">
-                              {item.geadquarter.name}
-                            </div>
-                            <div className="text-xs text-neutral-500">
-                              {item.geadquarter.address}
-                            </div>
-                          </div>
-                        </td>
-                        <td className="text-center ">
-                          <div className="flex items-center">
-                            <div className="ml-auto">
-                              <div
-                                className={`w-[6px] h-[6px] ${
-                                  item.statu ? " bg-green-600" : " bg-red-500"
-                                }  rounded-full`}
-                              ></div>
-                            </div>
-                            <div
-                              onClick={() => handleUpdateStatu(item)}
-                              tooltip={
-                                item.updated_statu_at
-                                  ? `Actualizado ${TimeAgoHourFormat(
-                                      item.updated_statu_at.date
-                                    )} por ${item.updated_statu_at.user_name}`
-                                  : "Cambiar Estado"
-                              }
-                              className={`p-[5px] cursor-pointer hover:bg-neutral-200 rounded-md mx-auto font-semibold text-xs w-[65px] flex items-center justify-center`}
-                            >
-                              <div className="text">
-                                {item.statu ? "Activo" : "Inactivo"}
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="ml-auto">
-                          <div className="flex items-center font-semibold">
-                            <div className="text-right ml-auto pr-2">
-                              S/ {parseInt(item.totalFee).toFixed(2)}
-                            </div>
-                            <div className="w-4 h-4">
-                              <svg
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                className="icon-stroke"
-                              >
-                                <g id="SVGRepo_iconCarrier">
-                                  <path d="M11.74 17.7499H17.66C17.57 17.8299 17.48 17.8999 17.39 17.9799L13.12 21.1799C11.71 22.2299 9.41001 22.2299 7.99001 21.1799L3.71001 17.9799C2.77001 17.2799 2 15.7299 2 14.5599V7.14986C2 5.92986 2.93001 4.57986 4.07001 4.14986L9.05 2.27986C9.87 1.96986 11.23 1.96986 12.05 2.27986L17.02 4.14986C17.97 4.50986 18.78 5.50986 19.03 6.52986H11.73C11.51 6.52986 11.31 6.53987 11.12 6.53987C9.27 6.64987 8.78999 7.31986 8.78999 9.42986V14.8598C8.79999 17.1598 9.39001 17.7499 11.74 17.7499Z"></path>{" "}
-                                  <path d="M8.80005 11.22H22"></path>
-                                  <path d="M22 9.41977V14.9698C21.98 17.1898 21.37 17.7397 19.06 17.7397H11.7401C9.39005 17.7397 8.80005 17.1498 8.80005 14.8398V9.40976C8.80005 7.30976 9.28005 6.63974 11.1301 6.51974C11.3201 6.51974 11.5201 6.50977 11.7401 6.50977H19.06C21.41 6.51977 22 7.09977 22 9.41977Z"></path>{" "}
-                                  <path d="M11.3201 15.2598H12.6501"></path>
-                                  <path d="M14.75 15.2598H18.02"></path>
-                                </g>
-                              </svg>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="rounded-r-sm text-left pl-5">
-                          <div>
-                            <div>
-                              {UppercasePrimaryLetter(
-                                TimeAgoHourFormatSimple(item.created_at)
-                              )}
-                            </div>
-                            <div className="text-xs text-neutral-500">
-                              {UppercasePrimaryLetter(
-                                TimeAgoHourFormat(item.created_at)
-                              )}
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div>{item.observations}</div>
-                        </td> */}
                       </tr>
                     ))}
                 </tbody>

@@ -3,7 +3,7 @@ import { useUser } from "../../context/userContext";
 import { AsideButton } from "./components/AsideButton";
 
 export default function Aside() {
-  const { userData, loadingUserData } = useUser();
+  const { userData } = useUser();
   return (
     <>
       <AsideContainer>
@@ -43,7 +43,7 @@ export default function Aside() {
             }
             Text="Miembros"
           />
-          
+
           <AsideButton
             to="/payments"
             icon={
@@ -61,72 +61,40 @@ export default function Aside() {
             }
             Text="Pagos"
           />
-          {/* <AsideButton
-            to="/bills"
-            icon={
-              <svg viewBox="0 0 24 24" fill="none">
-                <g id="SVGRepo_iconCarrier">
-                  <path
-                    opacity="0.4"
-                    d="M16.2391 3.6499H7.75906C5.28906 3.6499 3.28906 5.6599 3.28906 8.1199V17.5299C3.28906 19.9899 5.29906 21.9999 7.75906 21.9999H16.2291C18.6991 21.9999 20.6991 19.9899 20.6991 17.5299V8.1199C20.7091 5.6499 18.6991 3.6499 16.2391 3.6499Z"
-                  ></path>
-                  <path d="M14.3498 2H9.64977C8.60977 2 7.75977 2.84 7.75977 3.88V4.82C7.75977 5.86 8.59977 6.7 9.63977 6.7H14.3498C15.3898 6.7 16.2298 5.86 16.2298 4.82V3.88C16.2398 2.84 15.3898 2 14.3498 2Z"></path>
-                  <path d="M15 12.9502H8C7.59 12.9502 7.25 12.6102 7.25 12.2002C7.25 11.7902 7.59 11.4502 8 11.4502H15C15.41 11.4502 15.75 11.7902 15.75 12.2002C15.75 12.6102 15.41 12.9502 15 12.9502Z"></path>
-                  <path d="M12.38 16.9502H8C7.59 16.9502 7.25 16.6102 7.25 16.2002C7.25 15.7902 7.59 15.4502 8 15.4502H12.38C12.79 15.4502 13.13 15.7902 13.13 16.2002C13.13 16.6102 12.79 16.9502 12.38 16.9502Z"></path>
-                </g>
-              </svg>
-            }
-            Text="Facturas"
-          /> */}
-          {/* <AsideButton
-            to="/report"
-            icon={
-              <svg width="27" viewBox="0 0 24 24" fill="none">
-                <g id="SVGRepo_iconCarrier">
-                  <path d="M22 22H2C1.59 22 1.25 21.66 1.25 21.25C1.25 20.84 1.59 20.5 2 20.5H22C22.41 20.5 22.75 20.84 22.75 21.25C22.75 21.66 22.41 22 22 22Z"></path>{" "}
-                  <path d="M9.75 4V22H14.25V4C14.25 2.9 13.8 2 12.45 2H11.55C10.2 2 9.75 2.9 9.75 4Z"></path>{" "}
-                  <path
-                    opacity="0.4"
-                    d="M3 10V22H7V10C7 8.9 6.6 8 5.4 8H4.6C3.4 8 3 8.9 3 10Z"
-                  ></path>
-                  <path
-                    opacity="0.4"
-                    d="M17 15V22H21V15C21 13.9 20.6 13 19.4 13H18.6C17.4 13 17 13.9 17 15Z"
-                  ></path>
-                </g>
-              </svg>
-            }
-            Text="Reporte de pagos"
-          /> */}
-          <AsideButton
-            to="/users"
-            icon={
-              <svg viewBox="0 0 24 24" fill="none">
-                <g id="SVGRepo_iconCarrier">
-                  <path
-                    opacity="0.4"
-                    d="M22 7.81V16.19C22 19 20.71 20.93 18.44 21.66C17.78 21.89 17.02 22 16.19 22H7.81C6.98 22 6.22 21.89 5.56 21.66C3.29 20.93 2 19 2 16.19V7.81C2 4.17 4.17 2 7.81 2H16.19C19.83 2 22 4.17 22 7.81Z"
-                  ></path>
-                  <path d="M18.4406 21.66C17.7806 21.89 17.0206 22 16.1906 22H7.81055C6.98055 22 6.22055 21.89 5.56055 21.66C5.91055 19.02 8.67055 16.97 12.0005 16.97C15.3305 16.97 18.0906 19.02 18.4406 21.66Z"></path>
-                  <path d="M15.5799 11.58C15.5799 13.56 13.9799 15.17 11.9999 15.17C10.0199 15.17 8.41992 13.56 8.41992 11.58C8.41992 9.60002 10.0199 8 11.9999 8C13.9799 8 15.5799 9.60002 15.5799 11.58Z"></path>
-                </g>
-              </svg>
-            }
-            Text="Usuarios"
-          />
-          <AsideButton
-            to="/activities"
-            iconStroke={
-              <svg viewBox="0 0 25 25" fill="none">
-                <g id="SVGRepo_iconCarrier">
-                  <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z"></path>
-                  <path d="M15.71 15.18L12.61 13.33C12.07 13.01 11.63 12.24 11.63 11.61V7.51001"></path>
-                </g>
-              </svg>
-            }
-            Text="Actividades"
-          />
-          <LiSeparation className="h-[1px] w-full bg-zinc-300 dark:bg-zinc-700"/>
+          {userData.role != "EconomyArea" && (
+            <>
+              <AsideButton
+                to="/users"
+                icon={
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <g id="SVGRepo_iconCarrier">
+                      <path
+                        opacity="0.4"
+                        d="M22 7.81V16.19C22 19 20.71 20.93 18.44 21.66C17.78 21.89 17.02 22 16.19 22H7.81C6.98 22 6.22 21.89 5.56 21.66C3.29 20.93 2 19 2 16.19V7.81C2 4.17 4.17 2 7.81 2H16.19C19.83 2 22 4.17 22 7.81Z"
+                      ></path>
+                      <path d="M18.4406 21.66C17.7806 21.89 17.0206 22 16.1906 22H7.81055C6.98055 22 6.22055 21.89 5.56055 21.66C5.91055 19.02 8.67055 16.97 12.0005 16.97C15.3305 16.97 18.0906 19.02 18.4406 21.66Z"></path>
+                      <path d="M15.5799 11.58C15.5799 13.56 13.9799 15.17 11.9999 15.17C10.0199 15.17 8.41992 13.56 8.41992 11.58C8.41992 9.60002 10.0199 8 11.9999 8C13.9799 8 15.5799 9.60002 15.5799 11.58Z"></path>
+                    </g>
+                  </svg>
+                }
+                Text="Usuarios"
+              />
+              <AsideButton
+                to="/activities"
+                iconStroke={
+                  <svg viewBox="0 0 25 25" fill="none">
+                    <g id="SVGRepo_iconCarrier">
+                      <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z"></path>
+                      <path d="M15.71 15.18L12.61 13.33C12.07 13.01 11.63 12.24 11.63 11.61V7.51001"></path>
+                    </g>
+                  </svg>
+                }
+                Text="Actividades"
+              />
+            </>
+          )}
+
+          <LiSeparation className="h-[1px] w-full bg-zinc-300 dark:bg-zinc-700" />
           <h2>Accesos confidencial</h2>
           <AsideButton
             to="/data"
@@ -151,10 +119,7 @@ export default function Aside() {
         </AsideList>
         <AsideFooter className="w-[200px] mx-auto ">
           <div className="text-center">
-            <p className="">
-              Copyright © 2023 Nueva Acrópolis  
-              
-            </p>
+            <p className="">Copyright © 2023 Nueva Acrópolis</p>
           </div>
         </AsideFooter>
       </AsideContainer>
@@ -179,9 +144,7 @@ const AsideList = styled.div`
     font-weight: 500;
   }
 `;
-const LiSeparation = styled.div`
- 
-`;
+const LiSeparation = styled.div``;
 const AsideFooter = styled.div`
   flex-wrap: wrap;
   font-size: 12px;

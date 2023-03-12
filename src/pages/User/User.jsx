@@ -6,6 +6,7 @@ import {
 } from "../../services/user/userServices";
 import { TimeAgoHourFormat } from "../../helpers/moment";
 import { useUser } from "../../context/userContext";
+import { Navigate } from "react-router-dom";
 
 export default function User() {
   const [users, setUsers] = useObject();
@@ -36,6 +37,11 @@ export default function User() {
   useEffect(() => {
     getUsersService(setUsers);
   }, []);
+
+  if (userData.role === "EconomyArea") {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div className=" flex flex-col gap-2 mx-auto p-5">
       <div className="p-4 bg-white dark:bg-neutral-800 dark:border-neutral-700 border rounded-md">
@@ -70,7 +76,10 @@ export default function User() {
             <tbody>
               {users &&
                 users.map((user, index) => (
-                  <tr key={index} className="text-sm border-t dark:text-neutral-200 dark:border-neutral-600">
+                  <tr
+                    key={index}
+                    className="text-sm border-t dark:text-neutral-200 dark:border-neutral-600"
+                  >
                     <td className="p-3 py-3">{index + 1}</td>
                     <td className="">
                       <div className="flex items-center gap-2">
@@ -195,12 +204,11 @@ export default function User() {
                         ) : (
                           <select
                             className="outline-none rounded-[4px] p-[5px] border cursor-pointer border-neutral-300 hover:border-zinc-500 transition-colors"
-                            defaultValue={user.role}
+                            value={user.role}
                             onChange={(e) => {
                               handleUpdateRol(user, e);
                             }}
                           >
-                            <option value="">Sin rol</option>
                             <option value="Admin">Administrador</option>
                             <option value="EconomyArea">
                               Area de Economia
@@ -211,7 +219,6 @@ export default function User() {
                     </td>
                   </tr>
                 ))}
-             
             </tbody>
           </table>
         </div>

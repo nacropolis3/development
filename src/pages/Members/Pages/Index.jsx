@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { orderBy, where } from "firebase/firestore";
+import { limit, orderBy, where } from "firebase/firestore";
 import styled from "styled-components";
 import ContentModal from "../../../components/Modal/Components/Content";
-import { HeaderModal } from "../../../components/Modal/Components/Header";
 import BodyModal from "../../../components/Modal/Components/Main";
 import Modal from "../../../components/Modal/Modal";
 import { useUser } from "../../../context/userContext";
@@ -13,14 +12,13 @@ import {
   TimeAgoHourFormat,
   TimeAgoHourFormatSimple,
 } from "../../../helpers/moment";
-import { converterNumberAtPricePeru } from "../../../helpers/pricing";
-
 import {
   getDataGeadquartersService,
   getDataGroupsService,
 } from "../../../services/Data/DataServices";
 import {
   getMembersService,
+  getMembersServiceSearsh,
   updateMemberService,
 } from "../../../services/Member/MemberServices";
 import FormMember from "../Components/FormMember";
@@ -31,24 +29,17 @@ import {
   upercasePrimaryLetter,
   UppercasePrimaryLetter,
 } from "../../../helpers/Other";
+import { getPaymentsServiceSearsh } from "../../../services/Payment/PaymentServices";
 
 export default function Members() {
   const { userData } = useUser();
   const [modalAdd, setModalAdd] = useState(false);
-  const [filterShow, setFilterShow] = useState(false);
   const [memberSelected, setMemberSelected] = useState(null);
 
   const [groups, setGroups] = useState(null);
   const [members, setMembers] = useState(null);
   const [geadquarters, setGeadquarters] = useState(null);
-
-  const [conditions, setConditions] = useState([]);
-
-  const [groupWhere, setGroupWhere] = useState(null);
-  const [geadquarterWhere, setGeadquarterWhere] = useState(null);
-  const [statuWhere, setStatuWhere] = useState(null);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [searchkey, setSearchkey] = useState(null);
 
   const [data, setData] = useState({
     uidGroup: null,
@@ -76,7 +67,11 @@ export default function Members() {
       conditions.push(where("created_at", "<=", converterDate(data.endDate)));
     }
     if (data.statu) {
-      conditions.push(where("statu", "==", data.statu));
+      if (data.statu === "activos") {
+        conditions.push(where("statu", "==", true));
+      } else if (data.statu === "inactivos") {
+        conditions.push(where("statu", "==", false));
+      }
     }
     if (data.uidGroup) {
       conditions.push(where("group.uid", "==", data.uidGroup));
@@ -101,19 +96,23 @@ export default function Members() {
   };
   const searsh = () => {
     let newCon = [];
+
     if (searchkey && !isNumeric(searchkey)) {
-      newCon.push(where("member.names", ">=", searchkey.toUpperCase()));
-      newCon.push(where("member.names", "<=", searchkey.toUpperCase() + "~"));
+      newCon.push(where("lastName", "<=", searchkey.toUpperCase() + "~"));
+      newCon.push(where("lastName", ">=", searchkey.toUpperCase()));
     } else if (searchkey && isNumeric(searchkey)) {
-      newCon.push(where("member.dni", ">=", searchkey));
-      newCon.push(where("member.dni", "<=", searchkey + "~"));
+      newCon.push(where("dni", ">=", searchkey));
+      newCon.push(where("dni", "<=", searchkey + "~"));
     }
-    newCon.push(limit(5));
+
+    newCon.push(limit(20));
+
     if (!searchkey) {
       filter();
     } else {
-      getPaymentsServiceSearsh(setPayments, newCon);
+      getMembersServiceSearsh(setMembers, newCon);
     }
+
   };
 
   useEffect(() => {
@@ -130,20 +129,6 @@ export default function Members() {
     data.endDate,
     data.startDate,
   ]);
-  const handelCopy = (value) => {
-    navigator.clipboard.writeText(value);
-    toast.success("Uid copiado", {
-      style: {
-        padding: "7px",
-        paddingLeft: "10px",
-        color: "#713200",
-      },
-      iconTheme: {
-        primary: "#713200",
-        secondary: "#FFFAEE",
-      },
-    });
-  };
   const handleUpdateStatu = async (item) => {
     let newData = { ...item };
     delete newData.uid;
@@ -171,6 +156,12 @@ export default function Members() {
       },
     });
   };
+  useEffect(() => {
+    searsh();
+  }, [searchkey]);
+  function isNumeric(num) {
+    return !isNaN(num);
+  }
 
   return (
     <div className="p-4">
@@ -285,7 +276,6 @@ export default function Members() {
               <div className="">
                 <ReactSelect
                   placeholder="-- Estado --"
-                  isDisabled
                   styles={{
                     control: (baseStyles, state) => ({
                       ...baseStyles,
@@ -295,6 +285,7 @@ export default function Members() {
                   onChange={(e) =>
                     handleChange({
                       target: {
+                        ...e.target,
                         value: e.value,
                         name: "statu",
                       },
@@ -309,11 +300,11 @@ export default function Members() {
                       },
                       {
                         label: "Activos",
-                        value: "true",
+                        value: "activos",
                       },
                       {
                         label: "Inactivos",
-                        value: "false",
+                        value: "inactivos",
                       },
                     ]
                   }
@@ -327,7 +318,8 @@ export default function Members() {
                 <div className="relative">
                   <input
                     data-toggle="dropdown"
-                    // onChange={(e) => setSearchkey(e.target.value)}
+                    onChange={(e) => setSearchkey(e.target.value)}
+                    value={searchkey ? searchkey : ""}
                     placeholder="Buscar por DNI o Apellido Paterno"
                     type="text"
                     // value={searchkey ? searchkey : ""}
