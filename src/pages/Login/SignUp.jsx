@@ -61,8 +61,8 @@ export default function SignUp() {
       const newUser = {
         email: user.email,
         name: data.names,
-        role: null,
-        statu: true,
+        role: "EconomyArea",
+        statu: false,
         photoUrl:
           "https://scontent.flim9-1.fna.fbcdn.net/v/t1.30497-1/84628273_176159830277856_972693363922829312_n.jpg?stp=c15.0.50.50a_cp0_dst-jpg_p50x50&_nc_cat=1&ccb=1-7&_nc_sid=12b3be&_nc_ohc=CfWz3279CK8AX8TNg1B&_nc_ht=scontent.flim9-1.fna&edm=AHgPADgEAAAA&oh=00_AfAPMwFlEFpQjM1JN9ggR7TJhclTWQJJoV2-s_c858nfTQ&oe=6428D799",
         providerId: user.providerData[0].providerId,
