@@ -372,7 +372,7 @@ export default function SignUp() {
             </PrimaryButton>
           </div>
           <div className="text-sm gap-1 items-center flex">
-            ¿Ya tienes un cuenta?
+            ¿Ya tienes una cuenta?
             <Link to="/" className="text-blue-500 font-semibold">
               Inicia sesión aquí
             </Link>
