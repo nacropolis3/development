@@ -204,7 +204,7 @@ export default function Nav() {
                   <span>Cerrar Sesión</span>
                 </div>
                 <div className="text-xs py-1 ml-2 text-neutral-500">
-                  Power by MetCorp
+                  Power by Univercel
                 </div>
               </div>
             </Dropdown>
@@ -215,59 +215,7 @@ export default function Nav() {
   );
 }
 
-const SearshButton = () => {
-  return (
-    <ContainerSearsh className="flex gap-1">
-      <form action="">
-        <Content className="flex items-center relative">
-          <input
-            className="focus:text-left text-center focus:pl-4 rounded-3xl px-4 text-[14px] w-[300px] h-[40px] outline-none dark:border-0 border border-gray-300 dark:bg-[#3a3b3c] focus:border-gray-400 dark:text-zinc-100"
-            placeholder="Buscar"
-            type="text"
-            id="searsh"
-          />
-          <IconSearsh className="icnser pointer-events-none">
-            <label htmlFor="searsh">
-              <svg
-                className="text-[#464545] dark:text-[#949494]"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <g
-                  style={{
-                    clipPath: "url(#clip0_35_20)",
-                  }}
-                >
-                  <path
-                    d="M10.8874 0C5.86273 0 1.7748 4.08789 1.7748 9.11258C1.7748 11.2861 2.54012 13.284 3.81496 14.852L0 18.6669L1.33312 20L5.14809 16.185C6.71594 17.4598 8.71387 18.2252 10.8874 18.2252C15.9121 18.2252 20 14.1373 20 9.11258C20 4.08789 15.9121 0 10.8874 0ZM10.8874 16.3398C6.90234 16.3398 3.6602 13.0977 3.6602 9.11258C3.6602 5.1275 6.9023 1.88535 10.8874 1.88535C14.8725 1.88535 18.1146 5.1275 18.1146 9.11258C18.1146 13.0977 14.8725 16.3398 10.8874 16.3398Z"
-                    fill="currentColor"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_35_20">
-                    <rect width="20" height="20" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-            </label>
-          </IconSearsh>
-        </Content>
-      </form>
-      {/* <ButtonNav
-        tooltip="Add"
-        type="default"
-        icon={
-          <svg viewBox="0 0 24 24" fill="none">
-            <g id="SVGRepo_iconCarrier">
-              <path d="M6 12H18" className="dvg_path"></path>{" "}
-              <path d="M12 18V6" className="dvg_path"></path>x
-            </g>
-          </svg>
-        }
-      /> */}
-    </ContainerSearsh>
-  );
-};
+
 const H1LogoName = styled.h1`
   letter-spacing: -1px;
   font-size: 25px;

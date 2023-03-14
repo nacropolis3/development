@@ -28,8 +28,8 @@ export function UserProvider({ children }) {
       const newUser = {
         email: user.email,
         name: user.displayName,
-        role: null,
-        statu: true,
+        role: "EconomyArea",
+        statu: false,
         photoUrl: user.photoURL,
         providerId: user.providerData[0].providerId,
         created_at: FormatDate(),

@@ -26,12 +26,7 @@ export async function saveActivitieService(activity) {
 }
 
 export function getActivitiesService(setData, data, conditions, setLast) {
-  const q = query(
-    collection(db, "activities"),
-    orderBy("created_at", "desc"),
-    limit(20),
-    ...conditions
-  );
+  const q = query(collection(db, "activities"), ...conditions, limit(20));
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
     const activities = [];
     querySnapshot.forEach((doc) => {
