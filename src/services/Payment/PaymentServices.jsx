@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { saveActivitieService } from "../Activities/ActivitiesServices";
+import { deletePaymentsItemService } from "./PaymentItem";
 
 export async function savePaymentService(payment, uid, user) {
   try {
@@ -78,4 +79,34 @@ export function getPaymentService(setData, uid) {
   });
 
   return () => unsubscribe();
+}
+
+export async function updatePaymentService(document, uid, user) {
+  const memberRef = doc(db, "payments", uid);
+  try {
+    await updateDoc(memberRef, document);
+    await saveActivitieService({
+      module: "TIcket",
+      action: {
+        name: "Anulación",
+        uid: uid,
+      },
+      description: `Ticket Anulado ${document.billHeader}`,
+      user: {
+        names: user?.name,
+        uid: user?.uid,
+        photo: user?.photoUrl,
+      },
+    });
+
+    await Promise.all(
+      document.paymountList.forEach(async (item) => {
+        await deletePaymentsItemService(item.uid);
+      })
+    );
+
+    return true;
+  } catch (error) {
+    return error;
+  }
 }

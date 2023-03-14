@@ -6,6 +6,7 @@ import {
   onSnapshot,
   orderBy,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { uuidv4 } from "@firebase/util";
@@ -60,4 +61,8 @@ export async function updatePaymentsItemService(document, uid) {
   } catch (error) {
     return error;
   }
+}
+
+export async function deletePaymentsItemService(uid) {
+  await deleteDoc(doc(db, "paymentsItem", uid));
 }

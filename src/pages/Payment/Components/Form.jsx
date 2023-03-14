@@ -2,7 +2,7 @@ import { uuidv4 } from "@firebase/util";
 import { limit, where } from "firebase/firestore";
 import generateUniqueId from "generate-unique-id";
 import moment from "moment";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import styled from "styled-components";
@@ -33,8 +33,6 @@ export default function FromPayment(props) {
   const { userData } = useUser();
   const currentDate = new Date();
 
-
-  const componentRef = useRef();
   const [print, setPrint] = useState(false);
 
   const [memberSelected, setMemberSelected] = useState(null);
@@ -45,6 +43,7 @@ export default function FromPayment(props) {
       ? props.data
       : {
           observations: "",
+          totalImported: 0,
           paymentType: "cash",
           codePaymentType: "",
         }
@@ -69,27 +68,11 @@ export default function FromPayment(props) {
       length: 6,
       useLetters: false,
     });
-  const months = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-  ];
 
   const {
     handleSubmit,
     control,
-    setError,
     register,
-    setValue,
     clearErrors,
     unregister,
     formState: { errors },
@@ -109,7 +92,6 @@ export default function FromPayment(props) {
   const onSubmit = async () => {
     setLoading(true);
     const uid = uuidv4();
-
     concepts.forEach((concept) => {
       if (concept.uid === data.uidConcept) {
         conceptSelected = concept;
@@ -122,26 +104,32 @@ export default function FromPayment(props) {
           length: 7,
           useLetters: false,
         })}`;
+
         let newItem = {
           ...item,
           headerUid: uid,
           created_at: FormatDate(),
-          imported: item.paid ? item.paid.debt : parseInt(item.imported),
+          imported: item.paid
+            ? item.paid.debt
+            : parseInt(item.imported === "0.01" ? "0.00" : item.imported),
           fee: parseInt(memberSelected.totalFee),
-          debt: item.paid
-            ? item.debt
-            : item.promotion
-            ? 0
-            : parseInt(memberSelected.totalFee) - item.imported,
+          debt:
+            concept.name != "Cuota"
+              ? 0
+              : item.paid
+              ? item.debt
+              : item.promotion
+              ? 0
+              : parseInt(memberSelected.totalFee) - item.imported,
           concept: {
             uid: concept?.uid,
           },
           member: {
             uid: memberSelected?.uid,
             groupUid: memberSelected?.group.uid,
-            // names: `${memberSelected?.lastName} ${memberSelected?.motherLastName}, ${memberSelected?.names}`,
           },
         };
+
         delete newItem.uid;
         if (item.paid) {
           if (item.paid.debt > 0) {
@@ -153,8 +141,12 @@ export default function FromPayment(props) {
               observation: newItem.promotion
                 ? newItem.promotion.reason
                 : newItem.observation,
-              debt: newItem.debt,
-              imported: item.paid ? item.paid.debt : item.imported,
+              debt: concept.name != "Cuota" ? 0 : newItem.debt,
+              imported: item.paid
+                ? item.paid.debt
+                : item.imported === "0.01"
+                ? "0.00"
+                : item.imported,
               billNumber: bill,
             });
           }
@@ -167,8 +159,12 @@ export default function FromPayment(props) {
             observation: newItem.promotion
               ? newItem.promotion.reason
               : newItem.observation,
-            debt: newItem.debt,
-            imported: item.paid ? item.paid.debt : item.imported,
+            debt: concept.name != "Cuota" ? 0 : newItem.debt,
+            imported: item.paid
+              ? item.paid.debt
+              : item.imported === "0.01"
+              ? "0.00"
+              : item.imported,
             billNumber: bill,
           });
         }
@@ -180,6 +176,7 @@ export default function FromPayment(props) {
       billHeader: billHeader,
       payment_at: FormatDate(),
       metadata: await getInfo(),
+      statu: true,
       member: {
         uid: memberSelected?.uid,
         dni: memberSelected?.dni,
@@ -197,9 +194,11 @@ export default function FromPayment(props) {
         name: concept?.name,
         uid: concept?.uid,
       },
+      totalImported: data.totalImported === 0.01 ? 0.0 : data.totalImported,
     };
+    console.log(data.totalImported);
     await savePaymentService(newData, uid, userData);
-    if (promotion && promotion.promotion === "1") {
+    if (promotion && promotion.promotion === "0.9999") {
       let newMember = {
         ...memberSelected,
         promotionUltimate: promotion.date,
@@ -338,7 +337,6 @@ export default function FromPayment(props) {
     getMembersServiceSearsh(setMembers, newCon);
   }, [searchkey]);
 
-  useEffect(() => {}, []);
   function isNumeric(num) {
     return !isNaN(num);
   }
@@ -363,10 +361,7 @@ export default function FromPayment(props) {
         if (e.target.name === "imported") {
           newList.push({
             ...item,
-            imported:
-              e.target.value <= memberSelected.totalFee && e.target.value >= 1
-                ? e.target.value
-                : item.imported,
+            imported: e.target.value,
           });
         } else {
           newList.push({
@@ -409,9 +404,10 @@ export default function FromPayment(props) {
                 reason: whatIsPromotion(promotion.promotion),
                 promotion: promotion.promotion,
               },
-              imported:
+              imported: (
                 parseInt(memberSelected.totalFee) -
-                parseInt(memberSelected.totalFee) * promotion.promotion,
+                parseInt(memberSelected.totalFee) * promotion.promotion
+              ).toFixed(2),
             };
           } else {
             delete newItem.promotion;
@@ -482,10 +478,18 @@ export default function FromPayment(props) {
         }
       });
     }
-    setData({
-      ...data,
-      totalImported: total,
-    });
+    if (promotion && promotion.promotion === "0.9999" && total != 0.01 && total != 0) {
+      setData({
+        ...data,
+        totalImported: total - 0.01,
+      });
+    } else {
+      setData({
+        ...data,
+        totalImported: total,
+      });
+    }
+
     isPromotion();
   }, [paymountList, lastPayments]);
 
@@ -508,6 +512,7 @@ export default function FromPayment(props) {
       isPromotion();
     }
   }, [concept, memberSelectedInter]);
+
   const isPromotion = () => {
     let listDate = [];
     let current = null;
@@ -559,7 +564,7 @@ export default function FromPayment(props) {
       });
     } else if (resultNum === 11) {
       setPromotion({
-        promotion: "1",
+        promotion: "0.9999",
         date: new Date(current.getFullYear(), current.getMonth() + 2)
           .toISOString()
           .substr(0, 10)
@@ -569,6 +574,23 @@ export default function FromPayment(props) {
       setPromotion(null);
     }
   };
+
+  // is concept no fee
+  useEffect(() => {
+    if (concept && concept.name != "Cuota") {
+      const uid = uuidv4();
+      let date = new Date(currentDate.getFullYear(), currentDate.getMonth());
+
+      let newItem = {
+        uid,
+        date: date.toISOString().substr(0, 10).slice(0, 7),
+        observation: "",
+        fee: 10000,
+        imported: "",
+      };
+      setPaymountList([newItem]);
+    }
+  }, [concept]);
 
   return (
     <div className=" h-full flex flex-col">
@@ -703,7 +725,7 @@ export default function FromPayment(props) {
               </div>
 
               {/* {paymountList && ( */}
-              {memberSelected && concept && (
+              {memberSelected && concept && concept.name === "Cuota" && (
                 <div className="max-w-full overflow-x-auto scrollbarhovercontent">
                   {/* {paymountList.length > 0 && ( */}
                   <div className=" flex  flex-col gap-1 ">
@@ -748,18 +770,15 @@ export default function FromPayment(props) {
                                         type="number"
                                         name="imported"
                                         disabled="true"
-                                        value={item.imported}
+                                        value={
+                                          item.imported === "0.01"
+                                            ? "0.00"
+                                            : item.imported
+                                        }
                                       />
                                     </td>
                                     <td colSpan="" className="px-2">
                                       <div className="text-neutral-800 text-xs pl-2 flex items-center gap-2">
-                                        {/* <div>
-                                          S/ {item.paid.imported.toFixed(2)}{" "}
-                                          {TimeAgoHourFormatSimple(
-                                            item.paid.created_at
-                                          )}
-                                        </div>
-                                        Deuda S/ {item.paid.debt.toFixed(2)}, */}
                                         {item.observation}
                                       </div>
                                     </td>
@@ -788,7 +807,11 @@ export default function FromPayment(props) {
                                     onChange={(e) =>
                                       handleChangeArrayItem(e, item)
                                     }
-                                    value={item.imported}
+                                    value={
+                                      item.imported === "0.01"
+                                        ? "0.00"
+                                        : item.imported
+                                    }
                                   />
                                 </td>
                                 <td className="text-left px-1 dark:text-neutral-300 text-neutral-700">
@@ -841,47 +864,98 @@ export default function FromPayment(props) {
                     </table>
                   </div>
                   {/* )} */}
-                </div>
-              )}
-              {memberSelected && concept && (
-                <div className="sticky left-0 my-2 ml-2  flex items-center">
-                  <div
-                    role="button"
-                    onClick={() =>
-                      addNewItem(paymountList ? paymountList.length : 0)
-                    }
-                    tabIndex="0"
-                    className={`font-semibold max-w-min hover:bg-neutral-200 dark:bg-neutral-700 dark:hover:bg-neutral-600 py-1 px-3 text-neutral-700 dark:text-neutral-100  text-sm hover:underline w-full flex items-center gap-2  cursor-pointer rounded-md`}
-                  >
-                    <div className="w-6  border border-neutral-700 dark:border-neutral-500 rounded-full">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        className="icon-stroke "
-                      >
-                        <g id="SVGRepo_iconCarrier">
-                          <path
-                            style={{
-                              strokeWidth: "1px",
-                            }}
-                            d="M6 12H18"
-                          ></path>
-                          <path
-                            style={{
-                              strokeWidth: "1px",
-                            }}
-                            d="M12 18V6"
-                          ></path>
-                        </g>
-                      </svg>
+
+                  <div className="sticky left-0 my-2 ml-2  flex items-center">
+                    <div
+                      role="button"
+                      onClick={() =>
+                        addNewItem(paymountList ? paymountList.length : 0)
+                      }
+                      tabIndex="0"
+                      className={`font-semibold max-w-min hover:bg-neutral-200 dark:bg-neutral-700 dark:hover:bg-neutral-600 py-1 px-3 text-neutral-700 dark:text-neutral-100  text-sm hover:underline w-full flex items-center gap-2  cursor-pointer rounded-md`}
+                    >
+                      <div className="w-6  border border-neutral-700 dark:border-neutral-500 rounded-full">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          className="icon-stroke "
+                        >
+                          <g id="SVGRepo_iconCarrier">
+                            <path
+                              style={{
+                                strokeWidth: "1px",
+                              }}
+                              d="M6 12H18"
+                            ></path>
+                            <path
+                              style={{
+                                strokeWidth: "1px",
+                              }}
+                              d="M12 18V6"
+                            ></path>
+                          </g>
+                        </svg>
+                      </div>
+                      <div>Agregar</div>
                     </div>
-                    <div>Agregar</div>
-                  </div>
-                  <div className="min-w-max  ml-auto font-semibold dark:text-neutral-100 text-sm">
-                    Total S/ {data.totalImported.toFixed(2)}
+                    <div className="min-w-max  ml-auto font-semibold dark:text-neutral-100 text-sm">
+                      Total S/{" "}
+                      {data.totalImported.toFixed(2) === "0.01"
+                        ? "0.00"
+                        : data.totalImported.toFixed(2)}
+                    </div>
                   </div>
                 </div>
               )}
+
+              {concept &&
+                concept.name != "Cuota" &&
+                memberSelected &&
+                paymountList.length > 0 && (
+                  <div>
+                    <div className="my-2 flex gap-1">
+                      <div className="w-full">
+                        <input
+                          type="month"
+                          value={paymountList[0].date}
+                          onChange={(e) => onChangeDate(e, paymountList[0])}
+                          name="date"
+                          className="text-xs appearance-none w-full cursor-pointer h-full p-2 rounded-[4px] bg-neutral-200 hover:bg-neutral-300 outline-none dark:bg-transparent transition-colors focus:border-blue-600"
+                        ></input>
+                      </div>
+                      <div className="w-full">
+                        <input
+                          autoFocus
+                          className="w-full text-xs h-full p-2 rounded-[4px] bg-transparent outline-none  transition-colors focus:border-blue-600 border border-neutral-400"
+                          type="number"
+                          placeholder="0.00"
+                          name="imported"
+                          value={paymountList[0].imported}
+                          onChange={(e) =>
+                            handleChangeArrayItem(e, paymountList[0])
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <textarea
+                        name="observation"
+                        onChange={(e) =>
+                          handleChangeArrayItem(e, paymountList[0])
+                        }
+                        placeholder="Descripción detallada"
+                        className="w-full min-h-[150px] text-xs h-full p-2 rounded-[4px] bg-transparent outline-none  transition-colors focus:border-blue-600 border border-neutral-400"
+                      ></textarea>
+                    </div>
+                    <div>
+                      <div className="sticky left-0 my-2 ml-2  flex items-center">
+                        <div className="min-w-max  ml-auto font-semibold dark:text-neutral-100 text-sm">
+                          Total S/ {data.totalImported.toFixed(2)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
             </div>
           )}
 
@@ -1292,7 +1366,10 @@ export default function FromPayment(props) {
             <div className="p-1 flex items-center gap-2 dark:text-neutral-400 text-neutral-700">
               <span className="text-sm">Importe Total: </span>
               <span className="font-bold text-xl">
-                S/ {data.totalImported.toFixed(2)}
+                S/{" "}
+                {data.totalImported.toFixed(2) === "0.01"
+                  ? "0.00"
+                  : data.totalImported.toFixed(2)}
               </span>
             </div>
           </div>

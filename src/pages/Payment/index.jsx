@@ -7,11 +7,14 @@ import Modal from "../../components/Modal/Modal";
 import {
   getPaymentsService,
   getPaymentsServiceSearsh,
+  updatePaymentService,
 } from "../../services/Payment/PaymentServices";
 import FromPayment from "./Components/Form";
 import {
   converterDate,
+  FormatDate,
   TimeAgoDate,
+  TimeAgoDateComplete,
   TimeAgoHourFormat,
   TimeAgoHourFormatSimple,
 } from "../../helpers/moment";
@@ -76,12 +79,14 @@ export default function Payments() {
       payments.forEach((payment) => {
         const newPayHeader = {
           code: payment.billHeader,
+          member_dni: payment.member.dni,
           member: payment.member.names,
+          group: payment.member.group.name,
           fee: payment.member.totalFee,
-          payment_at: upercasePrimaryLetter(TimeAgoDate(payment.payment_at)),
-          payment_hour_at: upercasePrimaryLetter(
-            moment(payment.payment_at).format("LT")
+          payment_at: upercasePrimaryLetter(
+            TimeAgoDateComplete(payment.payment_at)
           ),
+         
           paymentType:
             payment.paymentType === "cash"
               ? "Efectivo"
@@ -98,8 +103,13 @@ export default function Payments() {
             date: item.date,
             imported: item.imported,
             debt: item.debt,
+            observations: item.observation
+              ? item.observation
+              : payment.observations,
           };
-          newList.push(newListMonth);
+          if (payment.statu) {
+            newList.push(newListMonth);
+          }
         });
       });
       setPaymentsPrint(newList);
@@ -218,6 +228,21 @@ export default function Payments() {
     );
     setLoading(false);
   }, []);
+
+  const cancelTiket = async (item) => {
+    const result = window.confirm(
+      "Estas seguro (a) de anular esta Boleta? Una ves cancelado ya no se puede recuperar"
+    );
+    const newData = {
+      ...item,
+      statu: false,
+      cancel_at: TimeAgoDateComplete(),
+    };
+    delete newData.uid;
+    if (result) {
+      await updatePaymentService(newData, item.uid, userData);
+    }
+  };
   return (
     <Container className="p-5 ">
       <div className="flex flex-col mb-3 gap-2">
@@ -330,27 +355,9 @@ export default function Payments() {
               ></ReactSelect>
             </div>
             <div className="flex items-center gap-1">
-              <div
-                className={`${
-                  data.startDate ? "text-neutral-800" : "text-neutral-500"
-                } h-[35px] w-[35px] rounded-md relative p-[6px] border border-neutral-400 hover:bg-neutral-100`}
-              >
-                <svg viewBox="0 0 24 24" fill="none" className="icon-stroke">
-                  <g id="SVGRepo_iconCarrier">
-                    {" "}
-                    <path d="M8 2V5"></path> <path d="M16 2V5"></path>{" "}
-                    <path d="M3.5 9.08997H20.5"></path>{" "}
-                    <path d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"></path>{" "}
-                    <path d="M15.6947 13.7H15.7037"></path>{" "}
-                    <path d="M15.6947 16.7H15.7037"></path>{" "}
-                    <path d="M11.9955 13.7H12.0045"></path>{" "}
-                    <path d="M11.9955 16.7H12.0045"></path>{" "}
-                    <path d="M8.29431 13.7H8.30329"></path>{" "}
-                    <path d="M8.29431 16.7H8.30329"></path>{" "}
-                  </g>
-                </svg>
+              <div>
                 <input
-                  className={` absolute left-[-0px] opacity-0 text-[50px] w-full h-full top-0  cursor-pointer `}
+                  className={`top-0 border h-[35px] px-2 text-sm rounded-[4px] border-neutral-300 hover:border-neutral-400 dark:border-neutral-700 cursor-pointer `}
                   type="date"
                   value={data.startDate ? data.startDate : ""}
                   onChange={(e) =>
@@ -359,27 +366,9 @@ export default function Payments() {
                 />
               </div>
               <div className="text-xs">Hasta</div>
-              <div
-                className={`${
-                  data.endDate ? "text-neutral-800" : "text-neutral-500"
-                } h-[35px] w-[35px] rounded-md relative border-neutral-400 p-[6px] border hover:bg-neutral-100`}
-              >
-                <svg viewBox="0 0 24 24" fill="none" className="icon-stroke">
-                  <g id="SVGRepo_iconCarrier">
-                    {" "}
-                    <path d="M8 2V5"></path> <path d="M16 2V5"></path>{" "}
-                    <path d="M3.5 9.08997H20.5"></path>{" "}
-                    <path d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"></path>{" "}
-                    <path d="M15.6947 13.7H15.7037"></path>{" "}
-                    <path d="M15.6947 16.7H15.7037"></path>{" "}
-                    <path d="M11.9955 13.7H12.0045"></path>{" "}
-                    <path d="M11.9955 16.7H12.0045"></path>{" "}
-                    <path d="M8.29431 13.7H8.30329"></path>{" "}
-                    <path d="M8.29431 16.7H8.30329"></path>{" "}
-                  </g>
-                </svg>
+              <div>
                 <input
-                  className={` absolute left-[-0px] opacity-0 text-[50px] w-full h-full top-0  cursor-pointer `}
+                  className={`top-0 border h-[35px] px-2 text-sm rounded-[4px] border-neutral-300 hover:border-neutral-400 dark:border-neutral-700 cursor-pointer `}
                   type="date"
                   value={data.endDate ? data.endDate : ""}
                   onChange={(e) =>
@@ -427,7 +416,7 @@ export default function Payments() {
             </div>
             {payments && payments.length > 0 ? (
               <ExcelFile
-                filename={`Reporte - ${moment()
+                filename={`Reporte pagos- ${moment()
                   .subtract(10, "days")
                   .calendar()}`}
                 element={
@@ -457,14 +446,15 @@ export default function Payments() {
                   })`}
                 >
                   <ExcelColumn label="Codigo" value="code" />
-                  <ExcelColumn label="Socio" value="member" />
+                  <ExcelColumn label="N° Documento" value="member_dni" />
+                  <ExcelColumn label="Miembro" value="member" />
+                  <ExcelColumn label="Grupo" value="group" />
                   <ExcelColumn label="Mes" value="date" />
                   <ExcelColumn label="Cuota" value="fee" />
                   <ExcelColumn label="Importe" value="imported" />
                   <ExcelColumn label="Deuda" value="debt" />
                   <ExcelColumn label="Concepto" value="concept" />
                   <ExcelColumn label="Fecha de Pago" value="payment_at" />
-                  <ExcelColumn label="Hora" value="payment_hour_at" />
                   <ExcelColumn label="Modo de pago" value="paymentType" />
                   <ExcelColumn
                     label="Numero de Transacción"
@@ -545,11 +535,13 @@ export default function Payments() {
                     payments.map((item, index) => (
                       <Opcy
                         onDoubleClick={() => {
-                          setPayment(item);
-                          setModalView(true);
+                          item.statu && setPayment(item);
+                          item.statu && setModalView(true);
                         }}
                         key={index}
-                        className=" dark:text-neutral-300 hover:bg-[#f2f2f2] cursor-default transition-colors  text-[14px] border-t dark:border-t-neutral-800 "
+                        className={`${
+                          !item.statu ? "bg-red-100 hover:bg-red-200" : ""
+                        } dark:text-neutral-300 hover:bg-[#f2f2f2] cursor-default transition-colors  text-[14px] border-t dark:border-t-neutral-800 `}
                       >
                         <td className="px-2 py-[10px] relative rounded-l-sm">
                           <div className="flex items-center gap-1 dark: dark:text-neutral-100 font-semibold h-full">
@@ -623,7 +615,11 @@ export default function Payments() {
                         <td className="text-right">
                           <div className="dark:text-amber-100 text-neutral-700 font-semibold flex items-center gap-1">
                             <div className="ml-auto">
-                              <div className="w-[6px] h-[6px] bg-green-600 rounded-full"></div>
+                              <div
+                                className={`${
+                                  item.statu ? "bg-green-600" : "bg-red-600"
+                                } w-[6px] h-[6px]  rounded-full`}
+                              ></div>
                             </div>
                             <div className="ml-2 min-w-max">
                               S/ {item.totalImported.toFixed(2)}
@@ -663,34 +659,54 @@ export default function Payments() {
                           <div>
                             {item.observations.slice(0, 85)}
                             {item.observations.length > 85 && "..."}
+                            {item.cancel_at && (
+                              <>Ticket Cancelado el {item.cancel_at}</>
+                            )}
                           </div>
                         </td>
                         <td className="rounded-r-sm ">
-                          <TicketPaymount
-                            Component={
-                              <div className="flex max-w-min cursor-pointer bg-neutral-200 hover:bg-neutral-300 items-center gap-2 px-2 py-1 border rounded-md">
-                                <div className="w-4">
-                                  <svg
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    className="icon-stroke"
-                                  >
-                                    <g id="SVGRepo_iconCarrier">
-                                      <path d="M7.25 7H16.75V5C16.75 3 16 2 13.75 2H10.25C8 2 7.25 3 7.25 5V7Z"></path>{" "}
-                                      <path d="M16 15V19C16 21 15 22 13 22H11C9 22 8 21 8 19V15H16Z"></path>{" "}
-                                      <path d="M21 10V15C21 17 20 18 18 18H16V15H8V18H6C4 18 3 17 3 15V10C3 8 4 7 6 7H18C20 7 21 8 21 10Z"></path>{" "}
-                                      <path d="M17 15H15.79H7"></path>{" "}
-                                      <path d="M7 11H10"></path>{" "}
-                                    </g>
-                                  </svg>
-                                </div>
-                                <span className="text-sm min-w-max">
-                                  Imprimir Boleta
-                                </span>
+                          <div className="flex flex-col gap-1">
+                            {item.statu && (
+                              <TicketPaymount
+                                Component={
+                                  <div className="flex max-w-min cursor-pointer bg-neutral-200 hover:bg-neutral-300 items-center gap-2 px-2 py-1 border rounded-md">
+                                    <div className="w-4">
+                                      <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        className="icon-stroke"
+                                      >
+                                        <g id="SVGRepo_iconCarrier">
+                                          <path d="M7.25 7H16.75V5C16.75 3 16 2 13.75 2H10.25C8 2 7.25 3 7.25 5V7Z"></path>{" "}
+                                          <path d="M16 15V19C16 21 15 22 13 22H11C9 22 8 21 8 19V15H16Z"></path>{" "}
+                                          <path d="M21 10V15C21 17 20 18 18 18H16V15H8V18H6C4 18 3 17 3 15V10C3 8 4 7 6 7H18C20 7 21 8 21 10Z"></path>{" "}
+                                          <path d="M17 15H15.79H7"></path>{" "}
+                                          <path d="M7 11H10"></path>{" "}
+                                        </g>
+                                      </svg>
+                                    </div>
+                                    <span className="text-sm min-w-max">
+                                      Imprimir Boleta
+                                    </span>
+                                  </div>
+                                }
+                                Payment={item}
+                              />
+                            )}
+
+                            {item.statu ? (
+                              <button
+                                onClick={() => cancelTiket(item)}
+                                className="p-1 w-full text-red-600 text-sm dark:bg-red-700 hover:bg-red-200 rounded-[5px]"
+                              >
+                                Anular Boleta
+                              </button>
+                            ) : (
+                              <div className="text-center p-1 w-full text-red-600 text-sm  rounded-[5px]">
+                                Boleta Anulada
                               </div>
-                            }
-                            Payment={item}
-                          />
+                            )}
+                          </div>
                         </td>
                       </Opcy>
                     ))

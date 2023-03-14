@@ -9,6 +9,7 @@ import { useUser } from "../../../context/userContext";
 import {
   converterDate,
   FormatDate,
+  TimeAgoDateComplete,
   TimeAgoHourFormat,
   TimeAgoHourFormatSimple,
 } from "../../../helpers/moment";
@@ -29,7 +30,12 @@ import {
   upercasePrimaryLetter,
   UppercasePrimaryLetter,
 } from "../../../helpers/Other";
-import { getPaymentsServiceSearsh } from "../../../services/Payment/PaymentServices";
+import ExportExcel from "react-export-excel-xlsx-fix";
+import moment from "moment";
+
+const ExcelFile = ExportExcel.ExcelFile;
+const ExcelSheet = ExportExcel.ExcelFile.ExcelSheet;
+const ExcelColumn = ExportExcel.ExcelFile.ExcelColumn;
 
 export default function Members() {
   const { userData } = useUser();
@@ -40,6 +46,37 @@ export default function Members() {
   const [members, setMembers] = useState(null);
   const [geadquarters, setGeadquarters] = useState(null);
   const [searchkey, setSearchkey] = useState(null);
+  const [memberPrint, setMemberPrint] = useState(null);
+
+  const handlePrintMembers = () => {
+    if (members && members.length > 0) {
+      const newList = [];
+      members.forEach((member) => {
+        const newNewItem = {
+          dni: member.dni,
+          lastName: member.lastName,
+          motherLastName: member.motherLastName,
+          names: member.names,
+          memberFee: member.memberFee,
+          bookletFee: member.bookletFee,
+          celebrationFee: member.celebrationFee,
+          totalFee: member.totalFee,
+          created_at: TimeAgoDateComplete(member.created_at),
+          birthdate: `${member.day}-${member.month}-${member.year}`,
+          phone: member.phone,
+          update_at: TimeAgoDateComplete(member.updated_at),
+          group: member.group.name,
+          geadquarter: `${member.geadquarter.name} - ${member.geadquarter.address}`,
+          entryDate: member.entryDate,
+          dischargeDate: member.dischargeDate,
+          observations: member.observations,
+          attorney: member.attorney,
+        };
+        newList.push(newNewItem);
+      });
+      setMemberPrint(newList);
+    }
+  };
 
   const [data, setData] = useState({
     uidGroup: null,
@@ -112,7 +149,6 @@ export default function Members() {
     } else {
       getMembersServiceSearsh(setMembers, newCon);
     }
-
   };
 
   useEffect(() => {
@@ -159,6 +195,10 @@ export default function Members() {
   useEffect(() => {
     searsh();
   }, [searchkey]);
+
+  useEffect(() => {
+    handlePrintMembers();
+  }, [members]);
   function isNumeric(num) {
     return !isNaN(num);
   }
@@ -351,6 +391,85 @@ export default function Members() {
                 </div>
               </div>
             </div>
+            <div>
+              {members && members.length > 0 ? (
+                <ExcelFile
+                  filename={`Reporte de Miembros - ${moment()
+                    .subtract(10, "days")
+                    .calendar()}`}
+                  element={
+                    <div className="w-[100px]">
+                      <PrimaryButton type="default">
+                        <span>
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            className="icon-stroke"
+                          >
+                            <g id="SVGRepo_iconCarrier">
+                              <path d="M14.4301 5.92993L20.5001 11.9999L14.4301 18.0699"></path>{" "}
+                              <path d="M3.5 12H20.33"></path>{" "}
+                            </g>
+                          </svg>
+                        </span>{" "}
+                        Excel
+                      </PrimaryButton>
+                    </div>
+                  }
+                >
+                  <ExcelSheet data={memberPrint} name={`Reporte Miembros`}>
+                    <ExcelColumn label="N° Identificación" value="dni" />
+                    <ExcelColumn label="Apellido Paterno" value="lastName" />
+                    <ExcelColumn
+                      label="Apellido Materno"
+                      value="motherLastName"
+                    />
+                    <ExcelColumn label="Nombres" value="names" />
+                    <ExcelColumn label="Apoderado" value="attorney" />
+                    <ExcelColumn label="Cuota de miembro" value="memberFee" />
+                    <ExcelColumn label="Cuota Librito" value="bookletFee" />
+                    <ExcelColumn
+                      label="Cuota Celebración"
+                      value="celebrationFee"
+                    />
+                    <ExcelColumn label="Cuota total" value="totalFee" />
+                    <ExcelColumn
+                      label="Fecha de nacimiento"
+                      value="birthdate"
+                    />
+                    <ExcelColumn label="Teléfono" value="phone" />
+                    <ExcelColumn label="Grupo" value="group" />
+                    <ExcelColumn label="Sede" value="geadquarter" />
+                    <ExcelColumn label="Fecha Ingreso" value="entryDate" />
+                    <ExcelColumn label="Fecha Baja" value="dischargeDate" />
+                    <ExcelColumn label="Fecha de registro" value="created_at" />
+                    <ExcelColumn
+                      label="Fecha de actualizacion"
+                      value="update_at"
+                    />
+                    <ExcelColumn label="Observaciones " value="paymentType" />
+                  </ExcelSheet>
+                </ExcelFile>
+              ) : (
+                <div className="w-[100px]">
+                  <PrimaryButton type="default">
+                    <span>
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        className="icon-stroke"
+                      >
+                        <g id="SVGRepo_iconCarrier">
+                          <path d="M14.4301 5.92993L20.5001 11.9999L14.4301 18.0699"></path>{" "}
+                          <path d="M3.5 12H20.33"></path>{" "}
+                        </g>
+                      </svg>
+                    </span>{" "}
+                    Excel
+                  </PrimaryButton>
+                </div>
+              )}
+            </div>
           </div>
           <div className="mt-2">
             <div className=" w-full rounded-md max-w-full overflow-x-auto">
@@ -370,13 +489,19 @@ export default function Members() {
                     <th className=" font-semibold w-[90px]">
                       <div className="text-center">Estado</div>
                     </th>
-                    <th className=" font-semibold w-[130px] text-right pr-2">
+                    <th className=" font-semibold w-[130px] min-w-[130px] text-right pr-2">
                       Cuota Mensual
                     </th>
-                    <th className=" font-semibold w-[200px] text-left pl-5">
-                      Entrada
+                    <th className=" font-semibold w-[200px] min-w-[200px] text-left pl-5">
+                      Registro
                     </th>
-                    <th className=" font-semibold w-[290px] text-left pl">
+                    <th className=" font-semibold w-[120px] min-w-[120px] text-left ">
+                      Fecha-Ingreso
+                    </th>
+                    <th className=" font-semibold w-[120px] min-w-[120] text-left ">
+                      Fecha-Baja
+                    </th>
+                    <th className=" font-semibold w-[290px] min-w-[290px]  text-left pl-2">
                       Observaciones
                     </th>
                   </tr>
@@ -491,7 +616,7 @@ export default function Members() {
                             </div>
                           </div>
                         </td>
-                        <td className="rounded-r-sm text-left pl-5">
+                        <td className="rounded-r-sm text-left pl-5  pr-5">
                           <div>
                             <div>
                               {UppercasePrimaryLetter(
@@ -503,6 +628,20 @@ export default function Members() {
                                 TimeAgoHourFormat(member.created_at)
                               )}
                             </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            {UppercasePrimaryLetter(
+                              TimeAgoHourFormatSimple(member.entryDate)
+                            )}
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            {UppercasePrimaryLetter(
+                              TimeAgoHourFormatSimple(member.dischargeDate)
+                            )}
                           </div>
                         </td>
                         <td>
@@ -522,7 +661,6 @@ export default function Members() {
         </div>
       </div>
       <Modal
-        onClickIframe={() => setModalAdd(!modalAdd)}
         show={modalAdd}
         close={() => setModalAdd(!modalAdd)}
       >

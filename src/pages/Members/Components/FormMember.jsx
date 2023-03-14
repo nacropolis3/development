@@ -39,7 +39,7 @@ export default function FormMember(props) {
           month: 1,
           year: 2023,
           geadquarterUid: null,
-          memberFee: "35.00",
+          memberFee: "30.00",
           bookletFee: "2.00",
           celebrationFee: "3.00",
           totalFee: "40.00",
@@ -47,6 +47,8 @@ export default function FormMember(props) {
           younger: false,
           attorney: "",
           phone: "",
+          dischargeDate: "",
+          entryDate: "",
         }
   );
   const {
@@ -289,12 +291,12 @@ export default function FormMember(props) {
   useEffect(() => {
     let memberFee = null;
     if (isYear(data.year) < 26) {
-      memberFee = "35.00";
-      setValue("memberFee", "35.00");
+      memberFee = "30.00";
+      setValue("memberFee", "30.00");
       clearErrors("memberFee");
     } else if (isYear(data.year) > 25) {
-      memberFee = "45.00";
-      setValue("memberFee", "45.00");
+      memberFee = "40.00";
+      setValue("memberFee", "40.00");
       clearErrors("memberFee");
     }
     setData({
@@ -303,6 +305,7 @@ export default function FormMember(props) {
     });
   }, [data.year]);
 
+  
   useEffect(() => {
     const bookletFee = parseFloat(data.bookletFee);
     const celebrationFee = parseFloat(data.celebrationFee);
@@ -785,6 +788,42 @@ export default function FormMember(props) {
                 </div>
               )}
             </div>
+          </div>
+        </div>
+      </div>
+      <div className=" my-2">
+        <div className="flex gap-2">
+          <div className="w-full">
+            <TextField
+              info={"Fecha de entrada"}
+              requiredName="Ingrese la fecha de entrada"
+              type="date"
+              long
+              onChange={handleChange}
+              value={data.entryDate}
+              error={errors.entryDate}
+              control={control}
+              name="entryDate"
+              rules={{
+                required: true,
+              }}
+            />
+          </div>
+          <div className="w-full">
+            <TextField
+              info={"Fecha de baja"}
+              requiredName="Ingrese la fecha de baja"
+              type="date"
+              long
+              onChange={handleChange}
+              value={data.dischargeDate}
+              error={errors.dischargeDate}
+              control={control}
+              name="dischargeDate"
+              rules={{
+                required: true,
+              }}
+            />
           </div>
         </div>
       </div>

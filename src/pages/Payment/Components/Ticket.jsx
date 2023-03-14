@@ -1,19 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
-import { useUser } from "../../../context/userContext";
 import { TimeAgoDateComplete } from "../../../helpers/moment";
 import {
   upercasePrimaryLetter,
   UppercasePrimaryLetter,
 } from "../../../helpers/Other";
-import { saveActivitieService } from "../../../services/Activities/ActivitiesServices";
 
 export default function TicketPaymount({
   Payment,
   Component,
   FinallyFunction,
 }) {
-  const { userData } = useUser();
   const componentRef = useRef();
   const [loading, setLoading] = useState(false);
   const handlePrint = useReactToPrint({
@@ -204,52 +201,12 @@ export default function TicketPaymount({
                     </table>
                   </div>
                 </div>
-                {/* <div className="text-sm gap-1">
-                  <div className="text-neutral-600 min-w-[100px] mb-2">
-                    Metadatos del usuario:
-                  </div>
-                  <div className="flex flex-col gap-1 p-4 border rounded-lg">
-                    <div className="flex  gap-2">
-                      <div className="min-w-[140px] text-sm text-neutral-600">
-                        Nombre App:
-                      </div>
-                      <div className="font-semibold">
-                        {data.metadata.appName}
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <div className="min-w-[140px] text-sm text-neutral-600">
-                        Ip:
-                      </div>
-                      <div className="font-semibold">{data.metadata.ip}</div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="min-w-[140px] text-sm text-neutral-600">
-                        Plataforma:
-                      </div>
-                      <div className="font-semibold">
-                        {data.metadata.platform}
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2">
-                      <div className="min-w-[140px] text-sm text-neutral-600">
-                        Vendor:
-                      </div>
-                      <div className="font-semibold">
-                        {data.metadata.vendor}
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
               </div>
               {/* footer */}
               <div className="text-[8px] text-right mt-5">
-                {TimeAgoDateComplete()}
+                {TimeAgoDateComplete()} - Ayacucho - Perú
               </div>
-              <div className="text-[9px] text-right">
-                Development by AlphaCorp
-              </div>
+              
             </div>
           </div>
         )}
