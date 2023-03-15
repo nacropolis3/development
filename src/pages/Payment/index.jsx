@@ -5,6 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import BodyModal from "../../components/Modal/Components/Main";
 import Modal from "../../components/Modal/Modal";
 import {
+  getFillHeader,
   getPaymentsService,
   getPaymentsServiceSearsh,
   updatePaymentService,
@@ -12,8 +13,6 @@ import {
 import FromPayment from "./Components/Form";
 import {
   converterDate,
-  FormatDate,
-  TimeAgoDate,
   TimeAgoDateComplete,
   TimeAgoHourFormat,
   TimeAgoHourFormatSimple,
@@ -227,7 +226,12 @@ export default function Payments() {
       setLast
     );
     setLoading(false);
+    // get()
   }, []);
+
+  async function get()  {
+    console.log(await getFillHeader())
+  }
 
   const cancelTiket = async (item) => {
     const result = window.confirm(

@@ -25,7 +25,10 @@ import {
   getPaymentItemsService,
   savePaymentsItemService,
 } from "../../../services/Payment/PaymentItem";
-import { savePaymentService } from "../../../services/Payment/PaymentServices";
+import {
+  getFillHeader,
+  savePaymentService,
+} from "../../../services/Payment/PaymentServices";
 import axios from "axios";
 import TicketPaymount from "./Ticket";
 
@@ -62,13 +65,6 @@ export default function FromPayment(props) {
   const [lastPayments, setLastPayments] = useState(null);
   const [lastPaymentsIsPromotion, setLastPaymentsIsPromotion] = useState(null);
 
-  const billHeader =
-    "M-" +
-    generateUniqueId({
-      length: 6,
-      useLetters: false,
-    });
-
   const {
     handleSubmit,
     control,
@@ -100,11 +96,6 @@ export default function FromPayment(props) {
     let list = [];
     await Promise.all(
       paymountList.map(async (item) => {
-        const bill = `P-${generateUniqueId({
-          length: 7,
-          useLetters: false,
-        })}`;
-
         let newItem = {
           ...item,
           headerUid: uid,
@@ -147,7 +138,6 @@ export default function FromPayment(props) {
                 : item.imported === "0.01"
                 ? "0.00"
                 : item.imported,
-              billNumber: bill,
             });
           }
         } else {
@@ -165,15 +155,16 @@ export default function FromPayment(props) {
               : item.imported === "0.01"
               ? "0.00"
               : item.imported,
-            billNumber: bill,
           });
         }
       })
     );
+    let fillH = await getFillHeader();
+    
     const newData = {
       ...data,
       paymountList: list,
-      billHeader: billHeader,
+      billHeader: fillH,
       payment_at: FormatDate(),
       metadata: await getInfo(),
       statu: true,
@@ -196,7 +187,7 @@ export default function FromPayment(props) {
       },
       totalImported: data.totalImported === 0.01 ? 0.0 : data.totalImported,
     };
-    console.log(data.totalImported);
+
     await savePaymentService(newData, uid, userData);
     if (promotion && promotion.promotion === "0.9999") {
       let newMember = {
@@ -208,7 +199,7 @@ export default function FromPayment(props) {
     }
     await setData({
       ...newData,
-      billHeader: billHeader,
+      billHeader: fillH,
     });
     setPrint(true);
   };
@@ -478,7 +469,12 @@ export default function FromPayment(props) {
         }
       });
     }
-    if (promotion && promotion.promotion === "0.9999" && total != 0.01 && total != 0) {
+    if (
+      promotion &&
+      promotion.promotion === "0.9999" &&
+      total != 0.01 &&
+      total != 0
+    ) {
       setData({
         ...data,
         totalImported: total - 0.01,

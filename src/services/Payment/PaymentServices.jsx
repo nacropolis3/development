@@ -7,6 +7,7 @@ import {
   orderBy,
   updateDoc,
   limit,
+  getDocs,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { saveActivitieService } from "../Activities/ActivitiesServices";
@@ -69,6 +70,20 @@ export function getPaymentsServiceSearsh(setData, conditions) {
 
   return () => unsubscribe();
 }
+
+export const getFillHeader = async () => {
+  const q = query(
+    collection(db, "payments"),
+    orderBy("billHeader", "desc"),
+    limit(1)
+  );
+  let fill = null;
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    fill = doc.data().billHeader + 1;
+  });
+  return fill ? fill : 1;
+};
 
 export function getPaymentService(setData, uid) {
   const unsubscribe = onSnapshot(doc(db, "payments", uid), (doc) => {
