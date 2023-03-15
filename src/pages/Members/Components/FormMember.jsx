@@ -805,7 +805,7 @@ export default function FormMember(props) {
               control={control}
               name="entryDate"
               rules={{
-                required: true,
+                // required: true,
               }}
             />
           </div>
@@ -821,7 +821,7 @@ export default function FormMember(props) {
               control={control}
               name="dischargeDate"
               rules={{
-                required: true,
+                // required: true,
               }}
             />
           </div>
