@@ -471,7 +471,7 @@ export default function FormMember(props) {
           </span>
         </div>
       </div>
-      <div className="flex gap-2">
+      <FlexItem className="flex gap-2">
         <div className="flex flex-col gap-1 w-[400px]">
           <div className="w-full">
             <h3 className="dark:text-zinc-100 text-sm font-semibold pl-1">
@@ -1050,7 +1050,7 @@ export default function FormMember(props) {
             </div>
           </div>
         </div>
-      </div>
+      </FlexItem>
       <div>
         <PrimaryButton
           disabled={Object.entries(errors).length > 0 ? true : false}
@@ -1096,6 +1096,15 @@ const ItemImage = styled.div`
   &:hover {
     .btn-image {
       opacity: 1;
+    }
+  }
+`;
+
+const FlexItem = styled.div`
+  @media (max-width: 683px) {
+    flex-direction: column;
+    > div {
+      width: 100%;
     }
   }
 `;

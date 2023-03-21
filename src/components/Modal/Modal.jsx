@@ -55,6 +55,8 @@ const ContentModal = styled.div`
   }
   height: max-content;
   @media (max-width: 700px) {
+    overflow-y: auto;
+
     background-color: #fff;
     max-height: 100vh;
     height: 100vh;
