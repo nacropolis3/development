@@ -1,7 +1,17 @@
+import { useEffect } from "react";
 import ReactDom from "react-dom";
 import styled from "styled-components";
+import { disabledScroll, enabledScroll } from "../../helpers/scrollbar";
 
 const Modal = (props) => {
+  useEffect(() => {
+    if (props.show) {
+      disabledScroll();
+    } else {
+      enabledScroll();
+    }
+  }, [props.show]);
+
   return ReactDom.createPortal(
     <>
       {props.show && (
