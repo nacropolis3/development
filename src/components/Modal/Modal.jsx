@@ -5,13 +5,13 @@ const Modal = (props) => {
   return ReactDom.createPortal(
     <>
       {props.show && (
-        <ModalContainer className="fixed inset-0 pointer-events-auto w-full h-full">
+        <ModalContainer className="fixed bg-transparent inset-0 pointer-events-auto w-full h-full">
           <IframeContainer
             onClick={props.onClickIframe}
-            className="fixed top-0 left-0 bg-[#ffffffc2] dark:bg-[#111111c2] w-full  "
+            className="fixed top-0 left-0 bg-[#f0f0f0a9] dark:bg-[#111111c2] w-full  "
           />
-          <div className="contentmodal absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%]  z-[101]">
-            <ContentModal className="scrollbar-thin dark:scrollbar-thumb-[#737475bb] dark:scrollbar-track-[#318191a] overflow-y-auto ">
+          <div className="contentmodal  absolute bg-transparent top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%]  z-[101]">
+            <ContentModal className=" dark:bg-[#292a2b] border rounded-lg p-2 dark:border-neutral-700 bg-[#ffff] scrollbar-thin dark:scrollbar-thumb-[#737475bb] dark:scrollbar-track-[#318191a] overflow-y-auto ">
               {props.children}
             </ContentModal>
           </div>
@@ -48,7 +48,7 @@ const IframeContainer = styled.div`
 `;
 const ContentModal = styled.div`
   max-height: 95vh;
-  max-width: 95vh;
+  max-width: 100%;
   overflow: hidden;
   &:hover {
     overflow: overlay;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 export default function ContentModal(props) {
   return (
     <StyledModal
-      className="bg-[#fff] dark:bg-[#292a2b] border rounded-lg dark:border-neutral-700"
+      className=""
       style={{
         width: props.width ? props.width : "max-content",
       }}

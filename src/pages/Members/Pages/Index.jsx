@@ -660,11 +660,8 @@ export default function Members() {
           </div>
         </div>
       </div>
-      <Modal
-        show={modalAdd}
-        close={() => setModalAdd(!modalAdd)}
-      >
-        <ContentModal width="450px">
+      <Modal show={modalAdd} close={() => setModalAdd(!modalAdd)}>
+        <ContentModal width="790px">
           <BodyModal>
             <FormMember
               data={memberSelected}

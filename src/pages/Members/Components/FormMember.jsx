@@ -1,12 +1,13 @@
 import axios from "axios";
 import moment from "moment";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import EclipseButton from "../../../components/Button/EclipseButton";
 import PrimaryButton from "../../../components/Button/PrimaryButton";
 import CheckBox from "../../../components/Form/CheckBox";
 import Combobox from "../../../components/Form/ComboBox";
+import PhotoForm from "../../../components/Form/PhotoForm";
 import TextField from "../../../components/Form/TextField";
 import Rotation from "../../../components/Loader/Rotation";
 import { useUser } from "../../../context/userContext";
@@ -73,6 +74,8 @@ export default function FormMember(props) {
   const [loadingRuc, setLoadingRuc] = useToggle(false);
   const [groups, setGroups] = useObject(null);
   const [geadquarters, setGeadquarters] = useObject(null);
+  const [files, setFiles] = useState([]);
+  const [fileMiniature, setFileMiniature] = useState([]);
 
   let currentYear = new Date().getFullYear();
 
@@ -319,7 +322,7 @@ export default function FormMember(props) {
   }, [data.bookletFee, data.celebrationFee, , data.memberFee]);
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="">
       <div className="flex flex-col pb-2">
         <div className="flex items-center">
           <h1 className="mr-auto leading-8 text-2xl font-bold tracking-tight dark:text-neutral-200">
@@ -433,519 +436,538 @@ export default function FormMember(props) {
           </span>
         </div>
       </div>
-      <div className="flex gap-1">
-        <div className="w-40">
-          <TextField
-            autoFocus
-            // info={<>DNI</>}
-            requiredName="Ingrese un Dni"
-            patternName={`El dni "${data.dni}" es invalido, se acepta solo numeros`}
-            maxLengthName="No puede contener mas de 8 caracteres"
-            minLengthName="Debe contener 8 caracteres"
-            type="text"
-            placeholder="N° Identificiación"
-            // long
-            checked={data.verify}
-            onChange={handleRucSearsh}
-            iconLoadingLeft={loadingRuc}
-            disabled={loadingRuc}
-            value={data.dni}
-            error={errors.dni}
-            control={control}
-            name="dni"
-            rules={{
-              pattern: /^[0-9,$]*$/,
-              required: true,
-              maxLength: 8,
-              minLength: 8,
-            }}
-          />
-        </div>
-        <div className="w-80">
-          <TextField
-            // info={"Nombres"}
-            requiredName="Ingrese los nombres"
-            patternName="Solo letras y espacios"
-            placeholder="Nombres"
-            type="text"
-            // long
-            onChange={handleChange}
-            value={data.names}
-            error={errors.names}
-            control={control}
-            name="names"
-            rules={{
-              required: true,
-              pattern:
-                /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g,
-            }}
-          />
-        </div>
-      </div>
-      <div className="flex gap-1">
-        <div className="w-full">
-          <TextField
-            // info={"Apellido Paterno"}
-            requiredName="Ingrese el apellido paterno"
-            patternName="El apellido solo debe contener letras"
-            placeholder="Apellido Paterno"
-            type="text"
-            // long
-            onChange={handleChange}
-            value={data.lastName}
-            error={errors.lastName}
-            control={control}
-            name="lastName"
-            rules={{
-              required: true,
-              pattern:
-                /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g,
-            }}
-          />
-        </div>
-        <div className="w-full">
-          <TextField
-            // info={"Apellido Materno"}
-            requiredName="Ingrese el apellido materno"
-            patternName="El apellido solo debe contener letras"
-            placeholder="Apellido Materno"
-            type="text"
-            // long
-            onChange={handleChange}
-            value={data.motherLastName}
-            error={errors.motherLastName}
-            control={control}
-            name="motherLastName"
-            rules={{
-              required: true,
-              pattern:
-                /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g,
-            }}
-          />
-        </div>
-        <div className="w-full">
-          <TextField
-            // info={"Numero de telefono"}
-            patternName="Invalido"
-            placeholder="Celular (Opcional)"
-            type="text"
-            // long
-            onChange={handleChange}
-            value={data.phone}
-            error={errors.phone}
-            // componentLeft="PE"
-            control={control}
-            name="phone"
-            rules={{
-              pattern: /^[0-9,$]*$/,
-            }}
-          />
-        </div>
-      </div>
-      <div className=" ">
-        <div className="mb-1">
-          <span className="dark:text-zinc-400 text-xs">
-            Fecha de nacimiento
-          </span>
-        </div>
-        <div className="flex gap-2">
-          <div className="w-full">
-            <Combobox
-              onChange={handleChange}
-              // long
-              info="Dia"
-              error={errors.day}
-              name="day"
-              control={control}
-            >
-              {days.map((item, index) => {
-                return (
-                  <option
-                    className="font-semibold text-xs"
-                    key={index}
-                    value={item}
-                  >
-                    {item}
-                  </option>
-                );
-              })}
-            </Combobox>
-          </div>
-          <div className="w-full">
-            <Combobox
-              onChange={handleChange}
-              // long
-              info="Mes"
-              error={errors.day}
-              name="month"
-              control={control}
-            >
-              {monthsDate.map((item, index) => {
-                return (
-                  <option
-                    className="font-semibold text-xs"
-                    key={index}
-                    value={index + 1}
-                  >
-                    {item}
-                  </option>
-                );
-              })}
-            </Combobox>
-          </div>
-          <div className="w-full">
-            <Combobox
-              onChange={handleChange}
-              minName="Tienes que ser mayor de edad"
-              // long
-              info="Año"
-              value={data.year}
-              error={errors.year}
-              name="year"
-              control={control}
-            >
-              {years.map((item, index) => {
-                return (
-                  <option
-                    className="font-semibold text-xs"
-                    key={index}
-                    value={item}
-                  >
-                    {item}
-                  </option>
-                );
-              })}
-            </Combobox>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <div className="w-full pl-1 py-1">
-            <CheckBox
-              text={"Miembro menor de edad"}
-              onChange={(e) => {
-                setData({ ...data, younger: e.target.checked });
-                changeYouger(e);
-              }}
-              checked={data.younger}
-            />
-          </div>
-        </div>
-        {data.younger && (
-          <div className="py-2 w-full">
-            <TextField
-              // info={"Apoderado"}
-              requiredName="Ingrese los nombres del apoderado"
-              patternName="El apellido solo debe contener letras"
-              placeholder="Apoderado"
-              type="text"
-              // long
-              onChange={handleChange}
-              value={data.attorney}
-              error={errors.attorney}
-              control={control}
-              name="attorney"
-              rules={{
-                required: true,
-                pattern:
-                  /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g,
-              }}
-            />
-          </div>
-        )}
-      </div>
       <div className="flex gap-2">
-        <div className="w-60">
-          <h2
-            className={`pb-2 ${
-              errors["groupUid"]
-                ? "text-red-500 dark:text-red-500"
-                : "text-neutral-800"
-            } pl-1 text-xs dark:text-neutral-100`}
-          >
-            Selecciona un grupo
-          </h2>
-          <div
-            className={`  bg-[#eef1f3] dark:bg-neutral-800 border dark:border-neutral-600  w-full p-1 rounded-[5px] ${
-              errors["groupUid"]
-                ? "border-red-600 dark:border-red-500"
-                : "border-neutral-300 "
-            } `}
-          >
-            <div className="flex flex-wrap justify-center gap-1 ">
-              {groups &&
-                groups.map((item, index) => (
-                  <div
-                    onClick={() => {
-                      item.statu &&
-                        handleChange({
-                          target: {
-                            name: "groupUid",
-                            value: item.uid,
-                          },
-                        });
-                      item.statu && clearErrors("groupUid");
-                      item.statu && setValue("groupUid", item.uid);
+        <div className="flex flex-col gap-1 w-[400px]">
+          <div className="w-full">
+            <h3 className="dark:text-zinc-100 text-sm font-semibold pl-1">
+              Datos del miembro
+            </h3>
+          </div>
+          <div className="flex gap-1">
+            <div className="w-40">
+              <TextField
+                autoFocus
+                // info={<>DNI</>}
+                requiredName="Ingrese un Dni"
+                patternName={`El dni "${data.dni}" es invalido, se acepta solo numeros`}
+                maxLengthName="No puede contener mas de 8 caracteres"
+                minLengthName="Debe contener 8 caracteres"
+                type="text"
+                placeholder="N° Identificiación"
+                // long
+                checked={data.verify}
+                onChange={handleRucSearsh}
+                iconLoadingLeft={loadingRuc}
+                disabled={loadingRuc}
+                value={data.dni}
+                error={errors.dni}
+                control={control}
+                name="dni"
+                rules={{
+                  pattern: /^[0-9,$]*$/,
+                  required: true,
+                  maxLength: 8,
+                  minLength: 8,
+                }}
+              />
+            </div>
+            <div className="w-80">
+              <TextField
+                // info={"Nombres"}
+                requiredName="Ingrese los nombres"
+                patternName="Solo letras y espacios"
+                placeholder="Nombres"
+                type="text"
+                // long
+                onChange={handleChange}
+                value={data.names}
+                error={errors.names}
+                control={control}
+                name="names"
+                rules={{
+                  required: true,
+                  pattern:
+                    /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g,
+                }}
+              />
+            </div>
+          </div>
+          <div className="flex gap-1">
+            <div className="w-full">
+              <TextField
+                // info={"Apellido Paterno"}
+                requiredName="Ingrese el apellido paterno"
+                patternName="El apellido solo debe contener letras"
+                placeholder="Apellido Paterno"
+                type="text"
+                // long
+                onChange={handleChange}
+                value={data.lastName}
+                error={errors.lastName}
+                control={control}
+                name="lastName"
+                rules={{
+                  required: true,
+                  pattern:
+                    /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g,
+                }}
+              />
+            </div>
+            <div className="w-full">
+              <TextField
+                // info={"Apellido Materno"}
+                requiredName="Ingrese el apellido materno"
+                patternName="El apellido solo debe contener letras"
+                placeholder="Apellido Materno"
+                type="text"
+                // long
+                onChange={handleChange}
+                value={data.motherLastName}
+                error={errors.motherLastName}
+                control={control}
+                name="motherLastName"
+                rules={{
+                  required: true,
+                  pattern:
+                    /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g,
+                }}
+              />
+            </div>
+            <div className="w-full">
+              <TextField
+                // info={"Numero de telefono"}
+                patternName="Invalido"
+                placeholder="Celular (Opcional)"
+                type="text"
+                // long
+                onChange={handleChange}
+                value={data.phone}
+                error={errors.phone}
+                // componentLeft="PE"
+                control={control}
+                name="phone"
+                rules={{
+                  pattern: /^[0-9,$]*$/,
+                }}
+              />
+            </div>
+          </div>
+          <div className=" ">
+            <div className="mb-1">
+              <span className="dark:text-zinc-400 text-xs">
+                Fecha de nacimiento
+              </span>
+            </div>
+            <div className="flex gap-2">
+              <div className="w-full">
+                <Combobox
+                  onChange={handleChange}
+                  // long
+                  info="Dia"
+                  error={errors.day}
+                  name="day"
+                  control={control}
+                >
+                  {days.map((item, index) => {
+                    return (
+                      <option
+                        className="font-semibold text-xs"
+                        key={index}
+                        value={item}
+                      >
+                        {item}
+                      </option>
+                    );
+                  })}
+                </Combobox>
+              </div>
+              <div className="w-full">
+                <Combobox
+                  onChange={handleChange}
+                  // long
+                  info="Mes"
+                  error={errors.day}
+                  name="month"
+                  control={control}
+                >
+                  {monthsDate.map((item, index) => {
+                    return (
+                      <option
+                        className="font-semibold text-xs"
+                        key={index}
+                        value={index + 1}
+                      >
+                        {item}
+                      </option>
+                    );
+                  })}
+                </Combobox>
+              </div>
+              <div className="w-full">
+                <Combobox
+                  onChange={handleChange}
+                  minName="Tienes que ser mayor de edad"
+                  // long
+                  info="Año"
+                  value={data.year}
+                  error={errors.year}
+                  name="year"
+                  control={control}
+                >
+                  {years.map((item, index) => {
+                    return (
+                      <option
+                        className="font-semibold text-xs"
+                        key={index}
+                        value={item}
+                      >
+                        {item}
+                      </option>
+                    );
+                  })}
+                </Combobox>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <div className="w-full pl-1 py-1">
+                <CheckBox
+                  text={"Miembro menor de edad"}
+                  onChange={(e) => {
+                    setData({ ...data, younger: e.target.checked });
+                    changeYouger(e);
+                  }}
+                  checked={data.younger}
+                />
+              </div>
+            </div>
+            {data.younger && (
+              <div className="py-2 w-full">
+                <TextField
+                  // info={"Apoderado"}
+                  requiredName="Ingrese los nombres del apoderado"
+                  patternName="El apellido solo debe contener letras"
+                  placeholder="Apoderado"
+                  type="text"
+                  // long
+                  onChange={handleChange}
+                  value={data.attorney}
+                  error={errors.attorney}
+                  control={control}
+                  name="attorney"
+                  rules={{
+                    required: true,
+                    pattern:
+                      /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g,
+                  }}
+                />
+              </div>
+            )}
+          </div>
+          <div className="flex gap-2">
+            <div className="w-60">
+              <h2
+                className={`pb-2 ${
+                  errors["groupUid"]
+                    ? "text-red-500 dark:text-red-500"
+                    : "text-neutral-800"
+                } pl-1 text-xs dark:text-neutral-100`}
+              >
+                Selecciona un grupo
+              </h2>
+              <div
+                className={`  bg-[#eef1f3] dark:bg-neutral-800 border dark:border-neutral-600  w-full p-1 rounded-[5px] ${
+                  errors["groupUid"]
+                    ? "border-red-600 dark:border-red-500"
+                    : "border-neutral-300 "
+                } `}
+              >
+                <div className="flex flex-wrap justify-center gap-1 ">
+                  {groups &&
+                    groups.map((item, index) => (
+                      <div
+                        onClick={() => {
+                          item.statu &&
+                            handleChange({
+                              target: {
+                                name: "groupUid",
+                                value: item.uid,
+                              },
+                            });
+                          item.statu && clearErrors("groupUid");
+                          item.statu && setValue("groupUid", item.uid);
+                        }}
+                        tooltip={!item.statu ? "Grupo inactivo" : null}
+                        key={index}
+                      >
+                        <div
+                          tabIndex="0"
+                          role="button"
+                          className={`transition-colors w-[30px] h-[30px] flex items-center justify-center ${
+                            !item.statu && "opacity-20 cursor-default"
+                          } cursor-pointer    py-2 p-3 rounded-full  ${
+                            item.uid === data.groupUid
+                              ? "  bg-green-700  text-neutral-50 dark:text-white  hover:bg-green-800"
+                              : "hover:bg-[#a5a6a771] dark:text-neutral-100 "
+                          }`}
+                        >
+                          <span className="font-semibold text-xs">
+                            {item.name}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  {groups && groups.length < 1 && (
+                    <div className=" text-neutral-600 leading-4 w-full p-1">
+                      <img
+                        width="101"
+                        className="mx-auto h-70 pb-1"
+                        src="/assets/no-data.png"
+                        alt=""
+                      />
+                      <span className="text-sm dark:text-neutral-100">
+                        Sin grupos
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="w-60">
+              <h2
+                className={`pb-2 ${
+                  errors["geadquarterUid"]
+                    ? "text-red-500 dark:text-red-500"
+                    : "text-neutral-800"
+                } pl-1 text-xs dark:text-neutral-100`}
+              >
+                Selecciona una sede
+              </h2>
+              <div
+                className={`bg-[#eef1f3] dark:bg-neutral-800 dark:border-neutral-600 border  w-full p-1 rounded-[5px] ${
+                  errors["geadquarterUid"]
+                    ? "border-red-600 dark:border-red-500"
+                    : "border-neutral-300 "
+                } `}
+              >
+                <div className="flex flex-wrap gap-0 ">
+                  {geadquarters &&
+                    geadquarters.map((item, index) => (
+                      <div
+                        className="w-full"
+                        tooltip={!item.statu ? "Sede inactivo" : null}
+                        key={index}
+                      >
+                        <div
+                          onClick={() => {
+                            item.statu &&
+                              handleChange({
+                                target: {
+                                  name: "geadquarterUid",
+                                  value: item.uid,
+                                },
+                              });
+                            item.statu && clearErrors("geadquarterUid");
+                            item.statu && setValue("geadquarterUid", item.uid);
+                          }}
+                          role="button"
+                          tabIndex="0"
+                          className={`transition-colors ${
+                            !item.statu && "opacity-20 cursor-default"
+                          } ${
+                            item.uid === data.geadquarterUid &&
+                            "bg-green-700  text-zinc-50 hover:bg-green-800"
+                          } cursor-pointer  hover:bg-[#a5a6a771] dark:text-zinc-300 p-2 rounded-md`}
+                        >
+                          <h3 className="text-xs font-semibold dark:text-white">
+                            {item.name}
+                          </h3>
+                        </div>
+                      </div>
+                    ))}
+                  {geadquarters && geadquarters.length < 1 && (
+                    <div className=" text-neutral-600 leading-4 w-full p-1">
+                      <img
+                        width="100"
+                        // height="80"
+                        className="mx-auto pb-1"
+                        src="/assets/world.png"
+                        alt=""
+                      />
+                      <span className="text-sm  dark:text-neutral-100">
+                        Sin sedes
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className=" my-2">
+            <div className="flex gap-2">
+              <div className="w-full">
+                <TextField
+                  info={"Fecha de entrada"}
+                  requiredName="Ingrese la fecha de entrada"
+                  type="date"
+                  long
+                  onChange={handleChange}
+                  value={data.entryDate}
+                  error={errors.entryDate}
+                  control={control}
+                  name="entryDate"
+                  rules={
+                    {
+                      // required: true,
+                    }
+                  }
+                />
+              </div>
+              <div className="w-full">
+                <TextField
+                  info={"Fecha de baja"}
+                  requiredName="Ingrese la fecha de baja"
+                  type="date"
+                  long
+                  onChange={handleChange}
+                  value={data.dischargeDate}
+                  error={errors.dischargeDate}
+                  control={control}
+                  name="dischargeDate"
+                  rules={
+                    {
+                      // required: true,
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <div className=" gap-2 ">
+            <div className="w-full">
+              <h3 className="dark:text-zinc-100 text-sm font-semibold pl-1">
+                Gestión de cuotas y pagos
+              </h3>
+            </div>
+            <div>
+              <div className="flex gap-2">
+                <div className="w-full">
+                  <TextField
+                    info={"Cuota miembro"}
+                    requiredName="La cuota es obligatorio"
+                    minName={`La cuota minima es S/${
+                      isYear(data.year) < 26 ? 30.0 : 40.0
+                    }`}
+                    patternName="Solo numeros"
+                    placeholder="0.00"
+                    componentLeft="S/"
+                    type="text"
+                    // long
+                    onChange={handleChange}
+                    onBlur={handleOnBlur}
+                    value={data.memberFee}
+                    error={errors.memberFee}
+                    control={control}
+                    name="memberFee"
+                    rules={{
+                      required: true,
+                      min: 1,
+                      pattern: /^(0|[1-9][0-9]{0,2})(,\d{3})*(\.\d{1,2})?$/,
                     }}
-                    tooltip={!item.statu ? "Grupo inactivo" : null}
-                    key={index}
-                  >
-                    <div
-                      tabIndex="0"
-                      role="button"
-                      className={`transition-colors w-[30px] h-[30px] flex items-center justify-center ${
-                        !item.statu && "opacity-20 cursor-default"
-                      } cursor-pointer    py-2 p-3 rounded-full  ${
-                        item.uid === data.groupUid
-                          ? "  bg-green-700  text-neutral-50 dark:text-white  hover:bg-green-800"
-                          : "hover:bg-[#a5a6a771] dark:text-neutral-100 "
-                      }`}
-                    >
-                      <span className="font-semibold text-xs">{item.name}</span>
-                    </div>
-                  </div>
-                ))}
-              {groups && groups.length < 1 && (
-                <div className=" text-neutral-600 leading-4 w-full p-1">
-                  <img
-                    width="101"
-                    className="mx-auto h-70 pb-1"
-                    src="/assets/no-data.png"
-                    alt=""
                   />
-                  <span className="text-sm dark:text-neutral-100">
-                    Sin grupos
-                  </span>
                 </div>
-              )}
+                <div className="w-full">
+                  <TextField
+                    info={"Cuota Librito"}
+                    requiredName="La cuota es obligatorio"
+                    minName="La cuota minima es S/ 2.00"
+                    patternName="Solo numeros"
+                    placeholder="0.00"
+                    componentLeft="S/"
+                    type="text"
+                    // long
+                    onBlur={handleOnBlur}
+                    onChange={handleChange}
+                    value={data.bookletFee}
+                    error={errors.bookletFee}
+                    control={control}
+                    name="bookletFee"
+                    rules={{
+                      required: true,
+                      min: 1,
+                      pattern: /^(0|[1-9][0-9]{0,2})(,\d{3})*(\.\d{1,2})?$/,
+                    }}
+                  />
+                </div>
+                <div className="w-full">
+                  <TextField
+                    info={"Cuota Celebración"}
+                    requiredName="La cuota es obligatorio"
+                    minName="La cuota minima es S/3.00"
+                    patternName="Solo numeros"
+                    placeholder="0.00"
+                    type="text"
+                    componentLeft="S/"
+                    // long
+                    onBlur={handleOnBlur}
+                    onChange={handleChange}
+                    value={data.celebrationFee}
+                    error={errors.celebrationFee}
+                    control={control}
+                    name="celebrationFee"
+                    rules={{
+                      min: 1,
+                      required: true,
+                      pattern: /^(0|[1-9][0-9]{0,2})(,\d{3})*(\.\d{1,2})?$/,
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="w-60">
-          <h2
-            className={`pb-2 ${
-              errors["geadquarterUid"]
-                ? "text-red-500 dark:text-red-500"
-                : "text-neutral-800"
-            } pl-1 text-xs dark:text-neutral-100`}
-          >
-            Selecciona una sede
-          </h2>
-          <div
-            className={`bg-[#eef1f3] dark:bg-neutral-800 dark:border-neutral-600 border  w-full p-1 rounded-[5px] ${
-              errors["geadquarterUid"]
-                ? "border-red-600 dark:border-red-500"
-                : "border-neutral-300 "
-            } `}
-          >
-            <div className="flex flex-wrap gap-0 ">
-              {geadquarters &&
-                geadquarters.map((item, index) => (
-                  <div
-                    className="w-full"
-                    tooltip={!item.statu ? "Sede inactivo" : null}
-                    key={index}
-                  >
-                    <div
-                      onClick={() => {
-                        item.statu &&
-                          handleChange({
-                            target: {
-                              name: "geadquarterUid",
-                              value: item.uid,
-                            },
-                          });
-                        item.statu && clearErrors("geadquarterUid");
-                        item.statu && setValue("geadquarterUid", item.uid);
-                      }}
-                      role="button"
-                      tabIndex="0"
-                      className={`transition-colors ${
-                        !item.statu && "opacity-20 cursor-default"
-                      } ${
-                        item.uid === data.geadquarterUid &&
-                        "bg-green-700  text-zinc-50 hover:bg-green-800"
-                      } cursor-pointer  hover:bg-[#a5a6a771] dark:text-zinc-300 p-2 rounded-md`}
-                    >
-                      <h3 className="text-xs font-semibold dark:text-white">
-                        {item.name}
-                      </h3>
-                    </div>
-                  </div>
-                ))}
-              {geadquarters && geadquarters.length < 1 && (
-                <div className=" text-neutral-600 leading-4 w-full p-1">
-                  <img
-                    width="100"
-                    // height="80"
-                    className="mx-auto pb-1"
-                    src="/assets/world.png"
-                    alt=""
-                  />
-                  <span className="text-sm  dark:text-neutral-100">
-                    Sin sedes
-                  </span>
-                </div>
-              )}
-            </div>
+          <div className="flex gap-2 mb-2 dark:text-white pt-2">
+            <span className="dark:text-zinc-400 text-xs">Cuota mensual</span>
+            <span className="font-semibold text-sm">
+              S/ {!data.totalFee.isNaN && data.totalFee}
+            </span>
           </div>
         </div>
-      </div>
-      <div className=" my-2">
-        <div className="flex gap-2">
-          <div className="w-full">
-            <TextField
-              info={"Fecha de entrada"}
-              requiredName="Ingrese la fecha de entrada"
-              type="date"
-              long
-              onChange={handleChange}
-              value={data.entryDate}
-              error={errors.entryDate}
-              control={control}
-              name="entryDate"
-              rules={
-                {
-                  // required: true,
-                }
-              }
+        <div className="flex flex-col gap-1 w-full">
+          <div>
+            <PhotoForm
+              setFiles={setFiles}
+              setFileMiniature={setFileMiniature}
             />
           </div>
-          <div className="w-full">
-            <TextField
-              info={"Fecha de baja"}
-              requiredName="Ingrese la fecha de baja"
-              type="date"
-              long
-              onChange={handleChange}
-              value={data.dischargeDate}
-              error={errors.dischargeDate}
-              control={control}
-              name="dischargeDate"
-              rules={
-                {
-                  // required: true,
-                }
-              }
-            />
+          <div className=" gap-2 mt-3">
+            <div>
+              <div className="flex gap-2">
+                <div className="w-full">
+                  <TextField
+                    multiple
+                    info={"Observaciones"}
+                    requiredName="La cuota es obligatorio"
+                    placeholder="(Opcional)"
+                    type="text"
+                    onChange={handleChange}
+                    value={data.observations}
+                    error={errors.observations}
+                    control={control}
+                    name="observations"
+                    rules={{}}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className=" gap-2">
-        <div className="border-t w-full pt-[6px] dark:border-t-zinc-600 mb-2">
-          <h3 className="dark:text-zinc-100 text-sm font-semibold pl-1">
-            Gestión de cuotas y pagos
-          </h3>
-        </div>
-        <div>
           <div className="flex gap-2">
-            <div className="w-full">
-              <TextField
-                info={"Cuota miembro"}
-                requiredName="La cuota es obligatorio"
-                minName={`La cuota minima es S/${
-                  isYear(data.year) < 26 ? 30.0 : 40.0
-                }`}
-                patternName="Solo numeros"
-                placeholder="0.00"
-                componentLeft="S/"
-                type="text"
-                // long
-                onChange={handleChange}
-                onBlur={handleOnBlur}
-                value={data.memberFee}
-                error={errors.memberFee}
-                control={control}
-                name="memberFee"
-                rules={{
-                  required: true,
-                  min: 1,
-                  pattern: /^(0|[1-9][0-9]{0,2})(,\d{3})*(\.\d{1,2})?$/,
-                }}
-              />
-            </div>
-            <div className="w-full">
-              <TextField
-                info={"Cuota Librito"}
-                requiredName="La cuota es obligatorio"
-                minName="La cuota minima es S/ 2.00"
-                patternName="Solo numeros"
-                placeholder="0.00"
-                componentLeft="S/"
-                type="text"
-                // long
-                onBlur={handleOnBlur}
-                onChange={handleChange}
-                value={data.bookletFee}
-                error={errors.bookletFee}
-                control={control}
-                name="bookletFee"
-                rules={{
-                  required: true,
-                  min: 1,
-                  pattern: /^(0|[1-9][0-9]{0,2})(,\d{3})*(\.\d{1,2})?$/,
-                }}
-              />
-            </div>
-            <div className="w-full">
-              <TextField
-                info={"Cuota Celebración"}
-                requiredName="La cuota es obligatorio"
-                minName="La cuota minima es S/3.00"
-                patternName="Solo numeros"
-                placeholder="0.00"
-                type="text"
-                componentLeft="S/"
-                // long
-                onBlur={handleOnBlur}
-                onChange={handleChange}
-                value={data.celebrationFee}
-                error={errors.celebrationFee}
-                control={control}
-                name="celebrationFee"
-                rules={{
-                  min: 1,
-                  required: true,
-                  pattern: /^(0|[1-9][0-9]{0,2})(,\d{3})*(\.\d{1,2})?$/,
-                }}
+            <div className="w-full pl-2 py-1">
+              <CheckBox
+                text={data.statu ? "Miembro Activo" : "Miembro Inactivo"}
+                onChange={(e) => setData({ ...data, statu: e.target.checked })}
+                checked={data.statu}
               />
             </div>
           </div>
-        </div>
-      </div>
-      <div className=" gap-2 mt-3">
-        <div>
-          <div className="flex gap-2">
-            <div className="w-full">
-              <TextField
-                multiple
-                info={"Observaciones"}
-                requiredName="La cuota es obligatorio"
-                placeholder="(Opcional)"
-                type="text"
-                onChange={handleChange}
-                value={data.observations}
-                error={errors.observations}
-                control={control}
-                name="observations"
-                rules={{}}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="flex gap-2 dark:text-white pt-2">
-        <span className="dark:text-zinc-400 text-xs">Cuota mensual</span>
-        <span className="font-semibold text-sm">
-          S/ {!data.totalFee.isNaN && data.totalFee}
-        </span>
-      </div>
-      <div className="flex gap-2">
-        <div className="w-full pl-2 py-1">
-          <CheckBox
-            text={data.statu ? "Miembro Activo" : "Miembro Inactivo"}
-            onChange={(e) => setData({ ...data, statu: e.target.checked })}
-            checked={data.statu}
-          />
         </div>
       </div>
       <div>
