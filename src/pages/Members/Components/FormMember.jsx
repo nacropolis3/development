@@ -18,6 +18,7 @@ import {
   getDataGeadquartersService,
   getDataGroupsService,
 } from "../../../services/Data/DataServices";
+import { uploadImage } from "../../../services/Image/ImageServices";
 import {
   saveMemberService,
   updateMemberService,
@@ -123,6 +124,7 @@ export default function FormMember(props) {
     setLoading(true);
     let geadquartersFinal = null;
     let groupFinal = null;
+    const filesFinal = [];
 
     geadquarters.forEach((item) => {
       if (item.uid == data.geadquarterUid) {
@@ -133,6 +135,7 @@ export default function FormMember(props) {
         };
       }
     });
+    //  get item group
     groups.forEach((item) => {
       if (item.uid == data.groupUid) {
         groupFinal = {
@@ -142,15 +145,29 @@ export default function FormMember(props) {
       }
     });
 
+    // images list
+    if (files.length > 0) {
+      await Promise.all(
+        files.map(async (file) => {
+          const result = await uploadImage(file.file);
+          filesFinal.push({
+            ...result,
+            description: file.description ? file.description : "",
+          });
+        })
+      );
+    }
     let newData = {
       ...data,
       geadquarter: geadquartersFinal,
       group: groupFinal,
+      files: filesFinal,
       names: data.names.toUpperCase(),
       lastName: data.lastName.toUpperCase(),
       motherLastName: data.motherLastName.toUpperCase(),
     };
 
+    // if exist data
     if (props.data) {
       delete newData.uid;
       newData = {
@@ -181,7 +198,9 @@ export default function FormMember(props) {
           secondary: "#FFFAEE",
         },
       });
-    } else {
+    }
+    // if no exist data
+    else {
       newData = {
         ...newData,
         created_at: FormatDate(),
@@ -200,7 +219,6 @@ export default function FormMember(props) {
         },
       });
     }
-
     setLoading(false);
     props.close();
   };

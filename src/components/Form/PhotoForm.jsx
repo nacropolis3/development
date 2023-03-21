@@ -15,7 +15,6 @@ export default function PhotoForm(props) {
   });
   const [files, setFiles] = useState([]);
 
-  console.log(files);
   const handleChangeFile = (e, file) => {
     const { value } = e.target;
     const indexFile = files.indexOf(file);
