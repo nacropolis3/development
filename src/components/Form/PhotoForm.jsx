@@ -13,7 +13,9 @@ export default function PhotoForm(props) {
     iframeDrag: false,
     // title_header: "Crear producto",
   });
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState(
+    props.defaultValue ? props.defaultValue : []
+  );
 
   const handleChangeFile = (e, file) => {
     const { value } = e.target;

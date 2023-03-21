@@ -3,12 +3,14 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import styled from "styled-components";
 import EclipseButton from "../../../components/Button/EclipseButton";
 import PrimaryButton from "../../../components/Button/PrimaryButton";
 import CheckBox from "../../../components/Form/CheckBox";
 import Combobox from "../../../components/Form/ComboBox";
 import PhotoForm from "../../../components/Form/PhotoForm";
 import TextField from "../../../components/Form/TextField";
+import ImageCustomMeta from "../../../components/ImageCustomMeta";
 import Rotation from "../../../components/Loader/Rotation";
 import { useUser } from "../../../context/userContext";
 import { FormatDate } from "../../../helpers/moment";
@@ -76,7 +78,10 @@ export default function FormMember(props) {
   const [groups, setGroups] = useObject(null);
   const [geadquarters, setGeadquarters] = useObject(null);
   const [files, setFiles] = useState([]);
-  const [fileMiniature, setFileMiniature] = useState([]);
+  const [filePreview, setFilePreview] = useState(null);
+  const [filesData, setFilesData] = useState(
+    props.data ? props.data.files : null
+  );
 
   let currentYear = new Date().getFullYear();
 
@@ -124,7 +129,7 @@ export default function FormMember(props) {
     setLoading(true);
     let geadquartersFinal = null;
     let groupFinal = null;
-    const filesFinal = [];
+    let filesFinal = [];
 
     geadquarters.forEach((item) => {
       if (item.uid == data.geadquarterUid) {
@@ -157,17 +162,20 @@ export default function FormMember(props) {
         })
       );
     }
+
     let newData = {
       ...data,
       geadquarter: geadquartersFinal,
       group: groupFinal,
-      files: filesFinal,
+      files: !filesData
+        ? filesFinal
+        : filesFinal.concat(filesData && filesData),
       names: data.names.toUpperCase(),
       lastName: data.lastName.toUpperCase(),
       motherLastName: data.motherLastName.toUpperCase(),
     };
 
-    // if exist data
+    //  if exist data
     if (props.data) {
       delete newData.uid;
       newData = {
@@ -199,7 +207,7 @@ export default function FormMember(props) {
         },
       });
     }
-    // if no exist data
+    //  if no exist data
     else {
       newData = {
         ...newData,
@@ -238,6 +246,15 @@ export default function FormMember(props) {
   function isYear(birthYear) {
     return currentYear - birthYear;
   }
+  const deleteFile = (file) => {
+    const newArray = [];
+    filesData.forEach((fileInter) => {
+      if (fileInter.public_id != file.public_id) {
+        newArray.push(fileInter);
+      }
+    });
+    setFilesData(newArray);
+  };
 
   // handle get client axios
   async function getClient(num) {
@@ -950,11 +967,57 @@ export default function FormMember(props) {
           </div>
         </div>
         <div className="flex flex-col gap-1 w-full">
-          <div>
-            <PhotoForm
-              setFiles={setFiles}
-              setFileMiniature={setFileMiniature}
-            />
+          <h2 className="text-sm font-semibold">Fotos adicionales</h2>
+          <div className="flex flex-col gap-2">
+            {filesData && (
+              <div className="flex flex-wrap gap-1">
+                {filesData &&
+                  filesData.map((file) => (
+                    <ItemImage className="cursor-zoom-in hover:scale-110 transition-transform">
+                      <div className="relative w-[70px] h-[70px] overflow-hidden rounded-md">
+                        <div
+                          onClick={() => setFilePreview(file)}
+                          className="w-full h-full"
+                        >
+                          <ImageCustomMeta
+                            custom
+                            public_id={file.public_id}
+                            width={90}
+                            title={file.description}
+                            altName={file.description}
+                          />
+                        </div>
+                        <div className=" absolute top-2 right-2 opacity-0 btn-image">
+                          <EclipseButton
+                            onClick={() => {
+                              setFilePreview(null);
+                              deleteFile(file);
+                            }}
+                            type="default"
+                            size="small"
+                            icon={
+                              <svg
+                                className=" dark:text-zinc-300"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                              >
+                                <path
+                                  d="M4.70711 3.29289C4.31658 2.90237 3.68342 2.90237 3.29289 3.29289C2.90237 3.68342 2.90237 4.31658 3.29289 4.70711L10.5858 12L3.29289 19.2929C2.90237 19.6834 2.90237 20.3166 3.29289 20.7071C3.68342 21.0976 4.31658 21.0976 4.70711 20.7071L12 13.4142L19.2929 20.7071C19.6834 21.0976 20.3166 21.0976 20.7071 20.7071C21.0976 20.3166 21.0976 19.6834 20.7071 19.2929L13.4142 12L20.7071 4.70711C21.0976 4.31658 21.0976 3.68342 20.7071 3.29289C20.3166 2.90237 19.6834 2.90237 19.2929 3.29289L12 10.5858L4.70711 3.29289Z"
+                                  fill="currentColor"
+                                  style={{
+                                    strokeWidth: "0",
+                                  }}
+                                ></path>
+                              </svg>
+                            }
+                          />
+                        </div>
+                      </div>
+                    </ItemImage>
+                  ))}
+              </div>
+            )}
+            <PhotoForm setFiles={setFiles} />
           </div>
           <div className=" gap-2 mt-3">
             <div>
@@ -1004,6 +1067,35 @@ export default function FormMember(props) {
           </div>
         </div>
       )}
+      {filePreview && (
+        <div
+          onClick={() => setFilePreview(null)}
+          className="absolute rounded-md top-0 left-0 h-full w-full bg-[#ffffff]"
+        >
+          <div className="relative w-auto h-full justify-center flex items-center mx-auto overflow-hidden">
+            <ImageCustomMeta
+              public_id={filePreview.public_id}
+              width={200}
+              title={filePreview.description}
+              altName={filePreview.description}
+              className="h-full"
+            />
+            <div className="bottom-3 max-w-max w-[80%]  absolute bg-white p-1 rounded-md ">
+              <p className="text-center text-sm font-semibold">
+                {filePreview.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
+const ItemImage = styled.div`
+  &:hover {
+    .btn-image {
+      opacity: 1;
+    }
+  }
+`;
