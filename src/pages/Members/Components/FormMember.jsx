@@ -305,7 +305,6 @@ export default function FormMember(props) {
     });
   }, [data.year]);
 
-  
   useEffect(() => {
     const bookletFee = parseFloat(data.bookletFee);
     const celebrationFee = parseFloat(data.celebrationFee);
@@ -804,9 +803,11 @@ export default function FormMember(props) {
               error={errors.entryDate}
               control={control}
               name="entryDate"
-              rules={{
-                // required: true,
-              }}
+              rules={
+                {
+                  // required: true,
+                }
+              }
             />
           </div>
           <div className="w-full">
@@ -820,9 +821,11 @@ export default function FormMember(props) {
               error={errors.dischargeDate}
               control={control}
               name="dischargeDate"
-              rules={{
-                // required: true,
-              }}
+              rules={
+                {
+                  // required: true,
+                }
+              }
             />
           </div>
         </div>
@@ -855,7 +858,7 @@ export default function FormMember(props) {
                 name="memberFee"
                 rules={{
                   required: true,
-                  min: isYear(data.year) < 26 ? 30 : 40,
+                  min: 1,
                   pattern: /^(0|[1-9][0-9]{0,2})(,\d{3})*(\.\d{1,2})?$/,
                 }}
               />
@@ -878,7 +881,7 @@ export default function FormMember(props) {
                 name="bookletFee"
                 rules={{
                   required: true,
-                  min: 2,
+                  min: 1,
                   pattern: /^(0|[1-9][0-9]{0,2})(,\d{3})*(\.\d{1,2})?$/,
                 }}
               />
@@ -900,7 +903,7 @@ export default function FormMember(props) {
                 control={control}
                 name="celebrationFee"
                 rules={{
-                  min: 3,
+                  min: 1,
                   required: true,
                   pattern: /^(0|[1-9][0-9]{0,2})(,\d{3})*(\.\d{1,2})?$/,
                 }}

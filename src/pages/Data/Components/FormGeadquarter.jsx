@@ -4,7 +4,6 @@ import PrimaryButton from "../../../components/Button/PrimaryButton";
 import CheckBox from "../../../components/Form/CheckBox";
 import Combobox from "../../../components/Form/ComboBox";
 import TextField from "../../../components/Form/TextField";
-import { ColumnGrid, RowGrid } from "../../../components/Grid";
 import Rotation from "../../../components/Loader/Rotation";
 import { useUser } from "../../../context/userContext";
 import { FormatDate, TimeAgoDateComplete } from "../../../helpers/moment";
@@ -12,11 +11,8 @@ import { useObject } from "../../../hooks/useObject";
 import { useToggle } from "../../../hooks/useToggle";
 import {
   deleteDataGeadquarterService,
-  deleteDataTypeConceptService,
   saveDataGeadquarterService,
-  saveDataTypeConceptService,
   updateDataGeadquarterService,
-  updateDataTypeConceptService,
 } from "../../../services/Data/DataServices";
 import {
   getDepartamentos,
@@ -28,7 +24,6 @@ export default function FormGeadquarter(props) {
   const [departments, setDepartments] = useState(null);
   const [provinces, setProvinces] = useState(null);
   const [districts, setDistricts] = useState(null);
-
   const [data, setData] = useObject(
     props.data
       ? props.data
@@ -151,8 +146,10 @@ export default function FormGeadquarter(props) {
       ...data,
       departament: e.target.value,
     });
+
     const prov = await getProvincias(e.target.value);
     const dist = await getDistritos(prov[1].id_ubigeo);
+
     setDistricts(dist);
     setProvinces(prov);
 
@@ -178,6 +175,7 @@ export default function FormGeadquarter(props) {
   useEffect(() => {
     getContries();
   }, []);
+
   return (
     <div className=" flex flex-col gap-2 ">
       <div className="flex items-center gap-1">
@@ -282,6 +280,7 @@ export default function FormGeadquarter(props) {
           />
         </div>
       </div>
+
       <div className="flex gap-2">
         <div className="w-full">
           <Combobox
@@ -306,6 +305,7 @@ export default function FormGeadquarter(props) {
               })}
           </Combobox>
         </div>
+
         <div className="w-full">
           <Combobox
             long
@@ -329,6 +329,7 @@ export default function FormGeadquarter(props) {
               })}
           </Combobox>
         </div>
+
         <div className="w-full">
           <Combobox
             long
@@ -353,6 +354,7 @@ export default function FormGeadquarter(props) {
           </Combobox>
         </div>
       </div>
+
       <div className="flex ">
         <div className="w-full">
           <TextField

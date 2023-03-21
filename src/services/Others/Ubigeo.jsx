@@ -5,7 +5,6 @@ import dist from "../../data/Distritos.json";
 export async function getDepartamentos() {
   return await depa;
 }
-
 export async function getProvincias(id_ubigeo) {
   return await prov[id_ubigeo];
 }
