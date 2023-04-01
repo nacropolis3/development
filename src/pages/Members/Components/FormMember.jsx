@@ -486,14 +486,12 @@ export default function FormMember(props) {
             <div className="w-40">
               <TextField
                 autoFocus
-                // info={<>DNI</>}
                 requiredName="Ingrese un Dni"
                 patternName={`El dni "${data.dni}" es invalido, se acepta solo numeros`}
                 maxLengthName="No puede contener mas de 8 caracteres"
                 minLengthName="Debe contener 8 caracteres"
                 type="text"
                 placeholder="N° Identificiación"
-                // long
                 checked={data.verify}
                 onChange={handleRucSearsh}
                 iconLoadingLeft={loadingRuc}
@@ -512,12 +510,10 @@ export default function FormMember(props) {
             </div>
             <div className="w-80">
               <TextField
-                // info={"Nombres"}
                 requiredName="Ingrese los nombres"
                 patternName="Solo letras y espacios"
                 placeholder="Nombres"
                 type="text"
-                // long
                 onChange={handleChange}
                 value={data.names}
                 error={errors.names}
@@ -534,12 +530,10 @@ export default function FormMember(props) {
           <div className="flex gap-1">
             <div className="w-full">
               <TextField
-                // info={"Apellido Paterno"}
                 requiredName="Ingrese el apellido paterno"
                 patternName="El apellido solo debe contener letras"
                 placeholder="Apellido Paterno"
                 type="text"
-                // long
                 onChange={handleChange}
                 value={data.lastName}
                 error={errors.lastName}
@@ -554,12 +548,10 @@ export default function FormMember(props) {
             </div>
             <div className="w-full">
               <TextField
-                // info={"Apellido Materno"}
                 requiredName="Ingrese el apellido materno"
                 patternName="El apellido solo debe contener letras"
                 placeholder="Apellido Materno"
                 type="text"
-                // long
                 onChange={handleChange}
                 value={data.motherLastName}
                 error={errors.motherLastName}
@@ -574,15 +566,12 @@ export default function FormMember(props) {
             </div>
             <div className="w-full">
               <TextField
-                // info={"Numero de telefono"}
                 patternName="Invalido"
                 placeholder="Celular (Opcional)"
                 type="text"
-                // long
                 onChange={handleChange}
                 value={data.phone}
                 error={errors.phone}
-                // componentLeft="PE"
                 control={control}
                 name="phone"
                 rules={{
@@ -601,7 +590,6 @@ export default function FormMember(props) {
               <div className="w-full">
                 <Combobox
                   onChange={handleChange}
-                  // long
                   info="Dia"
                   error={errors.day}
                   name="day"
@@ -623,7 +611,6 @@ export default function FormMember(props) {
               <div className="w-full">
                 <Combobox
                   onChange={handleChange}
-                  // long
                   info="Mes"
                   error={errors.day}
                   name="month"
@@ -646,7 +633,6 @@ export default function FormMember(props) {
                 <Combobox
                   onChange={handleChange}
                   minName="Tienes que ser mayor de edad"
-                  // long
                   info="Año"
                   value={data.year}
                   error={errors.year}
@@ -682,12 +668,10 @@ export default function FormMember(props) {
             {data.younger && (
               <div className="py-2 w-full">
                 <TextField
-                  // info={"Apoderado"}
                   requiredName="Ingrese los nombres del apoderado"
                   patternName="El apellido solo debe contener letras"
                   placeholder="Apoderado"
                   type="text"
-                  // long
                   onChange={handleChange}
                   value={data.attorney}
                   error={errors.attorney}
