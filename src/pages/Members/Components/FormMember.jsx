@@ -260,12 +260,16 @@ export default function FormMember(props) {
   async function getClient(num) {
     const options = {
       method: "GET",
-      url: "https://www.apisperu.net/api/dni/" + num,
-      headers: {
-        Authorization:
-          "Bearer c7c81f1bbf1836d1903b37dc6d2feb46d5960fb73824d259040c35f3ba9b5b7b",
-        // "token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRhdXN0aW5ubUBnbWFpbC5jb20ifQ.7ogP6TlyZMkl2eT4Ok9HG7sBb06i6M1vctlipW5LH_M"
-      },
+      url:
+        "https://apiperu.dev/api/dni/" +
+        num +
+        "?api_token=" +
+        import.meta.env.VITE_TOKEN_APIPERU,
+      // headers: {
+      //   Authorization:
+      //     "Bearer e08563ea28425dbbdcadd525ac1271f7ade9f7590182d4536956bbfa18984321",
+      //   // "token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRhdXN0aW5ubUBnbWFpbC5jb20ifQ.7ogP6TlyZMkl2eT4Ok9HG7sBb06i6M1vctlipW5LH_M"
+      // },
     };
     const res = await axios.request(options);
     setLoadingRuc(false);
