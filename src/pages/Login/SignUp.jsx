@@ -269,26 +269,20 @@ export default function SignUp() {
               />
             </div>
           </div>
-          <ReCAPTCHA
+          {/* <ReCAPTCHA
             ref={captcha}
             style={{
               margin: "0 auto",
             }}
             sitekey={import.meta.env.VITE_GOOGLE_RECATPCHA_API_KEY}
             onChange={onChange}
-          />
+          /> */}
           <div>
             <PrimaryButton
               to="/create-account-in-acropolis"
               type="primary_transparent"
               loading={loading}
-              disabled={
-                Object.entries(errors).length > 0
-                  ? true
-                  : !data.captcha
-                  ? true
-                  : false
-              }
+              disabled={Object.entries(errors).length > 0 ? true : false}
               onClick={handleSubmit(onsubmit)}
             >
               Crear cuenta
